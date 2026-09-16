@@ -1,5 +1,6 @@
 package tomeko.hychat.mixins;
 
+//? if fabric {
 import com.mojang.blaze3d.platform.FramerateLimitTracker;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -9,3 +10,4 @@ public interface FramerateLimitTrackerAccessor {
     @Accessor
     long getLatestInputTime();
 }
+//?}

@@ -1,5 +1,51 @@
 package tomeko.hychat.mixins;
 
+//? if 1.8.9 {
+/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.network.play.server.S02PacketChat;
+import net.minecraft.util.IChatComponent;
+import org.polyfrost.oneconfig.api.event.v1.EventManager;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import tomeko.hychat.config.events.ChatReceiveEvent;
+import tomeko.hychat.config.events.ChatSendEvent;
+
+@Mixin(value = NetHandlerPlayClient.class, priority = Integer.MAX_VALUE)
+abstract class ClientPacketListenerMixin_ChatEvents {
+    @WrapOperation(
+            method = "handleChat",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/network/play/server/S02PacketChat;getChatComponent()Lnet/minecraft/util/IChatComponent;"
+            )
+    )
+    private IChatComponent modifyReceivedMessage(
+            S02PacketChat packet,
+            Operation<IChatComponent> original,
+            @Share("chatReceiveEvent") LocalRef<ChatReceiveEvent> chatReceiveEvent
+    ) {
+        IChatComponent content = original.call(packet);
+        if (content == null) return null;
+
+        ChatReceiveEvent event = new ChatReceiveEvent(content, packet.getType() == 2);
+        EventManager.INSTANCE.post(event);
+        chatReceiveEvent.set(event);
+
+        if (event.getCancelled()) {
+            return null;
+        }
+
+        return event.getMessage();
+    }
+}
+*///?} else {
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
@@ -80,3 +126,4 @@ abstract class ClientPacketListenerMixin_ChatEvents {
         return chatSendEvent.get().getMessage();
     }
 }
+//?}

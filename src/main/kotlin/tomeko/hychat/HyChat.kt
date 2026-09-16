@@ -5,8 +5,9 @@ package tomeko.hychat
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 *///?} elif ornithe {
-//import net.ornithemc.osl.entrypoints.api.ModInitializer
-//?} else {
+/*import net.ornithemc.osl.entrypoints.api.ModInitializer
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+*///?} else {
 import net.fabricmc.api.ClientModInitializer
 import org.polyfrost.oneconfig.api.event.v1.EventManager
 import tomeko.hychat.utils.Constants

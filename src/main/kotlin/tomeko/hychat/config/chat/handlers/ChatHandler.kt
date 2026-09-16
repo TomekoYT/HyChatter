@@ -29,7 +29,7 @@ object ChatHandler {
             ShoutBlocker, SkyblockWelcomeRemover, SoulWellAnnouncerRemover,
             StatsMessageRemover, TicketMachineRemover, TipMessageRemover,
 
-            ChatEmoteReplacer, ColoredPlayerConnectionStatus,
+            ColoredPlayerConnectionStatus,
             GameStartCompactor, GameStatusRestyler, ShortChannelNames,
             ShortPMChannelNames,
 

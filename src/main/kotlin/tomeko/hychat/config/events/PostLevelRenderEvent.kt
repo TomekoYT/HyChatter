@@ -1,5 +1,6 @@
 package tomeko.hychat.config.events
 
+//? if fabric {
 import com.mojang.blaze3d.vertex.PoseStack
 //? if >=1.21.10 {
 import net.minecraft.client.renderer.SubmitNodeCollector
@@ -16,3 +17,4 @@ data class PostLevelRenderEvent(
     //~ if <1.21.10 'CameraRenderState' -> 'net.minecraft.client.Camera'
     val camera: CameraRenderState
 ) : Event
+//?}
