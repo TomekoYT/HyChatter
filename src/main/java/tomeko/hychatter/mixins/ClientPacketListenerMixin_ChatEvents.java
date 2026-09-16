@@ -1,0 +1,129 @@
+package tomeko.hychatter.mixins;
+
+//? if 1.8.9 {
+/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.network.play.server.S02PacketChat;
+import net.minecraft.util.IChatComponent;
+import org.polyfrost.oneconfig.api.event.v1.EventManager;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import tomeko.hychat.config.events.ChatReceiveEvent;
+import tomeko.hychat.config.events.ChatSendEvent;
+
+@Mixin(value = NetHandlerPlayClient.class, priority = Integer.MAX_VALUE)
+abstract class ClientPacketListenerMixin_ChatEvents {
+    @WrapOperation(
+            method = "handleChat",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/network/play/server/S02PacketChat;getChatComponent()Lnet/minecraft/util/IChatComponent;"
+            )
+    )
+    private IChatComponent modifyReceivedMessage(
+            S02PacketChat packet,
+            Operation<IChatComponent> original,
+            @Share("chatReceiveEvent") LocalRef<ChatReceiveEvent> chatReceiveEvent
+    ) {
+        IChatComponent content = original.call(packet);
+        if (content == null) return null;
+
+        ChatReceiveEvent event = new ChatReceiveEvent(content, packet.getType() == 2);
+        EventManager.INSTANCE.post(event);
+        chatReceiveEvent.set(event);
+
+        if (event.getCancelled()) {
+            return null;
+        }
+
+        return event.getMessage();
+    }
+}
+*///?} else {
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
+import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
+import org.polyfrost.oneconfig.api.event.v1.EventManager;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import tomeko.hychatter.config.events.ChatReceiveEvent;
+import tomeko.hychatter.config.events.ChatSendEvent;
+
+//? if >= 26.3
+//import java.util.Optional;
+
+@Mixin(value = ClientPacketListener.class, priority = Integer.MAX_VALUE)
+abstract class ClientPacketListenerMixin_ChatEvents {
+    @Inject(method = "handleSystemChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/chat/ChatListener;handleSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"), cancellable = true)
+    private void cancelSystemMessage(ClientboundSystemChatPacket packet, CallbackInfo ci, @Share("chatReceiveEvent") LocalRef<ChatReceiveEvent> chatReceiveEvent) {
+        if (chatReceiveEvent.get().getCancelled()) {
+            ci.cancel();
+        }
+    }
+
+    @WrapOperation(method = "handleSystemChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/game/ClientboundSystemChatPacket;content()Lnet/minecraft/network/chat/Component;"))
+    private Component modifySystemMessage(ClientboundSystemChatPacket packet, Operation<Component> original, @Share("chatReceiveEvent") LocalRef<ChatReceiveEvent> chatReceiveEvent) {
+        ChatReceiveEvent event = new ChatReceiveEvent(packet.content(), packet.overlay());
+        EventManager.INSTANCE.post(event);
+        chatReceiveEvent.set(event);
+        return event.getMessage();
+    }
+
+    @Inject(method = "handlePlayerChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/chat/ChatListener;handlePlayerChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lcom/mojang/authlib/GameProfile;Lnet/minecraft/network/chat/ChatType$Bound;)V"), cancellable = true)
+    private void cancelPlayerMessage(ClientboundPlayerChatPacket packet, CallbackInfo ci, @Share("chatReceiveEvent") LocalRef<ChatReceiveEvent> chatReceiveEvent) {
+        if (chatReceiveEvent.get() != null && chatReceiveEvent.get().getCancelled()) {
+            ci.cancel();
+        }
+    }
+
+    //? if >=26.3 {
+    /*@WrapOperation(method = "handlePlayerChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/game/ClientboundPlayerChatPacket;unsignedContent()Ljava/util/Optional;"))
+    private Optional<Component> modifyPlayerMessage(ClientboundPlayerChatPacket packet, Operation<Optional<Component>> original, @Share("chatReceiveEvent") LocalRef<ChatReceiveEvent> chatReceiveEvent) {
+        Component content = packet.unsignedContent().orElse(null);
+        if (content == null) return original.call(packet);
+        ChatReceiveEvent event = new ChatReceiveEvent(content, false);
+        EventManager.INSTANCE.post(event);
+        chatReceiveEvent.set(event);
+        return Optional.of(event.getMessage());
+    }
+    *///?} else {
+    @WrapOperation(method = "handlePlayerChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/game/ClientboundPlayerChatPacket;unsignedContent()Lnet/minecraft/network/chat/Component;"))
+    private Component modifyPlayerMessage(ClientboundPlayerChatPacket packet, Operation<Component> original, @Share("chatReceiveEvent") LocalRef<ChatReceiveEvent> chatReceiveEvent) {
+        if (packet.unsignedContent() == null) return original.call(packet);
+        ChatReceiveEvent event = new ChatReceiveEvent(packet.unsignedContent(), false);
+        EventManager.INSTANCE.post(event);
+        chatReceiveEvent.set(event);
+        return event.getMessage();
+    }
+    //?}
+
+    @Inject(method = "sendChat", at = @At("HEAD"), cancellable = true)
+    private void cancelSentMessage(String content, CallbackInfo ci, @Share("chatSendEvent") LocalRef<ChatSendEvent> chatSendEvent) {
+        ChatSendEvent event = new ChatSendEvent(content);
+        EventManager.INSTANCE.post(event);
+        chatSendEvent.set(event);
+        if (event.cancelled) {
+            ci.cancel();
+        }
+    }
+
+    @ModifyVariable(method = "sendChat", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    private String modifySentMessage(String content, @Share("chatSendEvent") LocalRef<ChatSendEvent> chatSendEvent) {
+        return chatSendEvent.get().getMessage();
+    }
+}
+//?}

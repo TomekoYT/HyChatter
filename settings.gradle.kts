@@ -51,4 +51,4 @@ dependencyResolutionManagement {
 	}
 }
 
-rootProject.name = "HyChat"
+rootProject.name = "HyChatter"
