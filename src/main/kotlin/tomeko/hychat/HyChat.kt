@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 //import net.ornithemc.osl.entrypoints.api.ModInitializer
 //?} else {
 import net.fabricmc.api.ClientModInitializer
+import org.polyfrost.oneconfig.api.event.v1.EventManager
 import tomeko.hychat.utils.Constants
 import tomeko.hychat.utils.Debug
 import tomeko.hychat.utils.WaypointRenderer
@@ -15,6 +16,7 @@ import tomeko.hychat.utils.WaypointRenderer
 import tomeko.hychat.chat.*
 import tomeko.hychat.commands.*
 import tomeko.hychat.config.*
+import tomeko.hychat.config.chat.handlers.ChatHandler
 import tomeko.hychat.location.*
 import tomeko.hychat.utils.*
 
@@ -52,7 +54,6 @@ class HyChat
         //? if forge {
         //EventManager.INSTANCE.register(this)
         //?}
-
         CoordsWaypoints.register()
         DangerousTauntWaypoint.register()
         HideGuildMOTD.register()
@@ -64,6 +65,7 @@ class HyChat
         HyChatCommand.register()
         SendCoordsCommand.register()
 
+        EventManager.INSTANCE.register(ChatHandler)
         HyChatConfig.register()
 
         HypixelPackets.register()
