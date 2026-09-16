@@ -10,15 +10,13 @@ import org.polyfrost.oneconfig.api.event.v1.EventManager
 *///?} else {
 import net.fabricmc.api.ClientModInitializer
 import org.polyfrost.oneconfig.api.event.v1.EventManager
-import tomeko.hychatter.utils.Constants
-import tomeko.hychatter.utils.Debug
-import tomeko.hychatter.utils.WaypointRenderer
 //?}
 import tomeko.hychatter.chat.*
 import tomeko.hychatter.commands.*
 import tomeko.hychatter.config.*
 import tomeko.hychatter.config.chat.handlers.ChatHandler
 import tomeko.hychatter.location.*
+import tomeko.hychatter.utils.*
 
 //? if forge {
 /*@Mod(

@@ -1,13 +1,13 @@
 package tomeko.hychatter.config.chat.handlers.modules.triggers
 
 //? if 1.8.9 {
-/*import tomeko.hychat.utils.LegacyInputTracker
+/*import tomeko.hychatter.utils.LegacyInputTracker
 import org.polyfrost.oneconfig.utils.v1.dsl.mc
-import tomeko.hychat.config.HyChatterConfig
-import tomeko.hychat.config.chat.handlers.ChatReceiveModule
-import tomeko.hychat.config.data.providers.LanguageData
-import tomeko.hychat.config.events.ChatReceiveEvent
-import tomeko.hychat.utils.ChatUtils
+import tomeko.hychatter.config.HyChatterConfig
+import tomeko.hychatter.config.chat.handlers.ChatReceiveModule
+import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.events.ChatReceiveEvent
+import tomeko.hychatter.utils.ChatUtils
 
 
 object AutoAFKReply : ChatReceiveModule {

@@ -4,11 +4,11 @@ package tomeko.hychatter.config.chat.handlers.modules.modifiers
 /*import net.minecraft.client.gui.ChatLine
 import net.minecraft.util.IChatComponent
 import org.polyfrost.oneconfig.utils.v1.dsl.mc
-import tomeko.hychat.config.HyChatterConfig
-import tomeko.hychat.config.chat.handlers.ChatReceiveModule
-import tomeko.hychat.config.data.providers.LanguageData
-import tomeko.hychat.config.events.ChatReceiveEvent
-import tomeko.hychat.mixins.ChatComponentAccessor
+import tomeko.hychatter.config.HyChatterConfig
+import tomeko.hychatter.config.chat.handlers.ChatReceiveModule
+import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.events.ChatReceiveEvent
+import tomeko.hychatter.mixins.ChatComponentAccessor
 
 object GameStartCompactor : ChatReceiveModule {
     var lastMessage: IChatComponent? = null

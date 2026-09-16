@@ -1,26 +1,26 @@
 package tomeko.hychatter.config.chat.handlers.modules.blockers
 
 //? if 1.8.9 {
-/*import tomeko.hychat.utils.LegacyComponents
-import tomeko.hychat.utils.string
-import tomeko.hychat.utils.siblings
-import tomeko.hychat.utils.style
-import tomeko.hychat.utils.plainCopy
-import tomeko.hychat.utils.withStyle
-import tomeko.hychat.utils.append
-import tomeko.hychat.utils.copy
+/*import tomeko.hychatter.utils.LegacyComponents
+import tomeko.hychatter.utils.string
+import tomeko.hychatter.utils.siblings
+import tomeko.hychatter.utils.style
+import tomeko.hychatter.utils.plainCopy
+import tomeko.hychatter.utils.withStyle
+import tomeko.hychatter.utils.append
+import tomeko.hychatter.utils.copy
 import net.hypixel.data.type.GameType
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.ChatStyle
 import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
-import tomeko.hychat.config.HyChatterConfig
-import tomeko.hychat.config.chat.handlers.ChatReceiveModule
-import tomeko.hychat.config.chat.handlers.ChatSendModule
-import tomeko.hychat.config.data.providers.LanguageData
-import tomeko.hychat.config.events.ChatReceiveEvent
-import tomeko.hychat.config.events.ChatSendEvent
-import tomeko.hychat.utils.ChatUtils
+import tomeko.hychatter.config.HyChatterConfig
+import tomeko.hychatter.config.chat.handlers.ChatReceiveModule
+import tomeko.hychatter.config.chat.handlers.ChatSendModule
+import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.events.ChatReceiveEvent
+import tomeko.hychatter.config.events.ChatSendEvent
+import tomeko.hychatter.utils.ChatUtils
 import java.text.DecimalFormat
 import kotlin.jvm.optionals.getOrNull
 

@@ -1,13 +1,13 @@
 package tomeko.hychatter.config.chat.handlers.modules.blockers
 
 //? if 1.8.9 {
-/*import tomeko.hychat.utils.string
-import tomeko.hychat.utils.siblings
-import tomeko.hychat.utils.copy
-import tomeko.hychat.config.HyChatterConfig
-import tomeko.hychat.config.chat.handlers.ChatReceiveModule
-import tomeko.hychat.config.data.providers.LanguageData
-import tomeko.hychat.config.events.ChatReceiveEvent
+/*import tomeko.hychatter.utils.string
+import tomeko.hychatter.utils.siblings
+import tomeko.hychatter.utils.copy
+import tomeko.hychatter.config.HyChatterConfig
+import tomeko.hychatter.config.chat.handlers.ChatReceiveModule
+import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.events.ChatReceiveEvent
 
 object DiscordSafetyWarningRemover : ChatReceiveModule {
     override fun onChatReceived(event: ChatReceiveEvent) {

@@ -8,12 +8,12 @@ import net.minecraft.util.IChatComponent
 import org.intellij.lang.annotations.Language
 import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 import org.polyfrost.oneconfig.utils.v1.JsonUtils
-import tomeko.hychat.config.data.DataProvider
-import tomeko.hychat.utils.Constants
-import tomeko.hychat.utils.Debug
-import tomeko.hychat.utils.LegacyComponents
-import tomeko.hychat.utils.withStyle
-import tomeko.hychat.utils.append
+import tomeko.hychatter.config.data.DataProvider
+import tomeko.hychatter.utils.Constants
+import tomeko.hychatter.utils.Debug
+import tomeko.hychatter.utils.LegacyComponents
+import tomeko.hychatter.utils.withStyle
+import tomeko.hychatter.utils.append
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 

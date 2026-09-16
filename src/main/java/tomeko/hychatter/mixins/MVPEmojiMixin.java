@@ -5,7 +5,7 @@ package tomeko.hychatter.mixins;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import tomeko.hychat.chat.MVPEmoji;
+import tomeko.hychatter.chat.MVPEmoji;
 
 @Mixin(GuiScreen.class)
 public abstract class MVPEmojiMixin {

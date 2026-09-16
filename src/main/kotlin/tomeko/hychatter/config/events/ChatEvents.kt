@@ -4,7 +4,7 @@ package tomeko.hychatter.config.events
 /*import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent
 import org.polyfrost.oneconfig.api.event.v1.events.Event
-import tomeko.hychat.utils.string
+import tomeko.hychatter.utils.string
 
 data class ChatSendEvent(var message: String) : Event.Cancellable()
 

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import tomeko.hychat.config.events.ChatSendEvent;
+import tomeko.hychatter.config.events.ChatSendEvent;
 
 @Mixin(value = EntityPlayerSP.class, priority = Integer.MAX_VALUE)
 abstract class EntityPlayerSPMixin_ChatEvents {

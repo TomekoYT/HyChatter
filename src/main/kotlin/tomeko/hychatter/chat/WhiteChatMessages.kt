@@ -18,7 +18,7 @@ import net.minecraft.network.chat.MutableComponent
 
 import tomeko.hychatter.config.HyChatterConfig
 //? if ornithe {
-//import tomeko.hychat.event.ClientReceiveMessageEvents
+//import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.location.HypixelPackets
 import tomeko.hychatter.utils.removeFormatting
@@ -65,7 +65,8 @@ object WhiteChatMessages {
             if (HyChatterConfig.whitePrivateMessagesEnabled
                 && HypixelPackets.onHypixel
                 && (unformattedMessage.startsWith("From ")
-                        || unformattedMessage.startsWith("To "))
+                        || unformattedMessage.startsWith("To ")
+                        || unformattedMessage.startsWith("PM"))
             ) {
                 val n = message.siblings.size
                 if (n < 1) return@run message
@@ -143,7 +144,8 @@ object WhiteChatMessages {
         if (HyChatterConfig.whitePrivateMessagesEnabled
             && HypixelPackets.onHypixel
             && (unformattedMessage.startsWith("From ")
-                    || unformattedMessage.startsWith("To "))
+                    || unformattedMessage.startsWith("To ")
+                    || unformattedMessage.startsWith("PM"))
         ) {
             val n = message.siblings.size
             if (n < 1) return@run message

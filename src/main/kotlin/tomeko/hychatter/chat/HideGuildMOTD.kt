@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component
 //?}
 import tomeko.hychatter.config.HyChatterConfig
 //? if ornithe {
-//import tomeko.hychat.event.ClientReceiveMessageEvents
+//import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.utils.removeFormatting
 

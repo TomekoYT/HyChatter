@@ -1,22 +1,18 @@
 package tomeko.hychatter.utils
 
 //? if 1.8.9 {
-/*import tomeko.hychat.utils.string
-import tomeko.hychat.utils.siblings
-import tomeko.hychat.utils.style
-import tomeko.hychat.utils.plainCopy
-import tomeko.hychat.utils.withStyle
-import tomeko.hychat.utils.append
-import tomeko.hychat.utils.copy
+/*import tomeko.hychatter.utils.string
+import tomeko.hychatter.utils.siblings
+import tomeko.hychatter.utils.style
+import tomeko.hychatter.utils.plainCopy
+import tomeko.hychatter.utils.withStyle
+import tomeko.hychatter.utils.append
+import tomeko.hychatter.utils.copy
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent
 
-/**
- * Small compatibility layer used by the 1.8.9 port. Modern Minecraft's IChatComponent
- * API was replaced with MCP's IChatComponent/ChatStyle API.
- */
 object LegacyComponents {
     fun literal(text: String): IChatComponent = ChatComponentText(text)
     fun empty(): IChatComponent = ChatComponentText("")
