@@ -10,7 +10,7 @@ import tomeko.hychatter.chat.MVPEmoji;
 @Mixin(GuiScreen.class)
 public abstract class MVPEmojiMixin {
     @ModifyVariable(method = "sendChatMessage(Ljava/lang/String;Z)V", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private String hymod$replaceMessage(String message) {
+    private String hychatter$replaceMessage(String message) {
         return MVPEmoji.INSTANCE.replaceWithEmoji(message);
     }
 }

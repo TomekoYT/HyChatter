@@ -3,9 +3,6 @@ package tomeko.hychatter.utils
 //? if 1.8.9 {
 /*import net.minecraft.client.Minecraft
 import net.minecraft.util.IChatComponent
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
 //? if ornithe {
 /*import org.polyfrost.oneconfig.api.event.v1.EventManager
 import org.polyfrost.oneconfig.api.event.v1.events.TickEvent

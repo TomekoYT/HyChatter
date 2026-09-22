@@ -21,6 +21,7 @@ import tomeko.hychatter.config.data.providers.LanguageData
 import tomeko.hychatter.config.events.ChatReceiveEvent
 import tomeko.hychatter.config.events.ChatSendEvent
 import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.Constants
 import java.text.DecimalFormat
 import kotlin.jvm.optionals.getOrNull
 
@@ -42,7 +43,7 @@ object ShoutBlocker : ChatSendModule, ChatReceiveModule {
                             HoverEvent.Action.SHOW_TEXT,
                             LegacyComponents.empty()
                                 .append(
-                                    LegacyComponents.literal("Hytils Reborn\n")
+                                    LegacyComponents.literal("${Constants.MOD_NAME}\n")
                                         .withStyle(EnumChatFormatting.GOLD, EnumChatFormatting.BOLD)
                                 )
                                 .append(
@@ -101,6 +102,7 @@ import tomeko.hychatter.config.data.providers.LanguageData
 import tomeko.hychatter.config.events.ChatReceiveEvent
 import tomeko.hychatter.config.events.ChatSendEvent
 import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.Constants
 import java.text.DecimalFormat
 import kotlin.jvm.optionals.getOrNull
 
@@ -121,7 +123,7 @@ object ShoutBlocker : ChatSendModule, ChatReceiveModule {
                         //~ if <1.21.5 '.ShowText(' -> '(HoverEvent.Action.SHOW_TEXT,'
                         HoverEvent.ShowText(
                             Component.empty()
-                                .append(Component.literal("Hytils Reborn\n")
+                                .append(Component.literal("${Constants.MOD_NAME}\n")
                                     .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD))
                                 .append(Component.literal("Your message was blocked by the \"Shout Cooldown\" setting. \nPlease wait before shouting another message.")
                                     .withStyle(ChatFormatting.GRAY))

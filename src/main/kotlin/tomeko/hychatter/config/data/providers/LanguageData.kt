@@ -280,7 +280,7 @@ object LanguageData : DataProvider {
 
     val GG_MESSAGES by regex(
         "❤", "gg", "GG", "gf", "Good Game", "Good Fight", "Good Round! :D", "Have a good day!", "<3",
-        "AutoGG By Sk1er!", "AutoGG By Hytils Reborn!", "Good Round", ":D", "Well Played!", "wp",
+        "AutoGG By Sk1er!", "AutoGG By ${Constants.MOD_NAME}!", "Good Round", ":D", "Well Played!", "wp",
         prefix = "(?:.* )?(?:\\[.+] )?\\w{1,16}(?: .+)?: (?:", suffix = ")"
     )
     val GL_MESSAGES by regex("(?i)(?!.+: )(gl|glhf|good luck|have a good game|autogl by sk1er)")
@@ -440,7 +440,6 @@ object LanguageData : DataProvider {
         }
     }
 
-    //region default regexes
     val SKYBLOCK_TAB_PLAYER_ENTRY_NAME by regex("\\[\\d+] \\w{1,16}(?: .{1,3}|$)")
     val SKYBLOCK_TAB_INFO_ENTRY_NAME by regex("![A-D]-[a-v]")
 
@@ -637,7 +636,7 @@ object LanguageData : DataProvider {
 
     val GG_MESSAGES by regex(
         "❤", "gg", "GG", "gf", "Good Game", "Good Fight", "Good Round! :D", "Have a good day!", "<3",
-        "AutoGG By Sk1er!", "AutoGG By Hytils Reborn!", "Good Round", ":D", "Well Played!", "wp",
+        "AutoGG By Sk1er!", "AutoGG By ${Constants.MOD_NAME}!", "Good Round", ":D", "Well Played!", "wp",
         prefix = "(?:.* )?(?:\\[.+] )?\\w{1,16}(?: .+)?: (?:", suffix = ")"
     )
     val GL_MESSAGES by regex("(?i)(?!.+: )(gl|glhf|good luck|have a good game|autogl by sk1er)")
