@@ -1,10 +1,7 @@
 package tomeko.hychatter.utils
 
 //? if 1.8.9 {
-/*//? if forge {
-//import cc.polyfrost.oneconfig.config.core.OneColor as PolyColor
-//?}
-import net.minecraft.client.Minecraft
+/*import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -12,12 +9,6 @@ import net.minecraft.util.*
 //? if ornithe {
 //import net.ornithemc.osl.lifecycle.api.client.MinecraftClientEvents
 //?}
-//? if forge {
-/*import net.minecraftforge.client.event.RenderWorldLastEvent
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
-*///?}
 import org.lwjgl.opengl.GL11
 *///?} else {
 import com.mojang.blaze3d.vertex.PoseStack
@@ -39,9 +30,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
 import org.joml.Matrix4f
 //?}
-//? if !forge {
 import org.polyfrost.compose.render.PolyColor
-//?}
 //? if ornithe {
 /*import tomeko.hychatter.event.RenderWorldLastEvent
 import tomeko.hychatter.event.LevelRenderEvents
@@ -85,9 +74,6 @@ object WaypointRenderer {
     val waypoints: MutableList<Waypoint> = ArrayList()
 
     fun register() {
-        //? if forge {
-        //MinecraftForge.EVENT_BUS.register(WaypointRenderer)
-        //?} else {
         //? if fabric {
         LevelRenderEvents.AFTER_TRANSLUCENT_FEATURES.register(::onWorldRender)
         //?} else {
@@ -98,12 +84,8 @@ object WaypointRenderer {
         //?} else {
         ClientTickEvents.END_CLIENT_TICK.register(::onTick)
         //?}
-        //?}
     }
 
-    //? if forge {
-    //@SubscribeEvent
-    //?}
     fun onWorldRender(
         //? if 1.8.9 {
         //event: RenderWorldLastEvent
@@ -123,20 +105,7 @@ object WaypointRenderer {
         }
     }
 
-    //? if forge {
-    //@SubscribeEvent
-    //?}
-    fun onTick(
-        //? if forge {
-        //event: TickEvent.ClientTickEvent
-        //?} else {
-        mc: Minecraft
-        //?}
-    ) {
-        //? if forge {
-        //if (event.phase != TickEvent.Phase.END) return
-        //?}
-
+    fun onTick(mc: Minecraft) {
         val iterator = waypoints.iterator()
         while (iterator.hasNext()) {
             val waypoint = iterator.next()

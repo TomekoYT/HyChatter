@@ -2,21 +2,10 @@ package tomeko.hychatter.chat
 
 import net.minecraft.client.Minecraft
 //? if 1.8.9 {
-/*//? if forge {
-//import cc.polyfrost.oneconfig.config.core.OneColor as PolyColor
-//?}
-import net.minecraft.block.Block
-import net.minecraft.client.multiplayer.WorldClient
+/*import net.minecraft.client.multiplayer.WorldClient
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
-//? if ornithe {
-//import net.minecraft.util.IChatComponent as Component
-//?}
-//? if forge {
-/*import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-*///?}
+import net.minecraft.util.IChatComponent as Component
 *///?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.client.multiplayer.ClientLevel
@@ -24,10 +13,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.world.level.block.Blocks
 //?}
-//? if !forge {
 import org.polyfrost.compose.render.PolyColor
-//?}
-
 import tomeko.hychatter.config.HyChatterConfig
 //? if ornithe {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
@@ -41,38 +27,14 @@ object DangerousTauntWaypoint {
     private const val SECONDS = 15
 
     fun register() {
-        //? if forge {
-        //MinecraftForge.EVENT_BUS.register(this)
-        //?} else {
         ClientReceiveMessageEvents.GAME.register(::onChat)
-        //?}
     }
 
-    //? if forge {
-    //@SubscribeEvent
-    //?}
-
-    fun onChat(
-        //? if forge {
-        //event: ClientChatReceivedEvent
-        //?} else {
-        component: Component,
-        fromActionBar: Boolean
-        //?}
-    ) {
-        //? if forge {
-        //if (event.type.toInt() == 2 || event.message == null)
-        //?} else {
-        if (fromActionBar)
-        //?}
-            return
-
-        if (!HyChatterConfig.debugModeEnabled && (!HyChatterConfig.dangerousTauntWaypointEnabled || !HypixelPackets.inFarmHunt)) return
+    private fun onChat(component: Component, fromActionBar: Boolean) {
+        if (fromActionBar || !HyChatterConfig.debugModeEnabled && (!HyChatterConfig.dangerousTauntWaypointEnabled || !HypixelPackets.inFarmHunt)) return
 
         val message =
-        //? if forge {
-        //event.message.unformattedText.removeFormatting()
-            //?} elif ornithe {
+            //? if ornithe {
             //component.unformattedText.removeFormatting()
         //?} else {
         component.string.removeFormatting()

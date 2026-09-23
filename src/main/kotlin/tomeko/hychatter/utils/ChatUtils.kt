@@ -15,26 +15,12 @@ object ChatUtils {
     private var tickCounter = 0L
 
     init {
-        //? if forge {
-        //MinecraftForge.EVENT_BUS.register(this)
-        //?} else {
         EventManager.register(TickEvent.Start::class) {
             onTick()
         }
-        //?}
     }
 
-    //? if forge {
-    //@SubscribeEvent
-    //?}
-    private fun onTick(
-        //? if forge {
-        //event: TickEvent.ClientTickEvent
-        //?}
-    ) {
-        //? if forge {
-        //if (event.phase != TickEvent.Phase.START) return
-        //?}
+    private fun onTick() {
         if (queue.isEmpty()) {
             tickCounter = 0
             return

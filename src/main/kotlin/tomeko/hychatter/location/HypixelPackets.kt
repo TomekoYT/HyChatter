@@ -3,13 +3,7 @@ package tomeko.hychatter.location
 import net.hypixel.modapi.HypixelModAPI
 import net.hypixel.modapi.packet.impl.clientbound.ClientboundHelloPacket
 import net.hypixel.modapi.packet.impl.clientbound.event.ClientboundLocationPacket
-//? if forge {
-/*import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.FMLCommonHandler
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
-import net.minecraftforge.fml.common.network.FMLNetworkEvent
-*///?} elif ornithe {
+//? if ornithe {
 //import net.ornithemc.osl.networking.api.client.ClientConnectionEvents
 //?} else {
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
@@ -40,9 +34,7 @@ object HypixelPackets {
 
     fun register() {
         HypixelModAPI.getInstance().createHandler(ClientboundHelloPacket::class.java, { onHypixel = true })
-        //? if forge {
-        //MinecraftForge.EVENT_BUS.register(this)
-        //?} elif ornithe {
+        //? if ornithe {
         //ClientConnectionEvents.DISCONNECT.register { disableHypixel() }
         //?} else {
         ClientPlayConnectionEvents.DISCONNECT.register { _, _ -> disableHypixel() }
@@ -51,14 +43,7 @@ object HypixelPackets {
         HypixelModAPI.getInstance().subscribeToEventPacket(ClientboundLocationPacket::class.java)
     }
 
-    //? if forge {
-    //@SubscribeEvent
-    //?}
-    fun disableHypixel(
-        //? if forge {
-        //event: FMLNetworkEvent.ClientDisconnectionFromServerEvent
-        //?}
-    ) {
+    private fun disableHypixel() {
         onHypixel = false
         disableAll()
     }

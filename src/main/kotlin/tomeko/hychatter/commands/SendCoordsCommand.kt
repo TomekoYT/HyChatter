@@ -1,7 +1,6 @@
 package tomeko.hychatter.commands
 
-//? if 1.8.9 {
-/*//? if ornithe {
+//? if ornithe {
 //import com.mojang.brigadier.arguments.StringArgumentType
 //?}
 import net.minecraft.client.Minecraft
@@ -12,10 +11,6 @@ import net.minecraft.command.ICommandSender
 /*import org.polyfrost.oneconfig.api.commands.v1.CommandManager.argument
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager.literal
 import org.polyfrost.oneconfig.internal.legacy.command.ClientCommandRegistrationCallback
-*///?}
-//? if forge {
-//import net.minecraftforge.client.ClientCommandHandler
-//?}
 *///?} else {
 import com.mojang.brigadier.arguments.StringArgumentType
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
@@ -35,9 +30,6 @@ object SendCoordsCommand
     private const val COMMAND_NAME = "sendcoords"
 
     fun register() {
-        //? if forge {
-        //ClientCommandHandler.instance.registerCommand(this)
-        //?} else {
         ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ ->
             dispatcher.register(
                 literal(COMMAND_NAME)
@@ -54,7 +46,6 @@ object SendCoordsCommand
                     )
             )
         }
-        //?}
     }
 
     //? if 1.8.9 {

@@ -4,11 +4,6 @@ package tomeko.hychatter.chat
 /*import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent as Component
-//? if forge {
-/*import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-*///?}
 *///?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.ChatFormatting
@@ -25,35 +20,13 @@ import tomeko.hychatter.utils.removeFormatting
 
 object WhiteChatMessages {
     fun register() {
-        //? if forge {
-        //MinecraftForge.EVENT_BUS.register(this)
-        //?} else {
         ClientReceiveMessageEvents.MODIFY_GAME.register(::onChatReceive)
-        //?}
     }
 
-    //? if forge {
-    //@SubscribeEvent
-    //?}
-    fun onChatReceive(
-        //? if forge {
-        //event: ClientChatReceivedEvent
-        //?} else {
-        message: Component, fromActionBar: Boolean
-        //?}
-    )
-    //? if !forge {
-            : Component
-    //?}
-    {
-        //? if forge {
-        /*if (event.type.toInt() == 2 || event.message == null) return
-        event.message = modifyMessage(event.message)
-        *///?} else {
+    private fun onChatReceive(message: Component, fromActionBar: Boolean): Component {
         if (fromActionBar) return message
 
         return modifyMessage(message)
-        //?}
     }
 
     private fun modifyMessage(message: Component) =
