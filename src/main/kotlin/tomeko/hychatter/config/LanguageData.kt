@@ -1,4 +1,4 @@
-package tomeko.hychatter.config.data.providers
+package tomeko.hychatter.config
 
 //? if 1.8.9 {
 /*import com.google.gson.JsonElement
@@ -8,7 +8,7 @@ import net.minecraft.util.IChatComponent
 import org.intellij.lang.annotations.Language
 import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 import org.polyfrost.oneconfig.utils.v1.JsonUtils
-import tomeko.hychatter.config.data.DataProvider
+import tomeko.hychatter.config.DataProvider
 import tomeko.hychatter.utils.Constants
 import tomeko.hychatter.utils.Debug
 import tomeko.hychatter.utils.LegacyComponents
@@ -363,7 +363,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.ComponentSerialization
 import org.intellij.lang.annotations.Language
-import tomeko.hychatter.config.data.DataProvider
 import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 import org.polyfrost.oneconfig.utils.v1.JsonUtils
 import tomeko.hychatter.utils.Constants

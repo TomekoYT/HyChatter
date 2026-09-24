@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 
 object KarmaRemover {
     fun register() {

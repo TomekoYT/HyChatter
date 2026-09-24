@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
 /*import net.minecraft.util.ChatComponentText

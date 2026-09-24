@@ -1,4 +1,4 @@
-package tomeko.hychatter.utils
+package tomeko.hychatter.waypoints
 
 //? if 1.8.9 {
 /*import net.minecraft.client.Minecraft

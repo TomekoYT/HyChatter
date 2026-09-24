@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.cooldown
 
 //? if 1.8.9 {
 /*import tomeko.hychatter.utils.LegacyComponents
@@ -23,7 +23,7 @@ import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
 //?}
 import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.ChatUtils
 import tomeko.hychatter.utils.Constants
 //? if 1.8.9 {

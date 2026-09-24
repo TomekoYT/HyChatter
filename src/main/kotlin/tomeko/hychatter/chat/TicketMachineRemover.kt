@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component
 import net.hypixel.data.type.GameType
 import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 
 object TicketMachineRemover {
     fun register() {

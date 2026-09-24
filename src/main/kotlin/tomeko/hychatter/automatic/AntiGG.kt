@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
 //import net.minecraft.util.IChatComponent as Component
@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 
 object AntiGG {
     fun register() {

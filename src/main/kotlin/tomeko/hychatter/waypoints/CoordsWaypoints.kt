@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.waypoints
 
 //? if 1.8.9 {
 /*import net.minecraft.util.BlockPos
@@ -12,9 +12,8 @@ import tomeko.hychatter.config.HyChatterConfig
 //? if ornithe {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
-import tomeko.hychatter.utils.Waypoint
-import tomeko.hychatter.utils.WaypointRenderer
 import tomeko.hychatter.utils.removeFormatting
+import kotlin.text.get
 
 object CoordsWaypoints {
     fun register() {

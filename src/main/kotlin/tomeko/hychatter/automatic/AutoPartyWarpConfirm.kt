@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.automatic
 
 import org.polyfrost.oneconfig.utils.v1.Multithreading
 //? if 1.8.9 {
@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.ChatUtils
 import java.util.concurrent.TimeUnit
 

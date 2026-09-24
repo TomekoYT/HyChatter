@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
 /*import tomeko.hychatter.utils.LegacyComponents
@@ -21,7 +21,8 @@ import net.minecraft.network.chat.Component
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
+import kotlin.text.get
 
 object ColoredPlayerConnectionStatus {
     fun register() {

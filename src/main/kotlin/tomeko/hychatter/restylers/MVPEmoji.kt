@@ -1,8 +1,9 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.restylers
 
 //? if fabric
 import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
 import tomeko.hychatter.config.HyChatterConfig
+import kotlin.collections.iterator
 //? if ornithe
 //import tomeko.hychatter.event.ClientSendMessageEvents
 

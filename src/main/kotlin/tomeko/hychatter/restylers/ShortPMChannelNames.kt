@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
 /*import net.minecraft.util.ChatComponentText
@@ -21,7 +21,7 @@ import net.minecraft.network.chat.contents.PlainTextContents
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 
 object ShortPMChannelNames {
     fun register() {

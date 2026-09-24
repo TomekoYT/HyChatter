@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
 //import net.minecraft.util.IChatComponent as Component
@@ -11,28 +11,24 @@ import net.minecraft.network.chat.Component
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.ChatUtils
 
-object BroadcastAchievement {
-    private val achievements = mutableSetOf<String>()
-
+object ThankWatchdog {
     fun register() {
         ClientReceiveMessageEvents.GAME.register(::onGameReceive)
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.broadcastAchievements) return
+        if (fromActionBar || !HyChatterConfig.thankWatchdog) return
         val text =
             //? if 1.8.9 {
             //message.unformattedText
             //?} else {
             message.string
             //?}
-        LanguageData.ACHIEVEMENT_UNLOCKED.find(text)?.let { match ->
-            val achievement = match.groups["achievement"]?.value ?: return@let
-            achievements.add(achievement)
-            ChatUtils.queueMessage("/gc Achievement unlocked! I unlocked the $achievement achievement!")
+        if (text == LanguageData.WATCHDOG_ANNOUNCEMENT || text.startsWith(LanguageData.WATCHDOG_BAN)) {
+            ChatUtils.queueMessage("/ac Thanks Watchdog!")
         }
     }
 }

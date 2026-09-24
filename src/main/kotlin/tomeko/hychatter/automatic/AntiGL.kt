@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
 //import net.minecraft.util.IChatComponent as Component
@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component
 import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
 import org.polyfrost.oneconfig.utils.v1.dsl.mc
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 
 object AntiGL {
     fun register() {

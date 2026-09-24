@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
 /*import net.minecraft.client.gui.ChatLine
@@ -16,7 +16,7 @@ import org.polyfrost.oneconfig.utils.v1.dsl.mc
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 
 object GameStartCompactor {
     var lastMessage: Component? = null

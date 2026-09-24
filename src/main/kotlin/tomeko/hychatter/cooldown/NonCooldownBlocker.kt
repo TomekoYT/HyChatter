@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.cooldown
 
 //? if 1.8.9 {
 /*import tomeko.hychatter.utils.LegacyComponents

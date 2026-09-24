@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
 //import net.minecraft.util.IChatComponent as Component
@@ -11,8 +11,9 @@ import net.minecraft.network.chat.Component
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.ChatUtils
+import kotlin.text.get
 
 object BroadcastLevelUp {
     fun register() {

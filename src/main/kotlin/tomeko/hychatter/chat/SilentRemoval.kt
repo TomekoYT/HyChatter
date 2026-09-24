@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.ChatUtils
 import tomeko.hychatter.utils.Constants
 import java.util.Locale

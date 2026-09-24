@@ -1,4 +1,4 @@
-package tomeko.hychatter.config.data
+package tomeko.hychatter.config
 
 interface DataProvider {
     val apiBase

@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.waypoints
 
 import net.minecraft.client.Minecraft
 //? if 1.8.9 {
@@ -19,8 +19,6 @@ import tomeko.hychatter.config.HyChatterConfig
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.location.HypixelPackets
-import tomeko.hychatter.utils.Waypoint
-import tomeko.hychatter.utils.WaypointRenderer
 import tomeko.hychatter.utils.removeFormatting
 
 object DangerousTauntWaypoint {

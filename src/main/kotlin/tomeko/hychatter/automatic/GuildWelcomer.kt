@@ -1,4 +1,4 @@
-package tomeko.hychatter.chat
+package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
 //import net.minecraft.util.IChatComponent as Component
@@ -11,24 +11,26 @@ import net.minecraft.network.chat.Component
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.config.data.providers.LanguageData
+import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.ChatUtils
+import kotlin.text.get
 
-object ThankWatchdog {
+object GuildWelcomer {
     fun register() {
         ClientReceiveMessageEvents.GAME.register(::onGameReceive)
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.thankWatchdog) return
+        if (fromActionBar || !HyChatterConfig.guildWelcomeMessage) return
         val text =
             //? if 1.8.9 {
             //message.unformattedText
             //?} else {
             message.string
             //?}
-        if (text == LanguageData.WATCHDOG_ANNOUNCEMENT || text.startsWith(LanguageData.WATCHDOG_BAN)) {
-            ChatUtils.queueMessage("/ac Thanks Watchdog!")
+        LanguageData.GUILD_JOIN.find(text)?.let { match ->
+            val player = match.groups["player"]?.value ?: return@let
+            ChatUtils.queueMessage("/gc Welcome to the guild $player!")
         }
     }
 }
