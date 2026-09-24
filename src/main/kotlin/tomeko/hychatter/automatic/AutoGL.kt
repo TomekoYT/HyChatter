@@ -10,8 +10,9 @@ import net.minecraft.network.chat.Component
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.HypixelPackets
 
 object AutoGL {
     fun register() {
@@ -19,7 +20,7 @@ object AutoGL {
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.autoGL) return
+        if (fromActionBar || !HyChatterConfig.autoGL || !HypixelPackets.onHypixel) return
 
         val text =
             //? if 1.8.9 {
@@ -29,7 +30,10 @@ object AutoGL {
             //?}
         val trimmed = text.trim()
         if (!trimmed.contains(": ") && trimmed.endsWith("The game starts in 5 seconds!")) {
-            ChatUtils.queueMessage("/ac ${HyChatterConfig.autoGLMessage}")
+            //? if 1.8.9
+            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGLMessage}") ?: return
+            //? else
+            Minecraft.getInstance().player?.connection?.sendCommand("ac ${HyChatterConfig.autoGLMessage}") ?: return
         }
     }
 }

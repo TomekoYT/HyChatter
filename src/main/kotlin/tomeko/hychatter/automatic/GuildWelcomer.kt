@@ -10,9 +10,10 @@ import net.minecraft.network.chat.Component
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
-import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.HypixelPackets
 import kotlin.text.get
 
 object GuildWelcomer {
@@ -21,7 +22,7 @@ object GuildWelcomer {
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.guildWelcomeMessage) return
+        if (fromActionBar || !HyChatterConfig.guildWelcomeMessage || !HypixelPackets.onHypixel) return
         val text =
             //? if 1.8.9 {
             //message.unformattedText
@@ -30,7 +31,10 @@ object GuildWelcomer {
             //?}
         LanguageData.GUILD_JOIN.find(text)?.let { match ->
             val player = match.groups["player"]?.value ?: return@let
-            ChatUtils.queueMessage("/gc Welcome to the guild $player!")
+            //? if 1.8.9
+            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/gc Welcome to the guild $player!")
+            //? else
+            Minecraft.getInstance().player?.connection?.sendCommand("gc Welcome to the guild $player!")
         }
     }
 }

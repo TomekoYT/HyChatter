@@ -1,4 +1,4 @@
-package tomeko.hychatter.automatic
+package tomeko.hychatter.hiders
 
 //? if 1.8.9 {
 //import net.minecraft.util.IChatComponent as Component
@@ -15,13 +15,17 @@ import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
 
-object AntiGL {
+object AdBlocker {
     fun register() {
-        ClientReceiveMessageEvents.ALLOW_GAME.register(::onGameReceive)
+        //? if ornithe {
+        //ClientReceiveMessageEvents.ALLOW_CHAT.register(::onChatReceive)
+        //?} else {
+        ClientReceiveMessageEvents.ALLOW_CHAT.register { component, _, _, _, _ -> onChatReceive(component) }
+        //?}
     }
 
-    private fun onGameReceive(component: Component, fromActionBar: Boolean): Boolean {
-        if (fromActionBar || !HyChatterConfig.antiGL || !HypixelPackets.onHypixel) return true
+    private fun onChatReceive(component: Component): Boolean {
+        if (!HyChatterConfig.removePlayerAds || !HypixelPackets.onHypixel) return true
 
         val message =
         //? if ornithe {
@@ -30,12 +34,13 @@ object AntiGL {
             component.string
         //?}
 
-        return (!HypixelUtils.getLocation().inGame()
-                || (message.startsWith("-") && message.endsWith("-"))
+        return ((message.startsWith("-") && message.endsWith("-"))
                 || (message.startsWith("▬") && message.endsWith("▬"))
                 || (message.startsWith("≡") && message.endsWith("≡"))
                 || !message.contains(": ")
                 || message.contains(mc.user.name, true))
-                || !message.contains(LanguageData.GL_MESSAGES)
+                || !(message.contains(LanguageData.CHAT_ADVERTISEMENTS)
+                || (!HypixelUtils.getLocation().inGame() && message.contains(LanguageData.CHAT_RANK_BEGGING))
+                )
     }
 }

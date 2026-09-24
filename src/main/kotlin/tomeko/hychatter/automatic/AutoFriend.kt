@@ -1,20 +1,18 @@
 package tomeko.hychatter.automatic
 
-import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
-//?} else {
+/*import net.minecraft.util.IChatComponent as Component
+import tomeko.hychatter.event.ClientReceiveMessageEvents
+*///?} else {
 import net.minecraft.network.chat.Component
-//?}
-//? if ornithe {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
-//?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+import net.minecraft.client.Minecraft
+import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
-import tomeko.hychatter.utils.ChatUtils
 import tomeko.hychatter.utils.Constants
+import tomeko.hychatter.utils.HypixelPackets
 import kotlin.text.get
 
 object AutoFriend {
@@ -23,7 +21,7 @@ object AutoFriend {
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.autoFriend) return
+        if (fromActionBar || !HyChatterConfig.autoFriend || !HypixelPackets.onHypixel) return
 
         val text =
             //? if 1.8.9 {
@@ -37,7 +35,10 @@ object AutoFriend {
         var player = match.groups["player"]?.value ?: return
         if (player.startsWith("[")) player = player.substringAfter("] ")
 
-        ChatUtils.queueMessage("/friend $player")
+        //? if 1.8.9
+        //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/friend $player") ?: return
+        //? else
+        Minecraft.getInstance().player?.connection?.sendCommand("friend $player") ?: return
         Notifications.info(Constants.MOD_NAME, "Automatically added $player to your friends list.")
     }
 }

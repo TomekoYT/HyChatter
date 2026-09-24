@@ -57,9 +57,6 @@ Minecraft mod for Hypixel adding chat related features like autogg, chat coordin
 
 * Auto Friend
 * Auto Party Warp Confirm
-* Auto Reply When AFK
-* AFK Timeout
-* AFK Reply Message
 * Notify When Kicked From Game
 * Put Notify Message In Capital Letters
 * Broadcast Achievements

@@ -4,36 +4,14 @@ package tomeko.hychatter
 //import net.ornithemc.osl.entrypoints.api.ModInitializer
 //? else
 import net.fabricmc.api.ClientModInitializer
-import tomeko.hychatter.automatic.AntiGG
-import tomeko.hychatter.automatic.AntiGL
-import tomeko.hychatter.automatic.AutoAFKReply
-import tomeko.hychatter.automatic.AutoFriend
-import tomeko.hychatter.automatic.AutoGG
-import tomeko.hychatter.automatic.AutoGL
-import tomeko.hychatter.automatic.AutoPartyWarn
-import tomeko.hychatter.automatic.AutoPartyWarpConfirm
-import tomeko.hychatter.automatic.AutoWB
-import tomeko.hychatter.automatic.BroadcastAchievement
-import tomeko.hychatter.automatic.BroadcastLevelUp
-import tomeko.hychatter.automatic.GuildWelcomer
-import tomeko.hychatter.automatic.ThankWatchdog
-import tomeko.hychatter.chat.*
+import tomeko.hychatter.automatic.*
+import tomeko.hychatter.hiders.*
 import tomeko.hychatter.commands.*
 import tomeko.hychatter.config.*
-import tomeko.hychatter.cooldown.NonCooldownBlocker
-import tomeko.hychatter.cooldown.ShoutBlocker
-import tomeko.hychatter.location.*
-import tomeko.hychatter.restylers.ColoredPlayerConnectionStatus
-import tomeko.hychatter.restylers.GameStartCompactor
-import tomeko.hychatter.restylers.GameStatusRestyler
-import tomeko.hychatter.restylers.MVPEmoji
-import tomeko.hychatter.restylers.ShortChannelNames
-import tomeko.hychatter.restylers.ShortPMChannelNames
-import tomeko.hychatter.restylers.WhiteChatMessages
+import tomeko.hychatter.cooldown.*
+import tomeko.hychatter.restylers.*
 import tomeko.hychatter.utils.*
-import tomeko.hychatter.waypoints.CoordsWaypoints
-import tomeko.hychatter.waypoints.DangerousTauntWaypoint
-import tomeko.hychatter.waypoints.WaypointRenderer
+import tomeko.hychatter.waypoints.*
 
 class HyChatter
 //? if ornithe
@@ -92,7 +70,6 @@ class HyChatter
         ShortPMChannelNames.register()
 
         AutoGG.register()
-        AutoAFKReply.register()
         AutoFriend.register()
         AutoGL.register()
         AutoPartyWarn.register()

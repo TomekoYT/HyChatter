@@ -4,10 +4,8 @@ package tomeko.hychatter.restylers
 /*import net.minecraft.client.gui.ChatLine
 import net.minecraft.util.IChatComponent as Component
 import org.polyfrost.oneconfig.utils.v1.dsl.mc
-import tomeko.hychatter.mixins.ChatComponentAccessor
 *///?} else {
 import net.minecraft.network.chat.Component
-import tomeko.hychatter.mixins.ChatComponentAccessor
 import org.polyfrost.oneconfig.utils.v1.dsl.mc
 //?}
 //? if ornithe {
@@ -17,6 +15,8 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
+import tomeko.hychatter.mixins.ChatComponentAccessor
+import tomeko.hychatter.utils.HypixelPackets
 
 object GameStartCompactor {
     var lastMessage: Component? = null
@@ -26,7 +26,7 @@ object GameStartCompactor {
     }
 
     private fun onGameMessage(component: Component, fromActionBar: Boolean): Component {
-        if (fromActionBar || !HyChatterConfig.compactGameStartAnnouncements) return component
+        if (fromActionBar || !HyChatterConfig.compactGameStartAnnouncements || !HypixelPackets.onHypixel) return component
         val message =
             //? if 1.8.9
             //component.unformattedText

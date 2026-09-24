@@ -11,9 +11,10 @@ import net.minecraft.network.chat.Component
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
-import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.HypixelPackets
 import java.util.concurrent.TimeUnit
 import kotlin.text.get
 
@@ -23,7 +24,7 @@ object AutoWB {
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.autoWB) return
+        if (fromActionBar || !HyChatterConfig.autoWB || !HypixelPackets.onHypixel) return
 
         val text =
             //? if 1.8.9 {
@@ -38,15 +39,20 @@ object AutoWB {
         val player = match.groups["player"]?.value ?: return
         val type = match.groups["type"]?.value ?: return
         val command = when (type) {
-            "Guild" -> if (HyChatterConfig.guildAutoWB) "/gc" else return
-            "Friend" -> if (HyChatterConfig.friendsAutoWB) "/msg $player" else return
+            "Guild" -> if (HyChatterConfig.guildAutoWB) "gc" else return
+            "Friend" -> if (HyChatterConfig.friendsAutoWB) "msg $player" else return
             else -> return
         }
         val chatMessage = if (HyChatterConfig.randomAutoWB) getMessage(player)
         else HyChatterConfig.autoWBMessage1.replace("%player%", player)
 
         Multithreading.schedule(
-            { ChatUtils.queueMessage("$command $chatMessage") },
+            {
+                //? if 1.8.9
+                //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/$command $chatMessage")
+                //? else
+                Minecraft.getInstance().player?.connection?.sendCommand("$command $chatMessage")
+            },
             HyChatterConfig.autoWBCooldown.toLong(), TimeUnit.SECONDS
         )
     }

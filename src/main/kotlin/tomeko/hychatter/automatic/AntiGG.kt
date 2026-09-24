@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component
 //?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
+import tomeko.hychatter.utils.HypixelPackets
 
 object AntiGG {
     fun register() {
@@ -22,19 +23,15 @@ object AntiGG {
     }
 
     private fun onChatReceive(component: Component): Boolean {
-        if (!HyChatterConfig.antiGG) return true
+        if (!HyChatterConfig.antiGG || !HypixelPackets.onHypixel) return true
 
         val message =
-            //? if ornithe {
-            //component.unformattedText
+        //? if ornithe {
+        //component.unformattedText
             //?} else {
             component.string
-            //?}
+        //?}
 
-        if (message.matches(LanguageData.GG_MESSAGES)) {
-            return false
-        }
-
-        return true
+        return !message.matches(LanguageData.GG_MESSAGES)
     }
 }

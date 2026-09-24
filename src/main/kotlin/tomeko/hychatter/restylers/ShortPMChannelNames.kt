@@ -2,14 +2,9 @@ package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
 /*import net.minecraft.util.ChatComponentText
+import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent as Component
-import tomeko.hychatter.utils.LegacyComponents
-import tomeko.hychatter.utils.append
-import tomeko.hychatter.utils.siblings
-import tomeko.hychatter.utils.style
-import tomeko.hychatter.utils.string
-import tomeko.hychatter.utils.withStyle
 *///?} else {
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -22,6 +17,7 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
+import tomeko.hychatter.utils.HypixelPackets
 
 object ShortPMChannelNames {
     fun register() {
@@ -29,33 +25,46 @@ object ShortPMChannelNames {
     }
 
     private fun onGameMessage(message: Component, fromActionBar: Boolean): Component {
-        if (fromActionBar || !HyChatterConfig.shortPMChannelNames) return message
+        if (fromActionBar || !HyChatterConfig.shortPMChannelNames || !HypixelPackets.onHypixel) return message
 
-        val type = LanguageData.PRIVATE_MESSAGE.matchEntire(message.string)
-            ?.groups?.get("type")?.value ?: return message
+        val type = LanguageData.PRIVATE_MESSAGE.matchEntire(
+            //? if 1.8.9
+            //message.unformattedText
+                    //? else
+            message.string
+        )?.groups?.get("type")?.value ?: return message
         val isOutgoing = type == "To"
         val channelName = "$type "
 
         //? if 1.8.9 {
-        /*val rootText = (message as? ChatComponentText)?.getChatComponentText_TextValue() ?: return message
+        /*val rootText = (message as? ChatComponentText)?.chatComponentText_TextValue ?: return message
         val parts = buildList {
-            if (rootText.isNotEmpty()) add(LegacyComponents.literal(rootText).withStyle(message.style))
+            if (rootText.isNotEmpty()) add(
+                ChatComponentText(rootText).setChatStyle(message.chatStyle.createShallowCopy())
+            )
             addAll(message.siblings)
         }
 
-        val result = LegacyComponents.empty().withStyle(message.style).append(
-            LegacyComponents.literal("PM ${if (isOutgoing) ">" else "<"} ")
-                .withStyle(if (isOutgoing) EnumChatFormatting.LIGHT_PURPLE else EnumChatFormatting.DARK_PURPLE)
-        )
+        val result = ChatComponentText("")
+            .setChatStyle(message.chatStyle.createShallowCopy())
+            .appendSibling(
+                ChatComponentText("PM ${if (isOutgoing) ">" else "<"} ")
+                    .setChatStyle(
+                        ChatStyle().setColor(
+                            if (isOutgoing) EnumChatFormatting.LIGHT_PURPLE
+                            else EnumChatFormatting.DARK_PURPLE
+                        )
+                    )
+            )
 
         var shortened = false
         for (part in parts) {
-            if (!shortened && part.siblings.isEmpty() && part.string.startsWith(channelName)) {
+            if (!shortened && part.siblings.isEmpty() && part.unformattedText.startsWith(channelName)) {
                 shortened = true
-                val remainder = part.string.removePrefix(channelName)
-                if (remainder.isNotEmpty()) result.append(LegacyComponents.literal(remainder).withStyle(part.style))
+                val remainder = part.unformattedText.removePrefix(channelName)
+                if (remainder.isNotEmpty()) result.appendSibling(ChatComponentText(remainder).setChatStyle(part.chatStyle.createShallowCopy()))
             } else {
-                result.append(part)
+                result.appendSibling(part)
             }
         }
         return result

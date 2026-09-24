@@ -14,9 +14,10 @@ import net.minecraft.network.chat.Component
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
-import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.HypixelPackets
 import java.util.concurrent.TimeUnit
 
 object AutoGG {
@@ -29,7 +30,7 @@ object AutoGG {
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.autoGG || !hasGameEnded(
+        if (fromActionBar || !HyChatterConfig.autoGG || !HypixelPackets.onHypixel || !hasGameEnded(
                 //? if 1.8.9 {
                 //message.unformattedText
                 //?} else {
@@ -41,12 +42,24 @@ object AutoGG {
         shouldSend = true
 
         Multithreading.schedule(
-            { if (shouldSend) ChatUtils.queueMessage("/ac ${HyChatterConfig.autoGGMessage}") },
+            {
+                if (shouldSend)
+                //? if 1.8.9
+                //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGGMessage}")
+                //? else
+                    Minecraft.getInstance().player?.connection?.sendCommand("ac ${HyChatterConfig.autoGGMessage}")
+            },
             HyChatterConfig.autoGGFirstMsgDelay.toLong(), TimeUnit.SECONDS
         )
         if (HyChatterConfig.autoGGSendSecondMessage) {
             Multithreading.schedule(
-                { if (shouldSend) ChatUtils.queueMessage("/ac ${HyChatterConfig.autoGGSecondMessage}") },
+                {
+                    if (shouldSend)
+                    //? if 1.8.9
+                    //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGGSecondMessage}")
+                    //? else
+                        Minecraft.getInstance().player?.connection?.sendCommand("ac ${HyChatterConfig.autoGGSecondMessage}")
+                },
                 (HyChatterConfig.autoGGFirstMsgDelay + HyChatterConfig.autoGGSecondMsgDelay).toLong(),
                 TimeUnit.SECONDS
             )

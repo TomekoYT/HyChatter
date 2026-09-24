@@ -3,10 +3,6 @@ package tomeko.hychatter.restylers
 //? if 1.8.9 {
 /*import net.minecraft.util.ChatComponentText
 import net.minecraft.util.IChatComponent as Component
-import tomeko.hychatter.utils.LegacyComponents
-import tomeko.hychatter.utils.append
-import tomeko.hychatter.utils.siblings
-import tomeko.hychatter.utils.string
 *///?} else {
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.contents.PlainTextContents
@@ -18,6 +14,7 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
+import tomeko.hychatter.utils.HypixelPackets
 
 object ShortChannelNames {
     fun register() {
@@ -25,7 +22,7 @@ object ShortChannelNames {
     }
 
     private fun onGameMessage(message: Component, fromActionBar: Boolean): Component {
-        if (fromActionBar || !HyChatterConfig.shortChannelNames) return message
+        if (fromActionBar || !HyChatterConfig.shortChannelNames || !HypixelPackets.onHypixel) return message
 
         var result = message
         result = restyle(result, LanguageData.PARTY_CHANNEL, "§9P")
@@ -36,22 +33,31 @@ object ShortChannelNames {
     }
 
     private fun restyle(message: Component, regex: Regex, prefix: String): Component {
-        if (!regex.containsMatchIn(message.string)) return message
+        if (!regex.containsMatchIn(
+                //? if 1.8.9
+                //message.unformattedText
+                        //? else
+                message.string
+        )) return message
 
         //? if 1.8.9 {
-        /*if ((message as? ChatComponentText)?.getChatComponentText_TextValue().isNullOrEmpty()) {
-            return LegacyComponents.empty().also { result ->
+        /*if ((message as? ChatComponentText)
+                ?.chatComponentText_TextValue
+                .isNullOrEmpty()
+        ) {
+            return ChatComponentText("").also { result ->
                 for (sibling in message.siblings) {
-                    val modifiedSibling = regex.find(sibling.string)?.let {
-                        LegacyComponents.literal("$prefix > ${it.groupValues[1]}")
+                    val modifiedSibling = regex.find(sibling.unformattedText)?.let {
+                        ChatComponentText("$prefix > ${it.groupValues[1]}")
                     } ?: sibling
-                    result.append(modifiedSibling)
+
+                    result.appendSibling(modifiedSibling)
                 }
             }
         }
 
-        return LegacyComponents.literal("$prefix > ").also { result ->
-            message.siblings.forEach { result.append(it) }
+        return ChatComponentText("$prefix > ").also { result ->
+            message.siblings.forEach { result.appendSibling(it) }
         }
         *///?} else {
         if ((message.contents as? PlainTextContents)?.text().isNullOrEmpty()) {

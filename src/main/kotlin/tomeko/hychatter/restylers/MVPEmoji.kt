@@ -3,6 +3,7 @@ package tomeko.hychatter.restylers
 //? if fabric
 import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
 import tomeko.hychatter.config.HyChatterConfig
+import tomeko.hychatter.utils.HypixelPackets
 import kotlin.collections.iterator
 //? if ornithe
 //import tomeko.hychatter.event.ClientSendMessageEvents
@@ -47,7 +48,7 @@ object MVPEmoji {
     }
 
     private fun replaceWithEmoji(message: String): String {
-        if (!HyChatterConfig.mvpEmojisEnabled) return message
+        if (!HyChatterConfig.mvpEmojisEnabled || !HypixelPackets.onHypixel) return message
 
         var result = message
         for ((key, value) in emojis) {

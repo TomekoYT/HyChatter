@@ -239,28 +239,6 @@ object HyChatterConfig : Config("${Constants.MOD_ID}.json", Constants.MOD_ICON, 
     var autoPartyWarpConfirm = false
 
     @Switch(
-        title = "Auto Reply When AFK",
-        description = "Automatically sends a reply to anyone who PMs you while you are AFK.",
-        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
-    )
-    var autoReplyAfk = false
-
-    @Slider(
-        title = "AFK Timeout",
-        description = "How long you need to be inactive before being considered AFK in minutes.",
-        min = 1f, max = 60f, step = 1f,
-        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
-    )
-    var afkTimeout = 5f
-
-    @Text(
-        title = "AFK Reply Message",
-        description = "Choose what message is sent when someone PMs you while you are AFK. \"%player%\" will be replaced with the player's name.",
-        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
-    )
-    var afkReplyMessage = "Hey %player%, I am currently AFK!"
-
-    @Switch(
         title = "Notify When Kicked From Game",
         description = "Notify in party chat when you are kicked from the game due to a connection issue.",
         category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL

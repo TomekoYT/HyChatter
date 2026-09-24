@@ -10,8 +10,9 @@ import net.minecraft.network.chat.Component
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.HypixelPackets
 
 object AutoPartyWarn {
     fun register() {
@@ -19,7 +20,7 @@ object AutoPartyWarn {
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.notifyWhenKick) return
+        if (fromActionBar || !HyChatterConfig.notifyWhenKick || !HypixelPackets.onHypixel) return
 
         val text =
             //? if 1.8.9 {
@@ -34,7 +35,10 @@ object AutoPartyWarn {
                 "I've been kicked, please requeue!"
             }
             val separator = "-".repeat(9)
-            ChatUtils.queueMessage("/pc $separator$warning$separator")
+            //? if 1.8.9
+            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/pc $separator$warning$separator") ?: return
+            //? else
+            Minecraft.getInstance().player?.connection?.sendCommand("pc $separator$warning$separator") ?: return
         }
     }
 }

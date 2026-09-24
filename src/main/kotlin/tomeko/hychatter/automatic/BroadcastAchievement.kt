@@ -10,9 +10,10 @@ import net.minecraft.network.chat.Component
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
-import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.HypixelPackets
 import kotlin.text.get
 
 object BroadcastAchievement {
@@ -23,7 +24,7 @@ object BroadcastAchievement {
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.broadcastAchievements) return
+        if (fromActionBar || !HyChatterConfig.broadcastAchievements || !HypixelPackets.onHypixel) return
         val text =
             //? if 1.8.9 {
             //message.unformattedText
@@ -33,7 +34,10 @@ object BroadcastAchievement {
         LanguageData.ACHIEVEMENT_UNLOCKED.find(text)?.let { match ->
             val achievement = match.groups["achievement"]?.value ?: return@let
             achievements.add(achievement)
-            ChatUtils.queueMessage("/gc Achievement unlocked! I unlocked the $achievement achievement!")
+            //? if 1.8.9
+            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/gc Achievement unlocked! I unlocked the $achievement achievement!")
+            //? else
+            Minecraft.getInstance().player?.connection?.sendCommand("gc Achievement unlocked! I unlocked the $achievement achievement!")
         }
     }
 }

@@ -18,7 +18,7 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommands.argument
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-import tomeko.hychatter.location.HypixelPackets
+import tomeko.hychatter.utils.HypixelPackets
 
 object SendCoordsCommand
 //? if 1.8.9 {

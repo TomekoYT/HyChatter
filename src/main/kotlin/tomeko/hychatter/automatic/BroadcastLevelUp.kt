@@ -10,9 +10,10 @@ import net.minecraft.network.chat.Component
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
-import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.HypixelPackets
 import kotlin.text.get
 
 object BroadcastLevelUp {
@@ -21,7 +22,7 @@ object BroadcastLevelUp {
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.broadcastLevelUp) return
+        if (fromActionBar || !HyChatterConfig.broadcastLevelUp || !HypixelPackets.onHypixel) return
         val text =
             //? if 1.8.9 {
             //message.unformattedText
@@ -32,7 +33,10 @@ object BroadcastLevelUp {
 
         LanguageData.LEVEL_UP.find(text)?.let { match ->
             val level = match.groups["level"]?.value ?: return@let
-            ChatUtils.queueMessage("/gc Level up! I am now Hypixel Level $level!")
+            //? if 1.8.9
+            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/gc Level up! I am now Hypixel Level $level!")
+            //? else
+            Minecraft.getInstance().player?.connection?.sendCommand("gc Level up! I am now Hypixel Level $level!")
         }
     }
 }

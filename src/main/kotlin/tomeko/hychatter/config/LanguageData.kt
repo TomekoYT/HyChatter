@@ -11,9 +11,6 @@ import org.polyfrost.oneconfig.utils.v1.JsonUtils
 import tomeko.hychatter.config.DataProvider
 import tomeko.hychatter.utils.Constants
 import tomeko.hychatter.utils.Debug
-import tomeko.hychatter.utils.LegacyComponents
-import tomeko.hychatter.utils.withStyle
-import tomeko.hychatter.utils.append
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -284,20 +281,6 @@ object LanguageData : DataProvider {
         prefix = "(?:.* )?(?:\\[.+] )?\\w{1,16}(?: .+)?: (?:", suffix = ")"
     )
     val GL_MESSAGES by regex("(?i)(?!.+: )(gl|glhf|good luck|have a good game|autogl by sk1er)")
-
-    val GAME_BOSSBAR_ADVERTISEMENT by regex("§e§lPlaying §f§l.+ §e§lon §\\S§lMC\\.HYPIXEL\\.NET")
-    //endregion
-
-    //region default components
-    val HEADER_ADVERTISEMENT by component(
-        LegacyComponents.literal("You are playing on ").withStyle(EnumChatFormatting.AQUA)
-            .append(LegacyComponents.literal("MC.HYPIXEL.NET").withStyle(EnumChatFormatting.YELLOW, EnumChatFormatting.BOLD))
-    )
-    val FOOTER_ADVERTISEMENT by component(
-        LegacyComponents.literal("Ranks, Boosters & MORE! ").withStyle(EnumChatFormatting.GREEN)
-            .append(LegacyComponents.literal("STORE.HYPIXEL.NET").withStyle(EnumChatFormatting.RED, EnumChatFormatting.BOLD))
-    )
-    //endregion
 
     //region default strings
     val HYPE_LIMIT by string("  ➤ You have reached your Hype limit!")

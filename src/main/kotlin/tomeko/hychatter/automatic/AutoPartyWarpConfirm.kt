@@ -11,9 +11,10 @@ import net.minecraft.network.chat.Component
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
-import tomeko.hychatter.utils.ChatUtils
+import tomeko.hychatter.utils.HypixelPackets
 import java.util.concurrent.TimeUnit
 
 object AutoPartyWarpConfirm {
@@ -22,7 +23,7 @@ object AutoPartyWarpConfirm {
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean): Boolean {
-        if (fromActionBar || !HyChatterConfig.autoPartyWarpConfirm) return true
+        if (fromActionBar || !HyChatterConfig.autoPartyWarpConfirm || !HypixelPackets.onHypixel) return true
 
         val text =
             //? if 1.8.9 {
@@ -32,7 +33,16 @@ object AutoPartyWarpConfirm {
             //?}
         if (text != LanguageData.PARTY_CONFIRM_WARP) return true
 
-        Multithreading.schedule({ ChatUtils.queueMessage("/p warp") }, 1500L, TimeUnit.MILLISECONDS)
+        Multithreading.schedule(
+            {
+                //? if 1.8.9
+                //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/p warp")
+                //? else
+                Minecraft.getInstance().player?.connection?.sendCommand("p warp")
+            },
+            1500L,
+            TimeUnit.MILLISECONDS
+        )
         return false
     }
 }

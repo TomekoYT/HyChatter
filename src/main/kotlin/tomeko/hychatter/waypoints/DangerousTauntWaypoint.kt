@@ -18,7 +18,7 @@ import tomeko.hychatter.config.HyChatterConfig
 //? if ornithe {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
-import tomeko.hychatter.location.HypixelPackets
+import tomeko.hychatter.utils.HypixelPackets
 import tomeko.hychatter.utils.removeFormatting
 
 object DangerousTauntWaypoint {
