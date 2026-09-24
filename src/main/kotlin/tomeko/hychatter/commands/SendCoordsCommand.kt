@@ -1,14 +1,12 @@
 package tomeko.hychatter.commands
 
 //? if ornithe {
-//import com.mojang.brigadier.arguments.StringArgumentType
-//?}
+/*import com.mojang.brigadier.arguments.StringArgumentType
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.command.CommandBase
 import net.minecraft.command.ICommandSender
-//? if ornithe {
-/*import org.polyfrost.oneconfig.api.commands.v1.CommandManager.argument
+import org.polyfrost.oneconfig.api.commands.v1.CommandManager.argument
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager.literal
 import org.polyfrost.oneconfig.internal.legacy.command.ClientCommandRegistrationCallback
 *///?} else {

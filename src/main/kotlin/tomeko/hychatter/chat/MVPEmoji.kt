@@ -1,10 +1,10 @@
 package tomeko.hychatter.chat
 
-//? if fabric {
+//? if fabric
 import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
-//?}
-
 import tomeko.hychatter.config.HyChatterConfig
+//? if ornithe
+//import tomeko.hychatter.event.ClientSendMessageEvents
 
 object MVPEmoji {
     private val emojis = mapOf(
@@ -40,14 +40,12 @@ object MVPEmoji {
         "o/" to "( ﾟ◡ﾟ)/"
     )
 
-    //? if fabric {
     fun register() {
         ClientSendMessageEvents.MODIFY_CHAT.register(::replaceWithEmoji)
         ClientSendMessageEvents.MODIFY_COMMAND.register(::replaceWithEmoji)
     }
-    //?}
 
-    fun replaceWithEmoji(message: String): String {
+    private fun replaceWithEmoji(message: String): String {
         if (!HyChatterConfig.mvpEmojisEnabled) return message
 
         var result = message

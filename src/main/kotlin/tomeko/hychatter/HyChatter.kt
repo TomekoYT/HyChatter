@@ -1,44 +1,87 @@
 package tomeko.hychatter
 
-//? if ornithe {
+//? if ornithe
 //import net.ornithemc.osl.entrypoints.api.ModInitializer
-//?} else {
+//? else
 import net.fabricmc.api.ClientModInitializer
-//?}
-import org.polyfrost.oneconfig.api.event.v1.EventManager
 import tomeko.hychatter.chat.*
 import tomeko.hychatter.commands.*
 import tomeko.hychatter.config.*
-import tomeko.hychatter.config.chat.handlers.ChatHandler
 import tomeko.hychatter.location.*
 import tomeko.hychatter.utils.*
 
 class HyChatter
-//? if ornithe {
-//: ModInitializer
-//?} elif fabric {
-    : ClientModInitializer
-//?}
-{
+//? if ornithe
+    //: ModInitializer {
+//? elif fabric
+    : ClientModInitializer {
+
     override fun
-    //? if ornithe {
-    //init(
-    //?} else {
-            onInitializeClient(
-        //?}
+    //? if ornithe
+            //init(
+        //? else
+        onInitializeClient(
     ) {
         CoordsWaypoints.register()
         DangerousTauntWaypoint.register()
         HideGuildMOTD.register()
-        //? if fabric {
         MVPEmoji.register()
-        //?}
         WhiteChatMessages.register()
+
+        AdBlocker.register()
+        AntiGG.register()
+        AntiGL.register()
+        BedwarsAdvertisementsRemover.register()
+        BridgeOwnGoalDeathRemover.register()
+        ConnectionStatusRemover.register()
+        CurseOfSpamRemover.register()
+        DiscordSafetyWarningRemover.register()
+        DuelsBlockTrail.register()
+        DuelsNoStatsChange.register()
+        EarnedCoinsAndExpRemover.register()
+        GameAnnouncementsRemover.register()
+        GameTipsRemover.register()
+        GiftBlocker.register()
+        HotPotatoRemover.register()
+        HypeLimitReminderRemover.register()
+        KarmaRemover.register()
+        LobbyFishingAnnouncementRemover.register()
+        LobbyJoinRemover.register()
+        NonCooldownBlocker.register()
+        OnlineStatusRemover.register()
+        QuestBlocker.register()
+        ReplayRecordedRemover.register()
+        SeasonalCollectedRemover.register()
+        ServerConnectedMessage.register()
+        ShoutBlocker.register()
+        SkyblockWelcomeRemover.register()
+        SoulWellAnnouncerRemover.register()
+        StatsMessageRemover.register()
+        TicketMachineRemover.register()
+        TipMessageRemover.register()
+
+        ColoredPlayerConnectionStatus.register()
+        GameStatusRestyler.register()
+        GameStartCompactor.register()
+        ShortChannelNames.register()
+        ShortPMChannelNames.register()
+
+        AutoGG.register()
+        AutoAFKReply.register()
+        AutoFriend.register()
+        AutoGL.register()
+        AutoPartyWarn.register()
+        AutoPartyWarpConfirm.register()
+        AutoWB.register()
+        BroadcastAchievement.register()
+        BroadcastLevelUp.register()
+        GuildWelcomer.register()
+        SilentRemoval.register()
+        ThankWatchdog.register()
 
         HyChatterCommand.register()
         SendCoordsCommand.register()
 
-        EventManager.INSTANCE.register(ChatHandler)
         HyChatterConfig.register()
 
         HypixelPackets.register()

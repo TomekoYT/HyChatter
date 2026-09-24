@@ -16,21 +16,18 @@ object HideGuildMOTD {
     private var guildMOTD = false
 
     fun register() {
-        ClientReceiveMessageEvents.ALLOW_GAME.register(::onChatReceive)
+        ClientReceiveMessageEvents.ALLOW_GAME.register(::allowGuildMOTD)
     }
 
-    private fun onChatReceive(message: Component, fromActionBar: Boolean): Boolean {
-        return fromActionBar || !shouldCancel(
+    private fun allowGuildMOTD(component: Component, fromActionBar: Boolean): Boolean {
+        if (fromActionBar || !HyChatterConfig.hideGuildMOTDEnabled) return true
+
+        val message =
             //? if ornithe {
-            //message.unformattedText.removeFormatting()
-            //?} else {
-            message.string.removeFormatting()
-            //?}
-        )
-    }
-
-    private fun shouldCancel(message: String): Boolean {
-        if (!HyChatterConfig.hideGuildMOTDEnabled) return false
+            //component.unformattedText.removeFormatting()
+        //?} else {
+        component.string.removeFormatting()
+        //?}
 
         if (message.startsWith("--------------  Guild: Message Of The Day  --------------")) {
             guildMOTD = true
@@ -40,9 +37,9 @@ object HideGuildMOTD {
             if (message.endsWith("-----------------------------------------------------")) {
                 guildMOTD = false
             }
-            return true
+            return false
         }
 
-        return false
+        return true
     }
 }
