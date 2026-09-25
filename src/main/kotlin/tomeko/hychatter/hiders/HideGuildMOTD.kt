@@ -21,7 +21,7 @@ object HideGuildMOTD {
     }
 
     private fun allowGuildMOTD(component: Component, fromActionBar: Boolean): Boolean {
-        if (fromActionBar || !HyChatterConfig.hideGuildMOTDEnabled || !HypixelPackets.onHypixel) return true
+        if (fromActionBar || !HyChatterConfig.hideGuildMOTDEnabled) return true
 
         val message =
             //? if ornithe {
