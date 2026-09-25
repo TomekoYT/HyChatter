@@ -98,7 +98,7 @@ object SendCoordsCommand
         //?}
 
         var message = "x: $x, y: $y, z: $z"
-        if (!text.isEmpty()) message += " | $text"
+        if (text.isNotEmpty()) message += " | $text"
 
         if (HypixelPackets.onHypixel) {
             message = "$prefix $message"

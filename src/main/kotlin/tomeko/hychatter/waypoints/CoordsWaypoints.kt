@@ -32,14 +32,13 @@ object CoordsWaypoints {
 
         val regex = Regex(
             "^(?:\\w+\\s*>\\s*)?" +
-                    "(?:\\[[^]]+]\\s*)*" +
-                    "(?:<(?<owner1>\\w+)>|(?<owner2>\\w+)[^:]*:)\\s*" +
+                    "(?:[^:\\s]+\\s+)*" +
+                    "(?:<(?<owner1>\\w+)>|(?<owner2>\\w+):)\\s*" +
                     "x:\\s*(?<x>-?\\d+),\\s*" +
                     "y:\\s*(?<y>-?\\d+),\\s*" +
                     "z:\\s*(?<z>-?\\d+)" +
                     "(?:\\s*(?:\\|\\s*)?(?<text>.*))?$"
         )
-
         val match = regex.matchEntire(message) ?: return
 
         val owner = match.groups["owner1"]?.value
