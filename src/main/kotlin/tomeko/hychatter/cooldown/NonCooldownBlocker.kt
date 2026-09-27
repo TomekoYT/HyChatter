@@ -38,7 +38,7 @@ object NonCooldownBlocker {
 
     private fun onChatSend(message: String): Boolean {
         if (!HyChatterConfig.preventNonCooldown) return true
-
+        if (!HypixelUtils.isHypixel()) return true
         val rank = HypixelUtils.getPlayerInfo().packageRank
         if (rank.isPresent && rank.get() != PackageRank.NONE) return true
 
