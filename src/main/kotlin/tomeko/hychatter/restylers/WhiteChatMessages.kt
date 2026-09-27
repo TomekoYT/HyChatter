@@ -12,7 +12,7 @@ import net.minecraft.network.chat.MutableComponent
 //?}
 
 import tomeko.hychatter.config.HyChatterConfig
-//? if ornithe {
+//? if 1.8.9 {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.utils.HypixelPackets
@@ -36,6 +36,7 @@ object WhiteChatMessages {
             && HypixelPackets.onHypixel
             && (unformattedMessage.startsWith("From ")
                     || unformattedMessage.startsWith("To ")
+                    || unformattedMessage.startsWith("Voicemail ")
                     || unformattedMessage.startsWith("PM"))
         ) {
             val n = message.siblings.size
@@ -43,7 +44,7 @@ object WhiteChatMessages {
 
             val newMessage =
                 //? if 1.8.9
-                //ChatComponentText(if (unformattedMessage.startsWith("From ")) "From " else if (unformattedMessage.startsWith("To ")) "To " else "PM > ")
+                //ChatComponentText(if (unformattedMessage.startsWith("From ")) "From " else if (unformattedMessage.startsWith("To ")) "To " else if (unformattedMessage.startsWith("Voicemail ")) "Voicemail " else "PM > ")
                 //? else
                 message.plainCopy().withStyle(ChatFormatting.LIGHT_PURPLE)
 

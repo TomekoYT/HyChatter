@@ -1,14 +1,21 @@
 package tomeko.hychatter.commands
 
-//? if ornithe {
-/*import com.mojang.brigadier.arguments.StringArgumentType
+//? if 1.8.9 {
+/*//? if ornithe {
+//import com.mojang.brigadier.arguments.StringArgumentType
+//?}
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.command.CommandBase
 import net.minecraft.command.ICommandSender
-import org.polyfrost.oneconfig.api.commands.v1.CommandManager.argument
+//? if ornithe {
+/*import org.polyfrost.oneconfig.api.commands.v1.CommandManager.argument
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager.literal
 import org.polyfrost.oneconfig.internal.legacy.command.ClientCommandRegistrationCallback
+*///?}
+//? if forge {
+//import net.minecraftforge.client.ClientCommandHandler
+//?}
 *///?} else {
 import com.mojang.brigadier.arguments.StringArgumentType
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
@@ -28,6 +35,9 @@ object SendCoordsCommand
     private const val COMMAND_NAME = "sendcoords"
 
     fun register() {
+        //? if forge {
+        //ClientCommandHandler.instance.registerCommand(this)
+        //?} else {
         ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ ->
             dispatcher.register(
                 literal(COMMAND_NAME)
@@ -44,6 +54,7 @@ object SendCoordsCommand
                     )
             )
         }
+        //?}
     }
 
     //? if 1.8.9 {
@@ -78,27 +89,27 @@ object SendCoordsCommand
 
         val x =
         //? if 1.8.9 {
-                //player.posX.toInt()
+        //player.posX.toInt()
             //?} else {
             player.x.toInt()
         //?}
 
         val y =
         //? if 1.8.9 {
-                //player.posY.toInt()
+        //player.posY.toInt()
             //?} else {
             player.y.toInt()
         //?}
 
         val z =
         //? if 1.8.9 {
-                //player.posZ.toInt()
+        //player.posZ.toInt()
             //?} else {
             player.z.toInt()
         //?}
 
         var message = "x: $x, y: $y, z: $z"
-        if (text.isNotEmpty()) message += " | $text"
+        if (!text.isEmpty()) message += " | $text"
 
         if (HypixelPackets.onHypixel) {
             message = "$prefix $message"

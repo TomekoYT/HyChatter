@@ -1,14 +1,14 @@
 package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
-/*import net.minecraft.client.gui.ChatLine
+/*import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.ChatLine
 import net.minecraft.util.IChatComponent as Component
-import org.polyfrost.oneconfig.utils.v1.dsl.mc
 *///?} else {
+import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
-import org.polyfrost.oneconfig.utils.v1.dsl.mc
 //?}
-//? if ornithe {
+//? if 1.8.9 {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
@@ -42,7 +42,7 @@ object GameStartCompactor {
 
     private fun removePrevious(previous: Component) {
         //? if 1.8.9 {
-        /*val chat = mc.ingameGUI.chatGUI as ChatComponentAccessor
+        /*val chat = Minecraft.getMinecraft().ingameGUI.chatGUI as ChatComponentAccessor
         val removed = chat.getAllMessages().filter { it.chatComponent == previous }
         if (removed.isEmpty()) return
 
@@ -67,7 +67,7 @@ object GameStartCompactor {
         }
         *///?} else {
         //~ if <26.2 'gui.hud' -> 'gui'
-        val chat = mc.gui.hud.chat as ChatComponentAccessor
+        val chat = Minecraft.getInstance().gui.hud.chat as ChatComponentAccessor
         val removed = chat.allMessages.filter { it.content == previous }
         if (removed.isEmpty()) return
 

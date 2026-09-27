@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.utils.HypixelPackets
 import kotlin.collections.iterator
-//? if ornithe
+//? if 1.8.9
 //import tomeko.hychatter.event.ClientSendMessageEvents
 
 object MVPEmoji {

@@ -1,7 +1,13 @@
 package tomeko.hychatter.plugins;
 
+//? if forge {
+//import org.spongepowered.asm.lib.tree.ClassNode;
+//?} else {
 import com.llamalad7.mixinextras.MixinExtrasBootstrap;
+import org.objectweb.asm.tree.ClassNode;
+//?}
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
+import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -28,7 +35,9 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void onLoad(String mixinPackage) {
+        //? if !forge {
         MixinExtrasBootstrap.init();
+        //?}
         this.mixinPackage = mixinPackage;
         mixinPlugins.add(this);
     }
@@ -111,5 +120,30 @@ public class MixinPlugin implements IMixinConfigPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
+
+    }
+
+    @Override
+    public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
+
+    }
+
+    @Override
+    public String getRefMapperConfig() {
+        return null;
+    }
+
+    @Override
+    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        return true;
+    }
+
+    @Override
+    public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
+
     }
 }

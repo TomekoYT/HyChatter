@@ -1,14 +1,19 @@
 package tomeko.hychatter.mixins;
 
-//? if ornithe {
-/*import net.minecraft.client.Minecraft;
+//? if 1.8.9 {
+/*import com.mojang.authlib.GameProfile;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.S01PacketJoinGame;
 import net.minecraft.network.play.server.S02PacketChat;
 import net.minecraft.util.IChatComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import tomeko.hychatter.event.ClientPlayConnectionEvents;
 import tomeko.hychatter.event.ClientReceiveMessageEvents;
 
 @Mixin(NetHandlerPlayClient.class)
@@ -66,6 +71,21 @@ public abstract class NetHandlerPlayClientMixin {
             ClientReceiveMessageEvents.CHAT.invoker().onReceiveChatMessage(message);
         }
         return message;
+    }
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void hychatter$onInit(Minecraft minecraft, GuiScreen previousScreen, NetworkManager networkManager, GameProfile gameProfile, CallbackInfo ci) {
+        ClientPlayConnectionEvents.INIT.invoker().onInit((NetHandlerPlayClient) (Object) this, networkManager, minecraft);
+    }
+
+    @Inject(method = "handleJoinGame", at = @At("RETURN"))
+    private void hychatter$onJoinGame(S01PacketJoinGame packet, CallbackInfo ci) {
+        ClientPlayConnectionEvents.JOIN.invoker().onJoin((NetHandlerPlayClient) (Object) this, Minecraft.getMinecraft());
+    }
+
+    @Inject(method = "onDisconnect", at = @At("HEAD"))
+    private void hychatter$onDisconnect(IChatComponent reason, CallbackInfo ci) {
+        ClientPlayConnectionEvents.DISCONNECT.invoker().onDisconnect((NetHandlerPlayClient) (Object) this, Minecraft.getMinecraft());
     }
 }
 *///?}

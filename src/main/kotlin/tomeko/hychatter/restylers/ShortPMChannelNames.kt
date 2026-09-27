@@ -10,7 +10,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.contents.PlainTextContents
 //?}
-//? if ornithe {
+//? if 1.8.9 {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents

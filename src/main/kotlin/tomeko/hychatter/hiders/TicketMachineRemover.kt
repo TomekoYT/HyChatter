@@ -6,11 +6,10 @@ package tomeko.hychatter.hiders
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
 //?}
-//? if ornithe {
+//? if 1.8.9 {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import net.hypixel.data.type.GameType
-import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
@@ -24,14 +23,11 @@ object TicketMachineRemover {
         if (fromActionBar || !HyChatterConfig.removeTicketMachineAnnouncements || !HypixelPackets.onHypixel) return true
 
         val message =
-            //? if ornithe {
+            //? if 1.8.9 {
             //component.unformattedText
             //?} else {
             component.string
             //?}
-        val location = HypixelUtils.getLocation()
-        return !(location.gameType.orElse(null) == GameType.BEDWARS
-                && !location.inGame()
-                && LanguageData.TICKET_ANNOUNCER.matches(message))
+        return !(HypixelPackets.inBedwars && HypixelPackets.inLobby && LanguageData.TICKET_ANNOUNCER.matches(message))
     }
 }

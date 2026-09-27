@@ -6,9 +6,6 @@ import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.*
-//? if ornithe {
-//import net.ornithemc.osl.lifecycle.api.client.MinecraftClientEvents
-//?}
 import org.lwjgl.opengl.GL11
 *///?} else {
 import com.mojang.blaze3d.vertex.PoseStack
@@ -30,9 +27,13 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
 import org.joml.Matrix4f
 //?}
+//? if forge
+//import cc.polyfrost.oneconfig.config.core.OneColor as PolyColor
+//? else
 import org.polyfrost.compose.render.PolyColor
-//? if ornithe {
-/*import tomeko.hychatter.event.RenderWorldLastEvent
+//? if 1.8.9 {
+/*import tomeko.hychatter.event.ClientTickEvents
+import tomeko.hychatter.event.RenderWorldLastEvent
 import tomeko.hychatter.event.LevelRenderEvents
 *///?}
 
@@ -79,11 +80,7 @@ object WaypointRenderer {
         //?} else {
         //LevelRenderEvents.AFTER_ENTITIES.register(::onWorldRender)
         //?}
-        //? if ornithe {
-        //MinecraftClientEvents.TICK_END.register(::onTick)
-        //?} else {
         ClientTickEvents.END_CLIENT_TICK.register(::onTick)
-        //?}
     }
 
     fun onWorldRender(
@@ -194,6 +191,24 @@ object WaypointRenderer {
             //?}
         )
 
+        val textArgb =
+            //? if forge
+            //waypoint.textColor.rgb
+            //? else
+            waypoint.textColor.argb
+
+        val ownerArgb =
+            //? if forge
+            //waypoint.ownerColor.rgb
+        //? else
+        waypoint.ownerColor.argb
+
+        val distArgb =
+            //? if forge
+            //waypoint.distanceTextColor.rgb
+        //? else
+        waypoint.distanceTextColor.argb
+
         renderWaypointText(
             //? if fabric {
             context.poseStack(),
@@ -205,7 +220,7 @@ object WaypointRenderer {
             //?}
             waypoint.text, waypoint.owner, waypoint.pos,
             waypoint.renderText, waypoint.renderOwner, waypoint.renderDistance,
-            waypoint.textColor.argb, waypoint.ownerColor.argb, waypoint.distanceTextColor.argb,
+            textArgb, ownerArgb, distArgb,
             viewerX, viewerY, viewerZ
         )
     }

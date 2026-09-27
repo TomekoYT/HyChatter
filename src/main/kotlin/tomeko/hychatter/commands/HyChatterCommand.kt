@@ -1,10 +1,16 @@
 package tomeko.hychatter.commands
 
+//? if forge {
+/*import cc.polyfrost.oneconfig.utils.commands.CommandManager
+import cc.polyfrost.oneconfig.utils.commands.annotations.Command
+import cc.polyfrost.oneconfig.utils.commands.annotations.Main
+*///?} else {
 //? if fabric {
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal
-//?} elif ornithe {
+//?}
+//? if ornithe {
 /*import net.ornithemc.osl.lifecycle.api.client.MinecraftClientEvents
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager.literal
 *///?}
@@ -12,13 +18,22 @@ import org.polyfrost.oneconfig.utils.v1.dsl.openUI
 //? if ornithe {
 //import org.polyfrost.oneconfig.internal.legacy.command.ClientCommandRegistrationCallback
 //?}
+//?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.utils.Constants
 
+//? if forge {
+//@Command(value = Constants.MOD_ID)
+//?}
 object HyChatterCommand {
+    //? if !forge {
     private var shouldOpenConfig: Boolean = false
+    //?}
 
     fun register() {
+        //? if forge {
+        //CommandManager.INSTANCE.registerCommand(this)
+        //?} else {
         ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ ->
             dispatcher.register(
                 literal(Constants.MOD_ID)
@@ -31,7 +46,7 @@ object HyChatterCommand {
 
         //? if ornithe {
         //MinecraftClientEvents.TICK_END.register {
-            //?} else {
+        //?} else {
         ClientTickEvents.END_CLIENT_TICK.register {
             //?}
             if (!shouldOpenConfig) return@register
@@ -40,5 +55,13 @@ object HyChatterCommand {
 
             shouldOpenConfig = false
         }
+        //?}
     }
+
+    //? if forge {
+    /*@Main
+    fun handle() {
+        HyChatterConfig.openGui()
+    }
+    *///?}
 }

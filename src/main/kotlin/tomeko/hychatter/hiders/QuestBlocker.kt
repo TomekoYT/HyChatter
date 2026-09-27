@@ -6,7 +6,7 @@ package tomeko.hychatter.hiders
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
 //?}
-//? if ornithe {
+//? if 1.8.9 {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
@@ -21,7 +21,7 @@ object QuestBlocker {
         if (fromActionBar || !HyChatterConfig.removeAutoQuests || !HypixelPackets.onHypixel) return true
 
         val message =
-            //? if ornithe {
+            //? if 1.8.9 {
             //component.unformattedText
             //?} else {
             component.string

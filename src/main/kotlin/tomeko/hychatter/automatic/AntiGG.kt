@@ -6,7 +6,7 @@ package tomeko.hychatter.automatic
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
 //?}
-//? if ornithe {
+//? if 1.8.9 {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
@@ -15,7 +15,7 @@ import tomeko.hychatter.utils.HypixelPackets
 
 object AntiGG {
     fun register() {
-        //? if ornithe {
+        //? if 1.8.9 {
         //ClientReceiveMessageEvents.ALLOW_CHAT.register(::onChatReceive)
         //?} else {
         ClientReceiveMessageEvents.ALLOW_CHAT.register { component, _, _, _, _ -> onChatReceive(component) }
@@ -26,7 +26,7 @@ object AntiGG {
         if (!HyChatterConfig.antiGG || !HypixelPackets.onHypixel) return true
 
         val message =
-        //? if ornithe {
+        //? if 1.8.9 {
         //component.unformattedText
             //?} else {
             component.string

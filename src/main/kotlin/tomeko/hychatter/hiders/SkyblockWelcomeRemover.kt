@@ -1,14 +1,8 @@
 package tomeko.hychatter.hiders
 
-//? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
-//?} else {
+//? if fabric {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
-//?}
-//? if ornithe {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
-//?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
@@ -19,10 +13,10 @@ object SkyblockWelcomeRemover {
     }
 
     private fun onGameReceive(component: Component, fromActionBar: Boolean): Boolean {
-        if (fromActionBar || !HyChatterConfig.removeSkyblockWelcome || !HypixelPackets.onHypixel) return true
+        if (fromActionBar || !HyChatterConfig.removeSkyblockWelcome || !HypixelPackets.inSkyblock) return true
 
         val message =
-            //? if ornithe {
+            //? if 1.8.9 {
             //component.unformattedText
             //?} else {
             component.string
@@ -31,3 +25,4 @@ object SkyblockWelcomeRemover {
         return message != LanguageData.SKYBLOCK_WELCOME
     }
 }
+//?}

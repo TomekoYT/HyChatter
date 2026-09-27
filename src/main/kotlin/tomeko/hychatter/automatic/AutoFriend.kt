@@ -1,13 +1,17 @@
 package tomeko.hychatter.automatic
 
+//? if forge
+//import cc.polyfrost.oneconfig.utils.Notifications
 //? if 1.8.9 {
-/*import net.minecraft.util.IChatComponent as Component
+/*import net.minecraft.client.Minecraft
+import net.minecraft.util.IChatComponent as Component
 import tomeko.hychatter.event.ClientReceiveMessageEvents
 *///?} else {
 import net.minecraft.network.chat.Component
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
 import net.minecraft.client.Minecraft
+//?}
+//? if !forge
 import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
@@ -39,6 +43,11 @@ object AutoFriend {
         //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/friend $player") ?: return
         //? else
         Minecraft.getInstance().player?.connection?.sendCommand("friend $player") ?: return
-        Notifications.info(Constants.MOD_NAME, "Automatically added $player to your friends list.")
+        //? if forge
+        //Notifications.INSTANCE.send(
+        //? else
+        Notifications.info(
+            Constants.MOD_NAME, "Automatically added $player to your friends list."
+        )
     }
 }

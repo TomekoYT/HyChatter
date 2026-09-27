@@ -1,16 +1,16 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
-//?} else {
+/*import net.minecraft.client.Minecraft
+import net.minecraft.util.IChatComponent as Component
+*///?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 //?}
-//? if ornithe {
+//? if 1.8.9 {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
-import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
-import org.polyfrost.oneconfig.utils.v1.dsl.mc
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
@@ -24,18 +24,22 @@ object AntiGL {
         if (fromActionBar || !HyChatterConfig.antiGL || !HypixelPackets.onHypixel) return true
 
         val message =
-        //? if ornithe {
-        //component.unformattedText
-            //?} else {
-            component.string
+            //? if 1.8.9 {
+            //component.unformattedText
+        //?} else {
+        component.string
         //?}
 
-        return (!HypixelUtils.getLocation().inGame()
-                || (message.startsWith("-") && message.endsWith("-"))
+        return ((message.startsWith("-") && message.endsWith("-"))
                 || (message.startsWith("▬") && message.endsWith("▬"))
                 || (message.startsWith("≡") && message.endsWith("≡"))
                 || !message.contains(": ")
-                || message.contains(mc.user.name, true))
-                || !message.contains(LanguageData.GL_MESSAGES)
+                || message.contains(
+                //? if 1.8.9
+            //Minecraft.getMinecraft().thePlayer.name,
+                //? else
+                Minecraft.getInstance().player?.name?.string ?: return true,
+            true
+        )) || !message.contains(LanguageData.GL_MESSAGES)
     }
 }

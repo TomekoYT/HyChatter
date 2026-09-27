@@ -16,19 +16,18 @@ import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.Style
 //?}
-//? if ornithe {
+//? if 1.8.9 {
 /*import tomeko.hychatter.event.ClientReceiveMessageEvents
 import tomeko.hychatter.event.ClientSendMessageEvents
 *///?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
 //?}
-import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.Constants
+import tomeko.hychatter.utils.HypixelPackets
 import java.text.DecimalFormat
-import kotlin.jvm.optionals.getOrNull
 
 object ShoutBlocker {
     var shoutCooldown = 0L
@@ -40,7 +39,7 @@ object ShoutBlocker {
     }
 
     private fun onCommandSend(command: String): Boolean {
-        if (!HyChatterConfig.preventShoutingOnCooldown || !command.startsWith("shout ")) return true
+        if (!HyChatterConfig.preventShoutingOnCooldown || !HypixelPackets.onHypixel || !command.startsWith("shout ")) return true
 
         if (shoutCooldown < System.currentTimeMillis()) {
             shoutCooldown = System.currentTimeMillis() + getCooldownLengthInSeconds() * 1000L
@@ -58,17 +57,16 @@ object ShoutBlocker {
     }
 
     private fun onGameReceive(component: Component, fromActionBar: Boolean) {
-        if (fromActionBar || !HyChatterConfig.preventShoutingOnCooldown) return
+        if (fromActionBar || !HyChatterConfig.preventShoutingOnCooldown || !HypixelPackets.onHypixel) return
 
         val message =
-            //? if ornithe {
+            //? if 1.8.9 {
             //component.unformattedText
         //?} else {
         component.string
         //?}
 
-        val location = HypixelUtils.getLocation()
-        if ((location.gameType.getOrNull() == GameType.SKYWARS && message == LanguageData.CANNOT_SHOUT_BEFORE_SKYWARS)
+        if ((HypixelPackets.inSkywars && message == LanguageData.CANNOT_SHOUT_BEFORE_SKYWARS)
             || message == LanguageData.CANNOT_SHOUT_BEFORE_GAME
             || message == LanguageData.CANNOT_SHOUT_AFTER_GAME
             || message == LanguageData.NO_SPECTATOR_COMMANDS
@@ -78,15 +76,11 @@ object ShoutBlocker {
     }
 
     private fun getCooldownLengthInSeconds(): Long {
-        val location = HypixelUtils.getLocation()
-        if ("LOBBY" != location.mode.getOrNull() && location.gameType.isPresent) {
-            when (location.gameType.get()) {
-                GameType.BEDWARS -> if ("BEDWARS_EIGHT_ONE" != location.mode.getOrNull()) return 60L
-                GameType.SKYWARS -> return 3L
-                GameType.ARCADE -> if ("PVP_CTW" == location.mode.orElse(null)) return 10L
-                GameType.UHC -> if ("TEAMS" == location.mode.orElse(null)) return 90L
-                else -> {}
-            }
+        if (!HypixelPackets.inLobby) {
+            if (HypixelPackets.inBedwars) return 60L
+            if (HypixelPackets.inSkywars) return 3L
+            if (HypixelPackets.inArcade) return 10L
+            if (HypixelPackets.inUHC) return 90L
         }
         return 0L
     }

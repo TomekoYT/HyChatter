@@ -3,8 +3,8 @@ package tomeko.hychatter.utils
 import net.hypixel.modapi.HypixelModAPI
 import net.hypixel.modapi.packet.impl.clientbound.ClientboundHelloPacket
 import net.hypixel.modapi.packet.impl.clientbound.event.ClientboundLocationPacket
-//? if ornithe {
-//import net.ornithemc.osl.networking.api.client.ClientConnectionEvents
+//? if 1.8.9 {
+//import tomeko.hychatter.event.ClientPlayConnectionEvents
 //?} else {
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
 //?}
@@ -19,25 +19,29 @@ object HypixelPackets {
     var inLobby = false
         private set
 
+    var inSkyblock = false
+        private set
     var inBedwars = false
         private set
     var inSkywars = false
         private set
     var inDuels = false
         private set
+    var inMurderMystery = false
+        private set
     var inArcade = false
         private set
+    var inUHC = false
+        private set
 
+    var inTheBridge = false
+        private set
     var inFarmHunt = false
         private set
 
     fun register() {
         HypixelModAPI.getInstance().createHandler(ClientboundHelloPacket::class.java, { onHypixel = true })
-        //? if ornithe {
-        //ClientConnectionEvents.DISCONNECT.register { disableHypixel() }
-        //?} else {
         ClientPlayConnectionEvents.DISCONNECT.register { _, _ -> disableHypixel() }
-        //?}
         HypixelModAPI.getInstance().createHandler(ClientboundLocationPacket::class.java, ::onLocationPacket)
         HypixelModAPI.getInstance().subscribeToEventPacket(ClientboundLocationPacket::class.java)
     }
@@ -62,10 +66,13 @@ object HypixelPackets {
 
         inLobby = packet.lobbyName.isPresent
 
+        inSkyblock = serverTypeName == "SkyBlock"
         inBedwars = serverTypeName == "Bed Wars"
         inSkywars = serverTypeName == "SkyWars"
         inDuels = serverTypeName == "Duels"
         inArcade = serverTypeName == "Arcade"
+        inMurderMystery = serverTypeName == "Murder Mystery"
+        inUHC = serverTypeName == "UHC Champions"
 
         if (!packet.mode.isPresent) {
             disableModes()
@@ -75,6 +82,7 @@ object HypixelPackets {
         val modeName = packet.mode.get()
         Debug.log("modeName: $modeName <")
 
+        inTheBridge = inDuels && modeName.startsWith("DUELS_BRIDGE_")
         inFarmHunt = inArcade && modeName == "FARM_HUNT"
     }
 
@@ -86,12 +94,17 @@ object HypixelPackets {
     }
 
     private fun disableServerTypes() {
+        inSkyblock = false
         inBedwars = false
+        inSkywars = false
         inDuels = false
+        inMurderMystery = false
         inArcade = false
+        inUHC = false
     }
 
     private fun disableModes() {
+        inTheBridge = false
         inFarmHunt = false
     }
 }

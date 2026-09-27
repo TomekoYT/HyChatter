@@ -1,16 +1,19 @@
 package tomeko.hychatter.hiders
 
-import org.polyfrost.oneconfig.api.notifications.v1.Notifications
+//? if forge
+//import cc.polyfrost.oneconfig.utils.Notifications
 //? if 1.8.9 {
 //import net.minecraft.util.IChatComponent as Component
 //?} else {
 import net.minecraft.network.chat.Component
 //?}
-//? if ornithe {
+//? if 1.8.9 {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 //?}
+//? if !forge
+import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.Constants
@@ -42,7 +45,13 @@ object SilentRemoval {
             //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/f remove $player") ?: return
             //? else
             Minecraft.getInstance().player?.connection?.sendCommand("f remove $player") ?: return
-            Notifications.success(Constants.MOD_NAME, "Silently removed $player from your friends list.")
+
+            //? if forge
+            //Notifications.INSTANCE.send(
+            //? else
+            Notifications.success(
+                Constants.MOD_NAME, "Silently removed $player from your friends list."
+            )
             removalQueue.remove(player)
         }
     }

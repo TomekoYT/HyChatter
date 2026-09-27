@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 //?}
 import tomeko.hychatter.config.HyChatterConfig
-//? if ornithe {
+//? if 1.8.9 {
 //import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.utils.removeFormatting
@@ -24,7 +24,7 @@ object CoordsWaypoints {
         if (fromActionBar || !HyChatterConfig.coordsWaypointsEnabled) return
 
         val message =
-            //? if ornithe {
+            //? if 1.8.9 {
             //component.unformattedText.removeFormatting()
         //?} else {
         component.string.removeFormatting()

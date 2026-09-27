@@ -1,6 +1,6 @@
 package tomeko.hychatter.event;
 
-//? if ornithe {
+//? if 1.8.9 {
 /*public final class ClientSendMessageEvents {
     private ClientSendMessageEvents() {}
 

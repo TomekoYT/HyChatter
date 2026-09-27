@@ -1,32 +1,33 @@
 package tomeko.hychatter.automatic
 
-import org.polyfrost.oneconfig.api.event.v1.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
-import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
-import org.polyfrost.oneconfig.utils.v1.Multithreading
-//? if ornithe {
-//import net.minecraft.util.IChatComponent as Component
-//?} else {
+//? if 1.8.9 {
+/*import net.minecraft.client.Minecraft
+import net.minecraft.util.IChatComponent as Component
+import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientTickEvents
+*///?} else {
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
+import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 //?}
-//? if ornithe {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
-//?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
-import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
-import java.util.concurrent.TimeUnit
 
 object AutoGG {
     private var gameEnded = false
     private var shouldSend = false
+    private var previousServerName: String? = null
+
+    private var firstMessageTicks = -1
+    private var secondMessageTicks = -1
+    private var resetTicks = -1
 
     fun register() {
         ClientReceiveMessageEvents.GAME.register(::onGameReceive)
-        EventManager.INSTANCE.register(this)
+        ClientTickEvents.END_CLIENT_TICK.register(::onClientTick)
+        ClientTickEvents.END_CLIENT_TICK.register(::onWorldUnload)
     }
 
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
@@ -41,39 +42,63 @@ object AutoGG {
 
         shouldSend = true
 
-        Multithreading.schedule(
-            {
-                if (shouldSend)
-                //? if 1.8.9
-                //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGGMessage}")
-                //? else
-                    Minecraft.getInstance().player?.connection?.sendCommand("ac ${HyChatterConfig.autoGGMessage}")
-            },
-            HyChatterConfig.autoGGFirstMsgDelay.toLong(), TimeUnit.SECONDS
-        )
-        if (HyChatterConfig.autoGGSendSecondMessage) {
-            Multithreading.schedule(
-                {
-                    if (shouldSend)
-                    //? if 1.8.9
-                    //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGGSecondMessage}")
-                    //? else
-                        Minecraft.getInstance().player?.connection?.sendCommand("ac ${HyChatterConfig.autoGGSecondMessage}")
-                },
-                (HyChatterConfig.autoGGFirstMsgDelay + HyChatterConfig.autoGGSecondMsgDelay).toLong(),
-                TimeUnit.SECONDS
-            )
-        }
+        firstMessageTicks = HyChatterConfig.autoGGFirstMsgDelay.toInt() * 20
 
-        Multithreading.schedule(
-            { gameEnded = false; shouldSend = false },
-            (HyChatterConfig.autoGGFirstMsgDelay + HyChatterConfig.autoGGSecondMsgDelay + 5).toLong(),
-            TimeUnit.SECONDS
-        )
+        secondMessageTicks =
+            if (HyChatterConfig.autoGGSendSecondMessage)
+                (HyChatterConfig.autoGGFirstMsgDelay + HyChatterConfig.autoGGSecondMsgDelay).toInt() * 20
+            else
+                -1
+
+        resetTicks = (HyChatterConfig.autoGGFirstMsgDelay + HyChatterConfig.autoGGSecondMsgDelay + 5).toInt() * 20
     }
 
-    @Subscribe
-    fun onWorldUnload(event: WorldEvent.Unload) {
+    private fun onClientTick(mc: Minecraft) {
+        if (!shouldSend) return
+
+        if (firstMessageTicks > 0) {
+            firstMessageTicks--
+        }
+
+        if (firstMessageTicks == 0) {
+            firstMessageTicks = -1
+
+            //? if 1.8.9
+            //mc.thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGGMessage}")
+            //? else
+            mc.player?.connection?.sendCommand("ac ${HyChatterConfig.autoGGMessage}")
+        }
+
+        if (secondMessageTicks > 0) {
+            secondMessageTicks--
+        }
+
+        if (secondMessageTicks == 0) {
+            secondMessageTicks = -1
+
+            if (shouldSend) {
+                //? if 1.8.9
+                //mc.thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGGSecondMessage}")
+                //? else
+                mc.player?.connection?.sendCommand("ac ${HyChatterConfig.autoGGSecondMessage}")
+            }
+        }
+
+        if (resetTicks > 0) {
+            resetTicks--
+        }
+
+        if (resetTicks == 0) {
+            resetTicks = -1
+            gameEnded = false
+            shouldSend = false
+        }
+    }
+
+    fun onWorldUnload(mc: Minecraft) {
+        if (previousServerName == HypixelPackets.currentServerName) return
+
+        previousServerName = HypixelPackets.currentServerName
         gameEnded = false
         shouldSend = false
     }
