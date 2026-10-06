@@ -1,13 +1,15 @@
 package tomeko.hychatter.mixins;
 
 //? if 1.8.9 {
-/*import com.mojang.authlib.GameProfile;
+/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S01PacketJoinGame;
-import net.minecraft.network.play.server.S02PacketChat;
 import net.minecraft.util.IChatComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,32 +20,10 @@ import tomeko.hychatter.event.ClientReceiveMessageEvents;
 
 @Mixin(NetHandlerPlayClient.class)
 public abstract class NetHandlerPlayClientMixin {
-    @Inject(
-            method = "handleChat",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/network/PacketThreadUtil;checkThreadAndEnqueue(Lnet/minecraft/network/Packet;Lnet/minecraft/network/INetHandler;Lnet/minecraft/util/IThreadListener;)V",
-                    shift = At.Shift.AFTER
-            ),
-            cancellable = true
-    )
-    private void hychatter$onHandleChat(S02PacketChat packet, CallbackInfo ci) {
-        boolean overlay = packet.getType() == 2;
-
-        IChatComponent message = hychatter$process(packet.getChatComponent(), overlay);
-
-        ci.cancel();
-
-        if (message == null) {
-            return;
-        }
-
-        Minecraft mc = Minecraft.getMinecraft();
-        if (overlay) {
-            mc.ingameGUI.setRecordPlaying(message, false);
-        } else {
-            mc.ingameGUI.getChatGUI().printChatMessage(message);
-        }
+    @WrapOperation(method = "handleChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiNewChat;printChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
+    private void hychatter$onChat(GuiNewChat chat, IChatComponent message, Operation<Void> original) {
+        message = hychatter$process(message, false);
+        if (message != null) original.call(chat, message);
     }
 
     private static IChatComponent hychatter$process(IChatComponent message, boolean overlay) {
