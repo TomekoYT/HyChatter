@@ -24,7 +24,7 @@ import tomeko.hychatter.waypoints.*
     name = Constants.MOD_NAME,
     version = Constants.MOD_VERSION,
     modLanguageAdapter = "cc.polyfrost.oneconfig.utils.KotlinLanguageAdapter",
-    dependencies = "required-after:hypixel_mod_api"
+    dependencies = "required-after:hypixel_mod_api;required-after:mixinbooter"
 )
 *///?}
 class HyChatter

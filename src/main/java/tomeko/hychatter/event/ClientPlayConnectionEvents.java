@@ -1,8 +1,7 @@
 package tomeko.hychatter.event;
 
 //? if 1.8.9 {
-/*
-import net.minecraft.client.Minecraft;
+/*import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.NetworkManager;
 
