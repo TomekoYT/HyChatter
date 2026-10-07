@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import tomeko.hychatter.event.ClientTickEvents;
 
 @Mixin(Minecraft.class)
-public abstract class MinecraftMixin {
+abstract class MinecraftMixin {
     @Inject(method = "runTick", at = @At("HEAD"))
     private void hychatter$clientTickStart(CallbackInfo ci) {
         ClientTickEvents.START_CLIENT_TICK.invoker().onStartTick((Minecraft) (Object) this);

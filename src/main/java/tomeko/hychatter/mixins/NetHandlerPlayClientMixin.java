@@ -19,7 +19,7 @@ import tomeko.hychatter.event.ClientPlayConnectionEvents;
 import tomeko.hychatter.event.ClientReceiveMessageEvents;
 
 @Mixin(NetHandlerPlayClient.class)
-public abstract class NetHandlerPlayClientMixin {
+abstract class NetHandlerPlayClientMixin {
     @WrapOperation(method = "handleChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiNewChat;printChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
     private void hychatter$onChat(GuiNewChat chat, IChatComponent message, Operation<Void> original) {
         message = hychatter$process(message, false);

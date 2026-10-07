@@ -10,7 +10,7 @@ import tomeko.hychatter.event.LevelRenderEvents;
 import tomeko.hychatter.event.RenderWorldLastEvent;
 
 @Mixin(EntityRenderer.class)
-public abstract class EntityRendererMixin {
+abstract class EntityRendererMixin {
     @Inject(method = "renderWorld", at = @At("HEAD"))
     private void hychatter$renderStart(float partialTicks, long finishTimeNano, CallbackInfo ci) {
         LevelRenderEvents.START.invoker().onStart(new RenderWorldLastEvent(partialTicks));

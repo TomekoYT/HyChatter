@@ -1,25 +1,32 @@
 package tomeko.hychatter.mixins;
 
 //? if 1.8.9 {
-/*import net.minecraft.client.entity.EntityPlayerSP;
+/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import tomeko.hychatter.event.ClientSendMessageEvents;
 
 @Mixin(EntityPlayerSP.class)
-public abstract class EntityPlayerSPMixin {
-    @Shadow
-    public NetHandlerPlayClient sendQueue;
-
-    @Inject(method = "sendChatMessage", at = @At("HEAD"), cancellable = true)
-    private void hychatter$onSendChatMessage(String message, CallbackInfo ci) {
-        ci.cancel();
-
+abstract class EntityPlayerSPMixin {
+    @WrapOperation(
+            method = "sendChatMessage",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/network/NetHandlerPlayClient;addToSendQueue(Lnet/minecraft/network/Packet;)V"
+            )
+    )
+    private void hychatter$wrapSendChatMessage(
+            NetHandlerPlayClient instance,
+            Packet<?> packet,
+            Operation<Void> original,
+            @Local(argsOnly = true) String message
+    ) {
         if (message == null || message.isEmpty()) {
             return;
         }
@@ -35,7 +42,7 @@ public abstract class EntityPlayerSPMixin {
                 return;
             }
 
-            this.sendQueue.addToSendQueue(new C01PacketChatMessage("/" + command));
+            original.call(instance, new C01PacketChatMessage("/" + command));
             ClientSendMessageEvents.COMMAND.invoker().onSendCommandMessage(command);
         } else {
             if (!ClientSendMessageEvents.ALLOW_CHAT.invoker().allowSendChatMessage(message)) {
@@ -46,7 +53,7 @@ public abstract class EntityPlayerSPMixin {
                 return;
             }
 
-            this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
+            original.call(instance, new C01PacketChatMessage(message));
             ClientSendMessageEvents.CHAT.invoker().onSendChatMessage(message);
         }
     }
