@@ -226,7 +226,7 @@ object HyChatterConfig : Config(
         description = "Send messages in guild chat when a guild member joins.",
         category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_AUTOWB
     )
-    var guildAutoWB = true
+    var guildAutoWB = false
 
     @Checkbox(
         //? if forge
@@ -237,7 +237,7 @@ object HyChatterConfig : Config(
         description = "Messages your friends when they join.",
         category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_AUTOWB
     )
-    var friendsAutoWB = true
+    var friendsAutoWB = false
 
     @Slider(
         //? if forge

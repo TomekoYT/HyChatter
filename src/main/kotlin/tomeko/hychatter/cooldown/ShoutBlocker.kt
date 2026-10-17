@@ -30,8 +30,10 @@ import tomeko.hychatter.utils.HypixelPackets
 import java.text.DecimalFormat
 
 object ShoutBlocker {
-    var shoutCooldown = 0L
-    val decimalFormat = DecimalFormat("#.#")
+    private var shoutCooldown = 0L
+    private val decimalFormat = DecimalFormat("#.#")
+
+    private var pendingShoutText: String? = null
 
     fun register() {
         ClientSendMessageEvents.ALLOW_COMMAND.register(::onCommandSend)
@@ -41,37 +43,48 @@ object ShoutBlocker {
     private fun onCommandSend(command: String): Boolean {
         if (!HyChatterConfig.preventShoutingOnCooldown || !HypixelPackets.onHypixel || !command.startsWith("shout ")) return true
 
-        if (shoutCooldown < System.currentTimeMillis()) {
-            shoutCooldown = System.currentTimeMillis() + getCooldownLengthInSeconds() * 1000L
-            return true
+        val now = System.currentTimeMillis()
+        if (shoutCooldown > now) {
+            val secondsLeft = (shoutCooldown - now) / 1000L
+
+            //? if 1.8.9
+            //Minecraft.getMinecraft().thePlayer.addChatMessage(createCooldownMessage(secondsLeft))
+            //? elif >= 26.2
+            Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
+            //? else
+            //Minecraft.getInstance().gui.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
+            return false
         }
 
-        val secondsLeft = (shoutCooldown - System.currentTimeMillis()) / 1000L
-        //? 1.8.9
-        //Minecraft.getMinecraft().thePlayer.addChatMessage(createCooldownMessage(secondsLeft))
-        //? elif >= 26.2
-        Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
-        //? else
-        //Minecraft.getInstance().gui.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
-        return false
+        pendingShoutText = command.removePrefix("shout ").takeIf { it.isNotBlank() }
+        return true
     }
 
     private fun onGameReceive(component: Component, fromActionBar: Boolean) {
         if (fromActionBar || !HyChatterConfig.preventShoutingOnCooldown || !HypixelPackets.onHypixel) return
 
         val message =
-            //? if 1.8.9 {
-            //component.unformattedText
-        //?} else {
-        component.string
-        //?}
+        //? if 1.8.9
+        //component.unformattedText
+            //? else
+            component.string
 
-        if ((HypixelPackets.inSkywars && message == LanguageData.CANNOT_SHOUT_BEFORE_SKYWARS)
-            || message == LanguageData.CANNOT_SHOUT_BEFORE_GAME
-            || message == LanguageData.CANNOT_SHOUT_AFTER_GAME
-            || message == LanguageData.NO_SPECTATOR_COMMANDS
+        if (
+            (HypixelPackets.inSkywars && message == LanguageData.CANNOT_SHOUT_BEFORE_SKYWARS) ||
+            message == LanguageData.CANNOT_SHOUT_BEFORE_GAME ||
+            message == LanguageData.CANNOT_SHOUT_AFTER_GAME ||
+            message == LanguageData.NO_SPECTATOR_COMMANDS
         ) {
+            pendingShoutText = null
             shoutCooldown = 0L
+            return
+        }
+
+        val pendingText = pendingShoutText ?: return
+
+        if (message.contains(pendingText)) {
+            shoutCooldown = System.currentTimeMillis() + getCooldownLengthInSeconds() * 1000L
+            pendingShoutText = null
         }
     }
 
@@ -86,38 +99,48 @@ object ShoutBlocker {
     }
 
     private fun createCooldownMessage(secondsLeft: Long): Component =
-        //? if 1.8.9 {
-        /*ChatComponentText("Shout command is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before shouting another message.").setChatStyle(
-            ChatStyle().setChatHoverEvent(
-                HoverEvent(
-                    HoverEvent.Action.SHOW_TEXT,
-                    ChatComponentText("")
-                        .appendSibling(
-                            ChatComponentText("${Constants.MOD_NAME}\n")
-                                .setChatStyle(
-                                    ChatStyle()
-                                        .setColor(EnumChatFormatting.GOLD)
-                                        .setBold(true)
-                                )
-                        )
-                        .appendSibling(
-                            ChatComponentText("Your message was blocked by the \"Shout Cooldown\" setting. \nPlease wait before shouting another message.").setChatStyle(
-                                ChatStyle().setColor(EnumChatFormatting.GRAY)
+    //? if 1.8.9 {
+            /*ChatComponentText("Shout command is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before shouting another message.").setChatStyle(
+                ChatStyle()
+                .setColor(EnumChatFormatting.RED)
+                .setChatHoverEvent(
+                    HoverEvent(
+                        HoverEvent.Action.SHOW_TEXT,
+                        ChatComponentText("")
+                            .appendSibling(
+                                ChatComponentText("${Constants.MOD_NAME}\n")
+                                    .setChatStyle(
+                                        ChatStyle()
+                                            .setColor(EnumChatFormatting.GOLD)
+                                            .setBold(true)
+                                    )
                             )
-                        )
+                            .appendSibling(
+                                ChatComponentText("Your message was blocked by the \"Shout Cooldown\" setting. \nPlease wait before shouting another message.").setChatStyle(
+                                    ChatStyle().setColor(EnumChatFormatting.GRAY)
+                                )
+                            )
+                    )
                 )
             )
-        )
-    *///?} else {
-    Component.literal("Shout command is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before shouting another message.")
-        .setStyle(Style.EMPTY.withHoverEvent(
-            HoverEvent.ShowText(
-                Component.empty()
-                    .append(Component.literal("${Constants.MOD_NAME}\n")
-                        .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD))
-                    .append(Component.literal("Your message was blocked by the \"Shout Cooldown\" setting. \nPlease wait before shouting another message.")
-                        .withStyle(ChatFormatting.GRAY))
+        *///?} else {
+        Component.literal("Shout command is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before shouting another message.")
+            .setStyle(
+                Style.EMPTY
+                    .withColor(ChatFormatting.RED)
+                    .withHoverEvent(
+                        HoverEvent.ShowText(
+                            Component.empty()
+                                .append(
+                                    Component.literal("${Constants.MOD_NAME}\n")
+                                        .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD)
+                                )
+                                .append(
+                                    Component.literal("Your message was blocked by the \"Shout Cooldown\" setting. \nPlease wait before shouting another message.")
+                                        .withStyle(ChatFormatting.GRAY)
+                                )
+                        )
+                    )
             )
-        ))
     //?}
 }
