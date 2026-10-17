@@ -82,6 +82,12 @@ object LanguageData {
     }
 
     val FRIEND_REQUEST by regex("Friend request from (?<player>.+)\\n\\[ACCEPT] - \\[DENY] - \\[BLOCK].*")
+    val POPUP_FRIEND_REQUEST by regex("Friend request from (?:\\[.+?] )?(?<player>\\S{1,16})", prefix = "(?m)^\\s*")
+    val POPUP_PARTY_INVITE by regex("(?:\\[.*?] )?(?<player>\\S{1,16}) has invited you to join (?:their|(?:\\[.*?] ?)?\\w{1,16}'s)? party!", prefix = "(?m)^\\s*")
+    val POPUP_GUILD_INVITE by regex("Click here to accept or type (?<command>/guild accept (?<player>\\w+))!", prefix = "(?m)^\\s*")
+    val POPUP_GUILD_PARTY_INVITE by regex("(?:\\[.*?] )?(?<player>\\S{1,16}) has invited all members of (?<guild>\\S+) to their party!", prefix = "(?m)^\\s*")
+    val POPUP_DUEL_REQUEST by regex("(?:\\[.*?] )?(?<player>\\S{1,16}) has invited you to (?<game>.+?) Duels!", prefix = "(?m)^\\s*")
+    val POPUP_SKYBLOCK_TRADE by regex("(?<player>\\S{1,16}) has sent you a trade request\\. Click here to accept!", prefix = "(?m)^\\s*")
     val GUILD_JOIN by regex("(?:\\[.*] )?(?<player>\\S{1,16}) joined the guild!")
 
     // https://regex101.com/r/QRhTgs

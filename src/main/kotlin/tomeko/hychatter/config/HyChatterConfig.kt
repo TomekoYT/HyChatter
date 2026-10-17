@@ -3,15 +3,19 @@ package tomeko.hychatter.config
 //? if forge {
 /*import cc.polyfrost.oneconfig.config.Config
 import cc.polyfrost.oneconfig.config.annotations.*
+import cc.polyfrost.oneconfig.config.core.OneKeyBind
 import cc.polyfrost.oneconfig.config.core.OneColor as PolyColor
 import cc.polyfrost.oneconfig.config.data.InfoType
 import cc.polyfrost.oneconfig.config.data.Mod
 import cc.polyfrost.oneconfig.config.data.ModType
+import org.lwjgl.input.Keyboard
 *///?} else {
 import org.polyfrost.compose.render.PolyColor
 import org.polyfrost.oneconfig.api.config.v1.Config
 import org.polyfrost.oneconfig.api.config.v1.annotations.*
+import org.polyfrost.oneconfig.api.ui.v1.keybind.KeybindHelper
 //?}
+import tomeko.hychatter.automatic.RequestPopups
 import tomeko.hychatter.utils.Constants
 
 object HyChatterConfig : Config(
@@ -50,6 +54,10 @@ object HyChatterConfig : Config(
         //initialize()
         //? else
         preload()
+        //? if forge {
+        /*registerKeyBind(popupAcceptKey) { RequestPopups.answer(true) }
+        registerKeyBind(popupDenyKey) { RequestPopups.answer(false) }
+        *///?}
         for ((condition, dependencies) in DEPENDENCIES) {
             for (dependency in dependencies) {
                 addDependency(dependency, condition)
@@ -1106,6 +1114,120 @@ object HyChatterConfig : Config(
         category = CATEGORY_HIDERS
     )
     var removeDiscordSafetyWarning = false
+
+
+    //? if forge
+    //@Exclude
+    private const val CATEGORY_POPUPS = "Request Popups"
+
+    //? if forge
+    //@Exclude
+    private const val SUBCATEGORY_POPUP_KEYBINDS = "Keybinds"
+
+    //? if forge
+    //@Exclude
+    private const val SUBCATEGORY_POPUP_TYPES = "Request Types"
+
+    //? if forge {
+    /*@KeyBind(name = "Accept Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
+    var popupAcceptKey = OneKeyBind(Keyboard.KEY_Y)
+
+    @KeyBind(name = "Deny Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
+    var popupDenyKey = OneKeyBind(Keyboard.KEY_N)
+    *///?} else {
+    @Keybind(title = "Accept Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
+    var popupAcceptKey = KeybindHelper.builder().key(28).action(Runnable { RequestPopups.answer(true) }).register()
+
+    @Keybind(title = "Deny Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
+    var popupDenyKey = KeybindHelper.builder().key(17).action(Runnable { RequestPopups.answer(false) }).register()
+    //?}
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Ping On Request",
+        description = "Play a ding when someone sends you a request.",
+        category = CATEGORY_POPUPS
+    )
+    var popupPing = true
+
+    @Slider(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Popup Duration",
+        description = "Seconds a popup stays on screen before it expires.",
+        min = 3f, max = 60f,
+        //? if forge
+        //step = 1,
+        //? else
+        step = 1f,
+        category = CATEGORY_POPUPS
+    )
+    var popupDuration = 10
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Friend Requests",
+        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+    )
+    var popupFriendRequests = true
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Party Invites",
+        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+    )
+    var popupPartyInvites = true
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Guild Invites",
+        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+    )
+    var popupGuildInvites = true
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Guild Party Invites",
+        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+    )
+    var popupGuildPartyInvites = true
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Duel Requests",
+        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+    )
+    var popupDuelRequests = true
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "SkyBlock Trade Requests",
+        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+    )
+    var popupSkyblockTrades = true
 
 
     //? if forge

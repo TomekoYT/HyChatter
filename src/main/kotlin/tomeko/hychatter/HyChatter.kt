@@ -56,6 +56,7 @@ class HyChatter
         AutoPartyWarn.register()
         AutoPartyWarpConfirm.register()
         AutoWB.register()
+        RequestPopups.register()
         BroadcastAchievement.register()
         BroadcastLevelUp.register()
         GuildWelcomer.register()

@@ -64,6 +64,19 @@ Minecraft mod for Hypixel adding chat related features like autogg, chat coordin
 * Guild Welcome Message
 * Thank Watchdog
 
+### Request Popups
+
+* Accept Request Keybind
+* Deny Request Keybind
+* Ping On Request
+* Popup Duration
+* Friend Requests
+* Party Invites
+* Guild Invites
+* Guild Party Invites
+* Duel Requests
+* SkyBlock Trade Requests
+
 ### Waypoints
 
 #### Farm Hunt
