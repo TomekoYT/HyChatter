@@ -32,6 +32,11 @@ object HyChatterConfig : Config(
     //? if forge
     //@Exclude
     val DEPENDENCIES: List<Pair<String, List<String>>> = listOf(
+        "chatSwapper" to listOf(
+            "chatSwapperReturnChannel",
+            "chattingIntegration",
+            "hideAllChatMessage"
+        ),
         "coordsWaypointsEnabled" to listOf(
             "coordsWaypointsBoxColor",
             "coordsWaypointsBeamColor",
@@ -226,7 +231,7 @@ object HyChatterConfig : Config(
         description = "Send messages in guild chat when a guild member joins.",
         category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_AUTOWB
     )
-    var guildAutoWB = false
+    var guildAutoWB = true
 
     @Checkbox(
         //? if forge
@@ -237,7 +242,7 @@ object HyChatterConfig : Config(
         description = "Messages your friends when they join.",
         category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_AUTOWB
     )
-    var friendsAutoWB = false
+    var friendsAutoWB = true
 
     @Slider(
         //? if forge
@@ -405,6 +410,77 @@ object HyChatterConfig : Config(
         //name =
             //? else
             title =
+            "Auto Reply When AFK",
+        description = "Automatically sends a reply to anyone who PMs you when you are AFK in Limbo.",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var autoReplyAfk = false
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Limbo PM Ding",
+        description = "While in Limbo, play the ding sound if you get a PM. Currently, Hypixel's option does not work in Limbo.",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var limboDing = true
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Party Chat Swapper",
+        description = "Automatically change to and out of a party channel when joining/leaving a party.",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var chatSwapper = false
+
+    @Dropdown(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Chat Swapper Channel",
+        description = "The channel to return to when leaving a party.",
+        options = [
+            "ALL",
+            "GUILD",
+            "OFFICER"
+        ],
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var chatSwapperReturnChannel = 0
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Swap Chatting Tab With Chat Swapper",
+        description = "Automatically switch your Chatting chat tab when chat swapper swaps your chat channel.",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var chattingIntegration = false
+
+    @Checkbox(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Remove All Chat Message",
+        description = "Hide the \"You are now in the ALL channel\" message when auto-switching.",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var hideAllChatMessage = false
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
             "Notify When Kicked From Game",
         description = "Notify in party chat when you are kicked from the game due to a connection issue.",
         category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
@@ -465,6 +541,17 @@ object HyChatterConfig : Config(
         category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
     )
     var thankWatchdog = false
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Auto-Complete Play Commands",
+        description = "Allows tab completion of /play commands.",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var autocompletePlayCommands = true
 
 
     //? if forge
@@ -750,7 +837,29 @@ object HyChatterConfig : Config(
         description = "Place zeros at the beginning of the player count to align with the max player count.\nExample: + Steve (001/100)",
         category = CATEGORY_RESTYLERS
     )
-    var padPlayerCount = false
+    var padPlayerCount = true
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Trim Line Separators",
+        description = "Prevent separators from overflowing onto the next chat line.",
+        category = CATEGORY_RESTYLERS
+    )
+    var lineBreakerTrim = true
+
+    @Switch(
+        //? if forge
+        //name =
+            //? else
+            title =
+            "Clean Line Separators",
+        description = "Change all line separator to become smoother.",
+        category = CATEGORY_RESTYLERS
+    )
+    var cleanLineSeparator = true
 
     @Switch(
         //? if forge

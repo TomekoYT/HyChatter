@@ -53,6 +53,9 @@ class HyChatter
         AutoGG.register()
         AutoFriend.register()
         AutoGL.register()
+        AutoAfkReply.register()
+        AutoChatSwapper.register()
+        LimboPmDing.register()
         AutoPartyWarn.register()
         AutoPartyWarpConfirm.register()
         AutoWB.register()
@@ -63,6 +66,7 @@ class HyChatter
         ThankWatchdog.register()
 
         HyChatterCommand.register()
+        PlayCommand.register()
         SendCoordsCommand.register()
 
         HyChatterConfig.register()

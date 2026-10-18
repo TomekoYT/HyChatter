@@ -18,6 +18,8 @@ object HypixelPackets {
 
     var inLobby = false
         private set
+    var inLimbo = false
+        private set
 
     var inSkyblock = false
         private set
@@ -48,11 +50,14 @@ object HypixelPackets {
 
     private fun disableHypixel() {
         onHypixel = false
+        inLimbo = false
         disableAll()
     }
 
     private fun onLocationPacket(packet: ClientboundLocationPacket) {
         Debug.log("onHypixel: $onHypixel")
+
+        inLimbo = packet.serverName == "limbo"
 
         if (!packet.serverType.isPresent) {
             disableAll()
