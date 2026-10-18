@@ -57,12 +57,19 @@ Minecraft mod for Hypixel adding chat related features like autogg, chat coordin
 
 * Auto Friend
 * Auto Party Warp Confirm
+* Auto Reply When AFK
+* Limbo PM Ding
+* Party Chat Swapper
+* Chat Swapper Channel
+* Swap Chatting Tab With Chat Swapper
+* Remove All Chat Message
 * Notify When Kicked From Game
 * Put Notify Message In Capital Letters
 * Broadcast Achievements
 * Broadcast Level Up
 * Guild Welcome Message
 * Thank Watchdog
+* Auto-Complete Play Commands
 
 ### Request Popups
 
@@ -114,6 +121,8 @@ Minecraft mod for Hypixel adding chat related features like autogg, chat coordin
 * Player Count Before Player Name
 * Player Count on Player Leave
 * Player Count Padding
+* Trim Line Separators
+* Clean Line Separators
 * Colored Friend/Guild Statuses
 * Compact Game Start Announcements
 * Short Channel Names
