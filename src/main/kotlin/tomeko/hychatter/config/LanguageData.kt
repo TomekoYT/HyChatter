@@ -251,6 +251,12 @@ object LanguageData {
 
     val PRIVATE_MESSAGE by regex("(?<type>To|From|Voicemail) (?:\\[.*] )?(?<player>.+): (?<message>.*)")
 
+    val AUTO_AFK_REPLY by regex("^From (\\[.+?] )?(.+?): .+$")
+
+    val AUTO_CHAT_SWAPPER_PARTY_LEAVE by regex("^(?:You have been kicked from the party by (?:\\[.+] )?\\w{1,16}|(?:\\[.+] )?\\w{1,16} has disbanded the party!|You left the party.)$")
+    val AUTO_CHAT_SWAPPER_PARTY_JOIN by regex("^(?:You have joined (?:\\[.+] )?(?:.*)|Party Members(?:\\[.+] )?\\w{1,100}|(?:\\[.+] )?\\w{1,100} joined the(?:.*) party(?:.*))$")
+    val AUTO_CHAT_SWAPPER_CHANNEL_SWAP by regex("^You are now in the (?<channel>ALL|GUILD|OFFICER) channel$")
+
     val PLAYER_CONNECTION_STATUS by regex("(?<type>Friend|Guild) > (?<player>\\w{1,16}) (?<status>joined|left)\\.")
 
     val ACHIEVEMENT_UNLOCKED by regex("a>> {3}Achievement Unlocked: (?<achievement>.+) {3}<<a")
@@ -270,6 +276,7 @@ object LanguageData {
     val DUELS_BLOCK_TRAIL by string("Your block trail aura is disabled in this mode!")
     val SKYBLOCK_WELCOME by string("Welcome to Hypixel SkyBlock!")
     val DISCORD_SAFETY_WARNING by string("Please be mindful of Discord links in chat as they may pose a security risk")
+    val ALREADY_IN_CHANNEL by string("You're already in this channel!")
     val PARTY_CONFIRM_WARP by string("Some players are still in-game, run the command again to confirm warp!")
 
     val WATCHDOG_ANNOUNCEMENT by string("[WATCHDOG ANNOUNCEMENT]")
