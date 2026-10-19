@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
+import kotlin.random.Random
 
 object AutoGG {
     private var gameEnded = false
@@ -64,9 +65,9 @@ object AutoGG {
             firstMessageTicks = -1
 
             //? if 1.8.9
-            //mc.thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGGMessage}")
+            //mc.thePlayer?.sendChatMessage("/ac ${randomCase(HyChatterConfig.autoGGMessage)}")
             //? else
-            mc.player?.connection?.sendCommand("ac ${HyChatterConfig.autoGGMessage}")
+            mc.player?.connection?.sendCommand("ac ${randomCase(HyChatterConfig.autoGGMessage)}")
         }
 
         if (secondMessageTicks > 0) {
@@ -78,9 +79,9 @@ object AutoGG {
 
             if (shouldSend) {
                 //? if 1.8.9
-                //mc.thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGGSecondMessage}")
+                //mc.thePlayer?.sendChatMessage("/ac ${randomCase(HyChatterConfig.autoGGSecondMessage)}")
                 //? else
-                mc.player?.connection?.sendCommand("ac ${HyChatterConfig.autoGGSecondMessage}")
+                mc.player?.connection?.sendCommand("ac ${randomCase(HyChatterConfig.autoGGSecondMessage)}")
             }
         }
 
@@ -110,5 +111,17 @@ object AutoGG {
         }
 
         return HyChatterConfig.casualAutoGG && LanguageData.CASUAL_GAME_END.matches(message)
+    }
+
+    private fun randomCase(message: String): String {
+        if (!HyChatterConfig.autoGGRandomCase) {
+            return message
+        }
+
+        return buildString(message.length) {
+            for (c in message) {
+                append(if (Random.nextBoolean()) c.uppercaseChar() else c.lowercaseChar())
+            }
+        }
     }
 }
