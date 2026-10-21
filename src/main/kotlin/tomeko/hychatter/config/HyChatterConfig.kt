@@ -103,6 +103,17 @@ object HyChatterConfig : Config(
     @Switch(
         //? if forge
         //name =
+        //? else
+        title =
+            "Random Auto GG Casing",
+        description = "Randomize letter casing for auto GG messages.",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_AUTOGG
+    )
+    var autoGGRandomCase = false
+
+    @Switch(
+        //? if forge
+        //name =
             //? else
             title =
             "Casual Auto GG",
