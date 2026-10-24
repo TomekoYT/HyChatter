@@ -44,8 +44,15 @@ object BedwarsAdvertisementsRemover {
                 Minecraft.getInstance().player?.name?.string ?: return true,
                 true
             )
+            || message.startsWith("Party >")
+            || message.startsWith("P >")
+            || message.startsWith("Guild >")
+            || message.startsWith("G >")
+            || message.startsWith("From ")
+            || message.startsWith("To ")
+            || message.startsWith("PM")
         ) return true
 
-        return message.contains(LanguageData.CHAT_BEDWARS_ADVERTISEMENT)
+        return !message.contains(LanguageData.CHAT_BEDWARS_ADVERTISEMENT)
     }
 }
