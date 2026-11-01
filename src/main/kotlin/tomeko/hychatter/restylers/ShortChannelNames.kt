@@ -35,7 +35,7 @@ object ShortChannelNames {
     private fun restyle(message: Component, regex: Regex, prefix: String): Component {
         if (!regex.containsMatchIn(
                 //? if 1.8.9
-                //message.unformattedText
+                //message.formattedText
                         //? else
                 message.string
         )) return message
@@ -47,7 +47,7 @@ object ShortChannelNames {
         ) {
             return ChatComponentText("").also { result ->
                 for (sibling in message.siblings) {
-                    val modifiedSibling = regex.find(sibling.unformattedText)?.let {
+                    val modifiedSibling = regex.find(sibling.formattedText)?.let {
                         ChatComponentText("$prefix > ${it.groupValues[1]}")
                     } ?: sibling
 
