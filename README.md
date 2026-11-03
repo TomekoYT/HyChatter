@@ -70,6 +70,8 @@ Minecraft mod for Hypixel adding chat related features like autogg, chat coordin
 * Guild Welcome Message
 * Thank Watchdog
 * Auto-Complete Play Commands
+* Auto-Complete Player Names
+* /delname Command
 
 ### Request Popups
 

@@ -67,6 +67,7 @@ class HyChatter
         ThankWatchdog.register()
 
         HyChatterCommand.register()
+        DelNameCommand.register()
         PlayCommand.register()
         SendCoordsCommand.register()
 
@@ -115,6 +116,7 @@ class HyChatter
         WhiteChatMessages.register()
 
         HypixelPackets.register()
+        NameAutocomplete.register()
 
         CoordsWaypoints.register()
         DangerousTauntWaypoint.register()
