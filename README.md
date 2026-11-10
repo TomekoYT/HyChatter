@@ -160,3 +160,8 @@ Minecraft mod for Hypixel adding chat related features like autogg, chat coordin
 * Remove Main Lobby Fishing Announcements
 * Remove Hot Potato Messages
 * Remove Discord Safety Warning Messages
+
+## Special Thanks
+
+- [Wyvest](https://github.com/Wyvest) - Auto AFK Reply, Auto Chat Swapper, Limbo PM Ding, `/play` command, Line Separators, Popup Events
+- [kimoVoid](https://github.com/kimoVoid) - AutoGG improvements
