@@ -25,13 +25,13 @@ object LineSeparators {
     fun clean(formattedText: String): String {
         if (!HyChatterConfig.cleanLineSeparator) return formattedText
         cache[formattedText]?.let { return it }
-        if (!isSeparator(EnumChatFormatting.getTextWithoutFormattingCodes(formattedText))) return formattedText
-
-        val mc = Minecraft.getMinecraft()
-        val processed = mc.fontRendererObj.trimStringToWidth(
-            formattedText.replace("▬", "§m  ").replace("≡", "§m  ").replace("-", "§m  "),
-            mc.ingameGUI.chatGUI.chatWidth + 6
-        )
+        val processed = if (!isSeparator(EnumChatFormatting.getTextWithoutFormattingCodes(formattedText))) formattedText else {
+            val mc = Minecraft.getMinecraft()
+            mc.fontRendererObj.trimStringToWidth(
+                formattedText.replace("▬", "§m  ").replace("≡", "§m  ").replace("-", "§m  "),
+                mc.ingameGUI.chatGUI.chatWidth + 6
+            )
+        }
         if (cache.size >= 10000) cache.clear()
         cache[formattedText] = processed
         return processed
