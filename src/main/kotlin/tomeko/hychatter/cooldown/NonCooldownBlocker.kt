@@ -57,7 +57,7 @@ object NonCooldownBlocker {
         }
 
         val secondsLeft = (lastSent - now) / 1000L
-        //? 1.8.9
+        //? if 1.8.9
         //Minecraft.getMinecraft().thePlayer.addChatMessage(createCooldownMessage(secondsLeft))
         //? elif >= 26.2
         Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))

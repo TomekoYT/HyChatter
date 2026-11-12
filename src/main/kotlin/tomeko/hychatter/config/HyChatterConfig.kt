@@ -867,7 +867,7 @@ object HyChatterConfig : Config(
         description = "Place zeros at the beginning of the player count to align with the max player count.\nExample: + Steve (001/100)",
         category = CATEGORY_RESTYLERS
     )
-    var padPlayerCount = true
+    var padPlayerCount = false
 
     @Switch(
         //? if forge
@@ -1261,16 +1261,16 @@ object HyChatterConfig : Config(
 
     //? if forge {
     /*@KeyBind(name = "Accept Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
-    var popupAcceptKey = OneKeyBind(Keyboard.KEY_Y)
+    var popupAcceptKey = OneKeyBind(Keyboard.KEY_NONE)
 
     @KeyBind(name = "Deny Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
-    var popupDenyKey = OneKeyBind(Keyboard.KEY_N)
+    var popupDenyKey = OneKeyBind(Keyboard.KEY_NONE)
     *///?} else {
     @Keybind(title = "Accept Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
-    var popupAcceptKey = KeybindHelper.builder().key(28).action(Runnable { RequestPopups.answer(true) }).register()
+    var popupAcceptKey = KeybindHelper.builder().key(0).action(Runnable { RequestPopups.answer(true) }).register()
 
     @Keybind(title = "Deny Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
-    var popupDenyKey = KeybindHelper.builder().key(17).action(Runnable { RequestPopups.answer(false) }).register()
+    var popupDenyKey = KeybindHelper.builder().key(0).action(Runnable { RequestPopups.answer(false) }).register()
     //?}
 
     @Switch(

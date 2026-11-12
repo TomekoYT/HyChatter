@@ -28,7 +28,7 @@ object ColoredPlayerConnectionStatus {
         if (fromActionBar || !HyChatterConfig.coloredStatuses || !HypixelPackets.onHypixel) return component
 
         val match = LanguageData.PLAYER_CONNECTION_STATUS.find(
-            //? 1.8.9
+            //? if 1.8.9
             //component.unformattedText
             //? else
             component.string

@@ -30,12 +30,12 @@ object DiscordSafetyWarningRemover {
         if (!message.contains(LanguageData.DISCORD_SAFETY_WARNING)) return component
 
         val copy =
-            //? 1.8.9
+            //? if 1.8.9
             //component.createCopy()
             //? else
             component.copy()
         copy.siblings.removeIf {
-            //? 1.8.9
+            //? if 1.8.9
             //it.unformattedText == LanguageData.DISCORD_SAFETY_WARNING
             //? else
             it.string == LanguageData.DISCORD_SAFETY_WARNING
