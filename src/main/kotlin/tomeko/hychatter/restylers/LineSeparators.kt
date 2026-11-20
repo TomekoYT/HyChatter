@@ -20,16 +20,22 @@ object LineSeparators {
     }
 
     private val cache = HashMap<String, String>()
+    private var cachedChatWidth = -1
 
     @JvmStatic
     fun clean(formattedText: String): String {
         if (!HyChatterConfig.cleanLineSeparator) return formattedText
+        val mc = Minecraft.getMinecraft()
+        val chatWidth = mc.ingameGUI.chatGUI.chatWidth
+        if (chatWidth != cachedChatWidth) {
+            cache.clear()
+            cachedChatWidth = chatWidth
+        }
         cache[formattedText]?.let { return it }
         val processed = if (!isSeparator(EnumChatFormatting.getTextWithoutFormattingCodes(formattedText))) formattedText else {
-            val mc = Minecraft.getMinecraft()
             mc.fontRendererObj.trimStringToWidth(
                 formattedText.replace("▬", "§m  ").replace("≡", "§m  ").replace("-", "§m  "),
-                mc.ingameGUI.chatGUI.chatWidth + 6
+                chatWidth + 6
             )
         }
         if (cache.size >= 10000) cache.clear()
