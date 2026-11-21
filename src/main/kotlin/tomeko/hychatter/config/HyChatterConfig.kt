@@ -550,6 +550,158 @@ object HyChatterConfig : Config(
     )
     var guildWelcomeMessage = false
 
+    @Slider(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Guild Welcome Message Delay",
+        description = "Delay before sending the welcome message in seconds.",
+        min = 2f, max = 10f,
+        //? if forge
+        //step = 1,
+        //? else
+        step = 1f,
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeCooldown = 2f
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Guild Welcome Message Text",
+        description = "Choose what message is sent when someone joins your guild. \"%player%\" will be replaced with the player's name.",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessageText = "Welcome to the guild %player%!"
+
+    @Switch(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Random Guild Welcome Messages",
+        description = "Send a random message when someone joins your guild.",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var randomGuildWelcomeMessage = false
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "First Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage1 = "Welcome to the guild %player%!"
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Second Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage2 = "Welcome aboard %player%!"
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Third Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage3 = "Greetings, %player%!"
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Fourth Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage4 = "Glad to have you here %player%!"
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Fifth Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage5 = "Welcome to the family %player%!"
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Sixth Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage6 = "Hey %player%, welcome!"
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Seventh Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage7 = "Nice to have you with us %player%!"
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Eighth Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage8 = "Welcome, %player%!"
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Ninth Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage9 = "Enjoy your stay %player%!"
+
+    @Text(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Tenth Random Guild Welcome Message",
+        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
+    )
+    var guildWelcomeMessage10 = "Welcome to the guild <3 %player%!"
+
+    val guildWelcomeMessages: List<String>
+        get() = listOf(
+            guildWelcomeMessage1,
+            guildWelcomeMessage2,
+            guildWelcomeMessage3,
+            guildWelcomeMessage4,
+            guildWelcomeMessage5,
+            guildWelcomeMessage6,
+            guildWelcomeMessage7,
+            guildWelcomeMessage8,
+            guildWelcomeMessage9,
+            guildWelcomeMessage10
+        )
+
     @Switch(
         //? if forge
         //name =
