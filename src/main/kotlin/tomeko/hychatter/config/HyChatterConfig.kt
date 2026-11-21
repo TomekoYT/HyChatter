@@ -290,16 +290,22 @@ object HyChatterConfig : Config(
     )
     var autoWBMessage1 = "Welcome Back!"
 
-    @Switch(
+    @Dropdown(
         //? if forge
         //name =
         //? else
         title =
-            "Random AutoWB Messages",
-        description = "Send a random message when a friend/guild member joins.",
+            "AutoWB Reply Mode",
+        description = "Choose how AutoWB responds when a friend or guild member joins.",
+        options = [
+            "Message",
+            "Random Message",
+            "/boop",
+            "/boo"
+        ],
         category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_AUTOWB
     )
-    var randomAutoWB = false
+    var autoWBMode = 0
 
     @Text(
         //? if forge
