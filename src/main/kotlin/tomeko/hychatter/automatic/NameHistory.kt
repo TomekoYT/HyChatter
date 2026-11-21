@@ -1,10 +1,9 @@
 package tomeko.hychatter.automatic
 
-//? if 1.8.9 {
+//? if forge {
 /*import net.minecraft.client.Minecraft
-*///?} else {
+*///?} else
 import net.fabricmc.loader.api.FabricLoader
-//?}
 import com.google.gson.JsonParser
 import tomeko.hychatter.utils.Debug
 import java.io.File
@@ -26,7 +25,7 @@ object NameHistory {
 
     private val file: File by lazy {
         val configDir: File =
-            //? if 1.8.9
+            //? if forge
             //File(Minecraft.getMinecraft().mcDataDir, "config")
             //? else
             FabricLoader.getInstance().configDir.toFile()

@@ -1,7 +1,11 @@
 package tomeko.hychatter.config
 
 import com.google.gson.JsonElement
-import com.google.gson.JsonParser
+//? if forge {
+/*import com.google.gson.JsonParser
+import java.net.URI
+*///?} else
+import org.polyfrost.oneconfig.utils.v1.JsonUtils
 //? if 1.8.9 {
 /*import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
@@ -15,30 +19,40 @@ import net.minecraft.network.chat.ComponentSerialization
 import org.intellij.lang.annotations.Language
 import tomeko.hychatter.utils.Constants
 import tomeko.hychatter.utils.Debug
-import java.net.URI
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 object LanguageData {
-    @Volatile private var fetchedPatterns: Map<String, String> = emptyMap()
-    @Volatile private var fetchedComponents: Map<String, Component> = emptyMap()
-    @Volatile private var fetchedStrings: Map<String, String> = emptyMap()
+    private const val URL = "https://data-v2.polyfrost.org/hytils/language.json"
+
+    private data class Rules(
+        val patterns: Map<String, String> = emptyMap(),
+        val components: Map<String, Component> = emptyMap(),
+        val strings: Map<String, String> = emptyMap(),
+    )
+
+    @Volatile private var rules = Rules()
 
     fun register() {
-        try {
-            val response: JsonElement? =
-                //? if 1.8.9
-                //JsonParser().parse(URI.create("https://data-v2.polyfrost.org/hytils/language.json").toURL().readText())
-                //? else
-                JsonParser.parseString(URI.create("https://data-v2.polyfrost.org/hytils/language.json").toURL().readText())
+        //? if forge {
+        /*try {
+            applyResponse(JsonParser().parse(URI.create(URL).toURL().readText()))
+        } catch (e: Exception) {
+            Debug.log("Failed to fetch language data, keeping current rules.")
+        }
+        *///?} else
+        JsonUtils.parseFromUrlAsync(URL, ::applyResponse)
+    }
 
-            if (response == null || response.isJsonNull) {
-                Debug.log("Failed to fetch language data, using defaults.")
+    private fun applyResponse(response: JsonElement) {
+        try {
+            if (!response.isJsonObject) {
+                Debug.log("Unexpected language data format, keeping current rules.")
                 return
             }
 
             val patterns = mutableMapOf<String, String>()
-            response.asJsonObject?.getAsJsonObject("regexes")?.entrySet()?.forEach {
+            response.asJsonObject.getAsJsonObject("regexes")?.entrySet()?.forEach {
                 if (it.value.isJsonObject) {
                     val prefix = it.value.asJsonObject.get("prefix")?.asString ?: ""
                     val suffix = it.value.asJsonObject.get("suffix")?.asString ?: ""
@@ -48,17 +62,16 @@ object LanguageData {
                     patterns[it.key] = it.value.asString
                 }
             }
-            fetchedPatterns = patterns
 
             val components = mutableMapOf<String, Component>()
             //? if 1.8.9 {
-            /*response.asJsonObject?.getAsJsonObject("components")?.entrySet()?.forEach { entry ->
+            /*response.asJsonObject.getAsJsonObject("components")?.entrySet()?.forEach { entry ->
                 runCatching { Component.Serializer.jsonToComponent(entry.value.toString()) }
                     .onSuccess { component -> components[entry.key] = component }
                     .onFailure { error -> Debug.log("Failed to parse component for ${entry.key}: $error") }
             }
             *///?} else {
-            response.asJsonObject?.getAsJsonObject("components")?.entrySet()?.forEach {
+            response.asJsonObject.getAsJsonObject("components")?.entrySet()?.forEach {
                 val result = ComponentSerialization.CODEC.decode(JsonOps.INSTANCE, it.value)
                 result.ifSuccess { pair ->
                     components[it.key] = pair.first
@@ -67,17 +80,16 @@ object LanguageData {
                 }
             }
             //?}
-            fetchedComponents = components
 
             val strings = mutableMapOf<String, String>()
-            response.asJsonObject?.getAsJsonObject("strings")?.entrySet()?.forEach {
+            response.asJsonObject.getAsJsonObject("strings")?.entrySet()?.forEach {
                 strings[it.key] = it.value.asString
             }
-            fetchedStrings = strings
 
-            Debug.log("Successfully fetched ${fetchedPatterns.size} regexes, ${fetchedComponents.size} components and ${fetchedStrings.size} strings.")
+            rules = Rules(patterns, components, strings)
+            Debug.log("Successfully fetched ${patterns.size} regexes, ${components.size} components and ${strings.size} strings.")
         } catch (e: Exception) {
-            Debug.log("Failed to parse language data, using defaults.")
+            Debug.log("Failed to parse language data, keeping current rules.")
         }
     }
 
@@ -302,29 +314,26 @@ object LanguageData {
         prefix: String = "",
         suffix: String = ""
     ) = object : ReadOnlyProperty<Any?, Regex> {
-        private var cachedRegex: Regex? = null
-        private var cachedPattern: String? = null
+        @Volatile private var cached: Pair<String, Regex>? = null
 
         override fun getValue(thisRef: Any?, property: KProperty<*>): Regex {
             val corePattern = if (defaultPatterns.size == 1) defaultPatterns.first() else defaultPatterns.joinToString("|") { "(?:$it)" }
             val fallback = prefix + corePattern + suffix
-            val pattern = fetchedPatterns[property.name] ?: fallback
+            val pattern = rules.patterns[property.name] ?: fallback
 
-            if (cachedPattern != pattern) {
-                cachedPattern = pattern
-                cachedRegex = runCatching { Regex(pattern) }.getOrElse { e ->
-                    Debug.log(
-                        "Failed to compile regex for ${property.name}, falling back to default."
-                    )
-                    Regex(fallback)
-                }
+            cached?.let { (cachedPattern, regex) ->
+                if (cachedPattern == pattern) return regex
             }
-
-            return cachedRegex!!
+            val regex = runCatching { Regex(pattern) }.getOrElse {
+                Debug.log("Failed to compile regex for ${property.name}, falling back to default.")
+                Regex(fallback)
+            }
+            cached = pattern to regex
+            return regex
         }
     }
 
     private fun string(default: String) = ReadOnlyProperty<Any?, String> { _, property ->
-        fetchedStrings[property.name] ?: default
+        rules.strings[property.name] ?: default
     }
 }
