@@ -67,11 +67,11 @@ object PlayCommand
     //? if !forge {
     private fun command() = literal("play")
         .executes {
-            showError("Usage: /play <game>")
+            play("")
             1
         }
         .then(
-            argument("game", StringArgumentType.word())
+            argument("game", StringArgumentType.greedyString())
                 .suggests { _, builder ->
                     complete(builder.remaining).forEach { builder.suggest(it) }
                     builder.buildFuture()
@@ -94,7 +94,7 @@ object PlayCommand
     override fun getRequiredPermissionLevel(): Int = 0
 
     override fun processCommand(sender: ICommandSender, args: Array<String>) {
-        if (args.isEmpty()) showError("Usage: /play <game>") else play(args[0])
+        play(args.joinToString(" "))
     }
 
     override fun addTabCompletionOptions(sender: ICommandSender, args: Array<String>, pos: BlockPos): List<String>? =
@@ -102,16 +102,23 @@ object PlayCommand
     *///?}
 
     private fun complete(input: String): List<String> {
-        if (!HypixelPackets.onHypixel || !HyChatterConfig.autocompletePlayCommands) return emptyList()
+        if (!HypixelPackets.onHypixel || !HyChatterConfig.autocompletePlayCommands || ' ' in input) return emptyList()
         return gameList.filter { it.startsWith(input) }
     }
 
-    private fun play(game: String) {
+    private fun play(input: String) {
         if (!HypixelPackets.onHypixel) {
-            send("/play $game")
+            send(if (input.isEmpty()) "/play" else "/play $input")
+            return
+        }
+        val args = input.trim()
+        if (args.isEmpty()) {
+            showError("Usage: /play <game>")
             return
         }
 
+        val game = args.substringBefore(' ')
+        val rest = args.substringAfter(' ', "")
         var command = game
         if (HyChatterConfig.autocompletePlayCommands && games.isNotEmpty()) {
             val lowercase = game.lowercase(Locale.ENGLISH)
@@ -121,7 +128,7 @@ object PlayCommand
             }
         }
 
-        send("/play $command")
+        send(if (rest.isEmpty()) "/play $command" else "/play $command $rest")
     }
 
     private fun send(command: String) {
