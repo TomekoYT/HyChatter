@@ -1,13 +1,13 @@
 package tomeko.hychatter.hiders
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import net.hypixel.data.type.GameType
 import tomeko.hychatter.config.HyChatterConfig
@@ -24,10 +24,10 @@ object TicketMachineRemover {
 
         val message =
             //? if 1.8.9 {
-            //component.unformattedText
+            component.unformattedText
             //?} else {
-            component.string
-            //?}
+            /*component.string
+            *///?}
         return !(HypixelPackets.inBedwars && HypixelPackets.inLobby && LanguageData.TICKET_ANNOUNCER.matches(message))
     }
 }

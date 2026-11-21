@@ -4,10 +4,10 @@ import net.hypixel.modapi.HypixelModAPI
 import net.hypixel.modapi.packet.impl.clientbound.ClientboundHelloPacket
 import net.hypixel.modapi.packet.impl.clientbound.event.ClientboundLocationPacket
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientPlayConnectionEvents
+import tomeko.hychatter.event.ClientPlayConnectionEvents
 //?} else {
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
-//?}
+/*import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
+*///?}
 
 object HypixelPackets {
     var onHypixel = false

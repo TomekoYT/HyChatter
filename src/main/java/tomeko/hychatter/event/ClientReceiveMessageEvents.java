@@ -1,7 +1,7 @@
 package tomeko.hychatter.event;
 
 //? if 1.8.9 {
-/*import net.minecraft.util.IChatComponent;
+import net.minecraft.util.IChatComponent;
 
 public final class ClientReceiveMessageEvents {
     private ClientReceiveMessageEvents() {}
@@ -86,4 +86,4 @@ public final class ClientReceiveMessageEvents {
         void onReceiveChatMessage(IChatComponent message);
     }
 }
-*///?}
+//?}

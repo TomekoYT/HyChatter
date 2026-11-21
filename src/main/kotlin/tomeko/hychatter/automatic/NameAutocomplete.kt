@@ -1,16 +1,16 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-/*import net.minecraft.client.Minecraft
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiChat
 //? if forge {
-//import net.minecraftforge.client.ClientCommandHandler
-//?}
+/*import net.minecraftforge.client.ClientCommandHandler
+*///?}
 import tomeko.hychatter.event.ClientSendMessageEvents
 import tomeko.hychatter.event.ClientTickEvents
-*///?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
-//?}
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
+*///?}
 import net.hypixel.modapi.HypixelModAPI
 import net.hypixel.modapi.packet.impl.clientbound.ClientboundHelloPacket
 import tomeko.hychatter.config.HyChatterConfig
@@ -28,7 +28,7 @@ object NameAutocomplete {
             if (HyChatterConfig.autocompletePlayerNames) GuildMembers.refresh()
         }
         //? if 1.8.9
-        //ClientTickEvents.END_CLIENT_TICK.register(::onClientTick)
+        ClientTickEvents.END_CLIENT_TICK.register(::onClientTick)
     }
 
     private fun onCommandSend(command: String) {
@@ -44,7 +44,7 @@ object NameAutocomplete {
     }
 
     //? if 1.8.9 {
-    /*private var pendingScreen: GuiChat? = null
+    private var pendingScreen: GuiChat? = null
     private var pendingOptions: Array<String>? = null
 
     fun completeTab(screen: GuiChat, textBeforeCursor: String, word: String): Boolean {
@@ -52,8 +52,8 @@ object NameAutocomplete {
         if (options.isNullOrEmpty()) return false
 
         //? if forge {
-        //ClientCommandHandler.instance.autoComplete(textBeforeCursor, word)
-        //?}
+        /*ClientCommandHandler.instance.autoComplete(textBeforeCursor, word)
+        *///?}
         pendingScreen = screen
         pendingOptions = options.toTypedArray()
         return true
@@ -67,5 +67,5 @@ object NameAutocomplete {
 
         if (mc.currentScreen === screen) screen.onAutocompleteResponse(options)
     }
-    *///?}
+    //?}
 }

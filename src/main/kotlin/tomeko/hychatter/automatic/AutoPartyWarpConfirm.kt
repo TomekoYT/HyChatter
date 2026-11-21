@@ -1,14 +1,14 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-/*import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 import tomeko.hychatter.event.ClientReceiveMessageEvents
 import tomeko.hychatter.event.ClientTickEvents
-*///?} else {
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
@@ -27,10 +27,10 @@ object AutoPartyWarpConfirm {
 
         val text =
             //? if 1.8.9 {
-            //message.unformattedText
+            message.unformattedText
             //?} else {
-            message.string
-            //?}
+            /*message.string
+            *///?}
         if (text != LanguageData.PARTY_CONFIRM_WARP) return true
 
         warpTicks = 30
@@ -44,10 +44,10 @@ object AutoPartyWarpConfirm {
 
         if (warpTicks == 0) {
             //? if 1.8.9 {
-            //mc.thePlayer?.sendChatMessage("/p warp")
+            mc.thePlayer?.sendChatMessage("/p warp")
             //?} else {
-            mc.player?.connection?.sendCommand("p warp")
-            //?}
+            /*mc.player?.connection?.sendCommand("p warp")
+            *///?}
         }
     }
 }

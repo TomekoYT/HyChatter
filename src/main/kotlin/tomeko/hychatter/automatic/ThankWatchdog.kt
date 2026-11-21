@@ -1,15 +1,15 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.minecraft.network.chat.Component
-//?}
+/*import net.minecraft.network.chat.Component
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
@@ -24,15 +24,15 @@ object ThankWatchdog {
         if (fromActionBar || !HyChatterConfig.thankWatchdog || !HypixelPackets.onHypixel) return
         val text =
             //? if 1.8.9 {
-            //message.unformattedText
+            message.unformattedText
             //?} else {
-            message.string
-            //?}
+            /*message.string
+            *///?}
         if (text == LanguageData.WATCHDOG_ANNOUNCEMENT || text.startsWith(LanguageData.WATCHDOG_BAN)) {
             //? if 1.8.9
-            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/ac Thanks Watchdog!") ?: return
+            Minecraft.getMinecraft().thePlayer?.sendChatMessage("/ac Thanks Watchdog!") ?: return
             //? else
-            Minecraft.getInstance().player?.connection?.sendCommand("ac Thanks Watchdog!") ?: return
+            //Minecraft.getInstance().player?.connection?.sendCommand("ac Thanks Watchdog!") ?: return
         }
     }
 }

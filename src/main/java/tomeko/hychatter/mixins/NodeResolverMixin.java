@@ -1,7 +1,7 @@
 package tomeko.hychatter.mixins;
 
 //? if fabric {
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+/*import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.brigadier.tree.CommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,4 +19,4 @@ abstract class NodeResolverMixin {
         return original;
     }
 }
-//?}
+*///?}

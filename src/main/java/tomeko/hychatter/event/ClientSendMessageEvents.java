@@ -1,7 +1,7 @@
 package tomeko.hychatter.event;
 
 //? if 1.8.9 {
-/*public final class ClientSendMessageEvents {
+public final class ClientSendMessageEvents {
     private ClientSendMessageEvents() {}
 
     public static final Event<AllowChat> ALLOW_CHAT = Event.create(AllowChat.class, listeners -> message -> {
@@ -84,4 +84,4 @@ package tomeko.hychatter.event;
         void onSendCommandMessage(String command);
     }
 }
-*///?}
+//?}

@@ -10,16 +10,16 @@ import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 import org.polyfrost.oneconfig.api.notifications.v1.NotificationsManager
 //?}
 //? if 1.8.9 {
-/*import net.minecraft.client.audio.PositionedSoundRecord
+import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.IChatComponent as Component
 import net.minecraft.util.ResourceLocation
 import tomeko.hychatter.event.ClientReceiveMessageEvents
-*///?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.client.resources.sounds.SimpleSoundInstance
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
-//?}
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
@@ -85,10 +85,10 @@ object RequestPopups {
 
         val text =
             //? if 1.8.9 {
-            //message.unformattedText.removeFormatting()
+            message.unformattedText.removeFormatting()
             //?} else {
-            message.string.removeFormatting()
-            //?}
+            /*message.string.removeFormatting()
+            *///?}
 
         for (request in requests) {
             val match = request.regex().find(text) ?: continue
@@ -122,10 +122,10 @@ object RequestPopups {
 
         if (HyChatterConfig.popupPing) {
             //? if 1.8.9 {
-            //Minecraft.getMinecraft().soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("note.pling"), 2f))
+            Minecraft.getMinecraft().soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("note.pling"), 2f))
             //?} else {
-            Minecraft.getInstance().soundManager.play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_PLING, 2f))
-            //?}
+            /*Minecraft.getInstance().soundManager.play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_PLING, 2f))
+            *///?}
         }
     }
 
@@ -147,9 +147,9 @@ object RequestPopups {
         if (!pending.remove(p)) return
         val command = (if (accepted) p.accept else p.deny) ?: return
         //? if 1.8.9 {
-        //Minecraft.getMinecraft().thePlayer?.sendChatMessage(command)
+        Minecraft.getMinecraft().thePlayer?.sendChatMessage(command)
         //?} else {
-        Minecraft.getInstance().player?.connection?.sendCommand(command.removePrefix("/"))
-        //?}
+        /*Minecraft.getInstance().player?.connection?.sendCommand(command.removePrefix("/"))
+        *///?}
     }
 }

@@ -5,7 +5,7 @@ package tomeko.hychatter.cooldown
 import cc.polyfrost.oneconfig.utils.JsonUtils
 *///?}
 //? if 1.8.9 {
-/*import net.hypixel.data.rank.PackageRank
+import net.hypixel.data.rank.PackageRank
 import net.minecraft.client.Minecraft
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.ChatComponentText
@@ -21,15 +21,15 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.util.UUID
-*///?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
 import net.hypixel.data.rank.PackageRank
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.Style
-//?}
+*///?}
 //? if !forge
 import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
 import tomeko.hychatter.config.HyChatterConfig
@@ -58,9 +58,9 @@ object NonCooldownBlocker {
 
         val secondsLeft = (lastSent - now) / 1000L
         //? if 1.8.9
-        //Minecraft.getMinecraft().thePlayer.addChatMessage(createCooldownMessage(secondsLeft))
+        Minecraft.getMinecraft().thePlayer.addChatMessage(createCooldownMessage(secondsLeft))
         //? elif >= 26.2
-        Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
+        //Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
         //? else
         //Minecraft.getInstance().gui.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
         return false
@@ -68,7 +68,7 @@ object NonCooldownBlocker {
 
     private fun createCooldownMessage(secondsLeft: Long): Component =
         //? if 1.8.9 {
-        /*ChatComponentText("Your freedom of speech is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before sending another message.").setChatStyle(
+        ChatComponentText("Your freedom of speech is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before sending another message.").setChatStyle(
             ChatStyle().setChatHoverEvent(
                 HoverEvent(
                     HoverEvent.Action.SHOW_TEXT,
@@ -89,8 +89,8 @@ object NonCooldownBlocker {
                 )
             )
         )
-    *///?} else {
-    Component.literal("Your freedom of speech is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before sending another message.")
+    //?} else {
+    /*Component.literal("Your freedom of speech is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before sending another message.")
         .setStyle(Style.EMPTY.withHoverEvent(
             HoverEvent.ShowText(
                 Component.empty()
@@ -100,7 +100,7 @@ object NonCooldownBlocker {
                         .withStyle(ChatFormatting.GRAY))
             )
         ))
-    //?}
+    *///?}
 
     private fun isNon(): Boolean {
         //? if forge {

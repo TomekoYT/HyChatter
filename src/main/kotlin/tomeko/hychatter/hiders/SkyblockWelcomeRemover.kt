@@ -1,7 +1,7 @@
 package tomeko.hychatter.hiders
 
 //? if fabric {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
@@ -17,12 +17,12 @@ object SkyblockWelcomeRemover {
 
         val message =
             //? if 1.8.9 {
-            //component.unformattedText
+            component.unformattedText
             //?} else {
-            component.string
-            //?}
+            /*component.string
+            *///?}
 
         return message != LanguageData.SKYBLOCK_WELCOME
     }
 }
-//?}
+*///?}

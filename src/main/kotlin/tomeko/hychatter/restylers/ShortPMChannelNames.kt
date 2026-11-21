@@ -1,20 +1,20 @@
 package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
-/*import net.minecraft.util.ChatComponentText
+import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent as Component
-*///?} else {
-import net.minecraft.ChatFormatting
+//?} else {
+/*import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.contents.PlainTextContents
-//?}
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
@@ -29,15 +29,15 @@ object ShortPMChannelNames {
 
         val type = LanguageData.PRIVATE_MESSAGE.matchEntire(
             //? if 1.8.9
-            //message.unformattedText
+            message.unformattedText
                     //? else
-            message.string
+            //message.string
         )?.groups?.get("type")?.value ?: return message
         val isOutgoing = type == "To"
         val channelName = "$type "
 
         //? if 1.8.9 {
-        /*val rootText = (message as? ChatComponentText)?.chatComponentText_TextValue ?: return message
+        val rootText = (message as? ChatComponentText)?.chatComponentText_TextValue ?: return message
         val parts = buildList {
             if (rootText.isNotEmpty()) add(
                 ChatComponentText(rootText).setChatStyle(message.chatStyle.createShallowCopy())
@@ -68,8 +68,8 @@ object ShortPMChannelNames {
             }
         }
         return result
-        *///?} else {
-        val rootText = (message.contents as? PlainTextContents)?.text() ?: return message
+        //?} else {
+        /*val rootText = (message.contents as? PlainTextContents)?.text() ?: return message
         val parts = buildList {
             if (rootText.isNotEmpty()) add(Component.literal(rootText).withStyle(message.style))
             addAll(message.siblings)
@@ -91,6 +91,6 @@ object ShortPMChannelNames {
             }
         }
         return result
-        //?}
+        *///?}
     }
 }

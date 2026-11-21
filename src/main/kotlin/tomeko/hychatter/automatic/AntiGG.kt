@@ -1,13 +1,13 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
@@ -16,10 +16,10 @@ import tomeko.hychatter.utils.HypixelPackets
 object AntiGG {
     fun register() {
         //? if 1.8.9 {
-        //ClientReceiveMessageEvents.ALLOW_CHAT.register(::onChatReceive)
+        ClientReceiveMessageEvents.ALLOW_CHAT.register(::onChatReceive)
         //?} else {
-        ClientReceiveMessageEvents.ALLOW_CHAT.register { component, _, _, _, _ -> onChatReceive(component) }
-        //?}
+        /*ClientReceiveMessageEvents.ALLOW_CHAT.register { component, _, _, _, _ -> onChatReceive(component) }
+        *///?}
     }
 
     private fun onChatReceive(component: Component): Boolean {
@@ -27,10 +27,10 @@ object AntiGG {
 
         val message =
         //? if 1.8.9 {
-        //component.unformattedText
+        component.unformattedText
             //?} else {
-            component.string
-        //?}
+            /*component.string
+        *///?}
 
         return !message.matches(LanguageData.GG_MESSAGES)
     }

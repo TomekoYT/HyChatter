@@ -1,19 +1,19 @@
 package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
-/*import net.minecraft.util.ChatComponentText
+import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent as Component
-*///?} else {
-import net.minecraft.ChatFormatting
-import net.minecraft.network.chat.Component
-//?}
-//? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Component
+*///?}
+//? if 1.8.9 {
+import tomeko.hychatter.event.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
@@ -32,9 +32,9 @@ object GameStatusRestyler {
 
         val plainMessage =
             //? if 1.8.9
-            //message.unformattedText
+            message.unformattedText
             //? else
-            message.string
+            //message.string
         val joinMatch = LanguageData.GAME_JOIN.find(plainMessage)
         joinMatch?.let { match ->
             val amount = match.groups["amount"]?.value?.removeSurrounding("(", ")") ?: return@let
@@ -47,9 +47,9 @@ object GameStatusRestyler {
 
         val cleaned =
             //? if 1.8.9
-            //message.createCopy().apply { siblings.removeIf { it.unformattedText.isEmpty() } }
+            message.createCopy().apply { siblings.removeIf { it.unformattedText.isEmpty() } }
             //? else
-            message.copy().apply { siblings.removeIf { it.string.isEmpty() } }
+            //message.copy().apply { siblings.removeIf { it.string.isEmpty() } }
         val playerName = cleaned.siblings.firstOrNull() ?: return message
 
         return when {
@@ -64,7 +64,7 @@ object GameStatusRestyler {
         val amount = amountComponent(playerCount)
 
         //? if 1.8.9 {
-        /*return if (HyChatterConfig.gameStatusRestyle) {
+        return if (HyChatterConfig.gameStatusRestyle) {
             val prefix = ChatComponentText("")
                 .appendSibling(
                     ChatComponentText("+ ")
@@ -108,8 +108,8 @@ object GameStatusRestyler {
                 message
             }
         }
-        *///?} else {
-        return if (HyChatterConfig.gameStatusRestyle) {
+        //?} else {
+        /*return if (HyChatterConfig.gameStatusRestyle) {
             val prefix = Component.empty()
                 .append(Component.literal("+ ").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD))
             if (HyChatterConfig.playerCountBeforePlayerName) {
@@ -127,14 +127,14 @@ object GameStatusRestyler {
                 message
             }
         }
-        //?}
+        *///?}
     }
 
     private fun handleLeaveMessage(message: Component, playerName: Component): Component {
         val amount = amountComponent(--playerCount)
 
         //? if 1.8.9 {
-        /*return if (HyChatterConfig.gameStatusRestyle) {
+        return if (HyChatterConfig.gameStatusRestyle) {
             val prefix = ChatComponentText("")
                 .appendSibling(
                     ChatComponentText("- ")
@@ -180,8 +180,8 @@ object GameStatusRestyler {
         } else {
             message
         }
-        *///?} else {
-        return if (HyChatterConfig.gameStatusRestyle) {
+        //?} else {
+        /*return if (HyChatterConfig.gameStatusRestyle) {
             val prefix = Component.empty()
                 .append(Component.literal("- ").withStyle(ChatFormatting.RED, ChatFormatting.BOLD))
             if (!HyChatterConfig.playerCountOnPlayerLeave) {
@@ -201,12 +201,12 @@ object GameStatusRestyler {
         } else {
             message
         }
-        //?}
+        *///?}
     }
 
     private fun handleGameStatusMessage(message: Component, cleaned: Component, plainMessage: String): Component = when {
         //? if 1.8.9 {
-        /*plainMessage.matches(LanguageData.GAME_STARTING) ->
+        plainMessage.matches(LanguageData.GAME_STARTING) ->
             ChatComponentText("")
                 .appendSibling(
                     ChatComponentText("⁎ ")
@@ -264,8 +264,8 @@ object GameStatusRestyler {
                             ChatStyle().setColor(EnumChatFormatting.RED)
                         )
                 )
-        *///?} else {
-        plainMessage.matches(LanguageData.GAME_STARTING) ->
+        //?} else {
+        /*plainMessage.matches(LanguageData.GAME_STARTING) ->
             Component.empty()
                 .append(Component.literal("⁎ ").withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD))
                 .append(cleaned.siblings[0].copy().withStyle(ChatFormatting.GREEN))
@@ -279,13 +279,13 @@ object GameStatusRestyler {
         plainMessage == LanguageData.GAME_START_DELAYED ->
             Component.literal("⁎ ").withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD)
                 .append(Component.literal("Start delayed.").withStyle(ChatFormatting.RED))
-        //?}
+        *///?}
         else -> message
     }
 
     private fun amountComponent(count: Int): Component =
         //? if 1.8.9 {
-        /*ChatComponentText("(")
+        ChatComponentText("(")
             .setChatStyle(
                 ChatStyle().setColor(EnumChatFormatting.YELLOW)
             )
@@ -313,13 +313,13 @@ object GameStatusRestyler {
                         ChatStyle().setColor(EnumChatFormatting.YELLOW)
                     )
             )
-        *///?} else {
-        Component.literal("(").withStyle(ChatFormatting.YELLOW)
+        //?} else {
+        /*Component.literal("(").withStyle(ChatFormatting.YELLOW)
             .append(Component.literal(pad(count)).withStyle(ChatFormatting.AQUA))
             .append(Component.literal("/").withStyle(ChatFormatting.YELLOW))
             .append(Component.literal(maxPlayerCount.toString()).withStyle(ChatFormatting.AQUA))
             .append(Component.literal(")").withStyle(ChatFormatting.YELLOW))
-        //?}
+        *///?}
 
     private fun pad(n: Int): String {
         val nString = n.toString()

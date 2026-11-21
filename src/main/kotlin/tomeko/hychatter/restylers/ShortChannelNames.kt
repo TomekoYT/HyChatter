@@ -1,17 +1,17 @@
 package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
-/*import net.minecraft.util.ChatComponentText
+import net.minecraft.util.ChatComponentText
 import net.minecraft.util.IChatComponent as Component
-*///?} else {
-import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.contents.PlainTextContents
-//?}
-//? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.contents.PlainTextContents
+*///?}
+//? if 1.8.9 {
+import tomeko.hychatter.event.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
@@ -35,13 +35,13 @@ object ShortChannelNames {
     private fun restyle(message: Component, regex: Regex, prefix: String): Component {
         if (!regex.containsMatchIn(
                 //? if 1.8.9
-                //message.formattedText
+                message.formattedText
                         //? else
-                message.string
+                //message.string
         )) return message
 
         //? if 1.8.9 {
-        /*if ((message as? ChatComponentText)
+        if ((message as? ChatComponentText)
                 ?.chatComponentText_TextValue
                 .isNullOrEmpty()
         ) {
@@ -59,8 +59,8 @@ object ShortChannelNames {
         return ChatComponentText("$prefix > ").also { result ->
             message.siblings.forEach { result.appendSibling(it) }
         }
-        *///?} else {
-        if ((message.contents as? PlainTextContents)?.text().isNullOrEmpty()) {
+        //?} else {
+        /*if ((message.contents as? PlainTextContents)?.text().isNullOrEmpty()) {
             return Component.empty().also { result ->
                 for (sibling in message.siblings) {
                     val modifiedSibling = regex.find(sibling.string)?.let {
@@ -74,6 +74,6 @@ object ShortChannelNames {
         return Component.literal("$prefix > ").also { result ->
             message.siblings.forEach { result.append(it) }
         }
-        //?}
+        *///?}
     }
 }

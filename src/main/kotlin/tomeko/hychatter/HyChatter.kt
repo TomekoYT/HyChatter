@@ -5,10 +5,10 @@ package tomeko.hychatter
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 *///?} elif ornithe {
-//import net.ornithemc.osl.entrypoints.api.ModInitializer
+import net.ornithemc.osl.entrypoints.api.ModInitializer
 //?} else {
-import net.fabricmc.api.ClientModInitializer
-//?}
+/*import net.fabricmc.api.ClientModInitializer
+*///?}
 import tomeko.hychatter.automatic.*
 import tomeko.hychatter.hiders.*
 import tomeko.hychatter.commands.*
@@ -30,9 +30,9 @@ import tomeko.hychatter.waypoints.*
 *///?}
 class HyChatter
 //? if ornithe
-//: ModInitializer
+: ModInitializer
 //? elif fabric
-    : ClientModInitializer
+    //: ClientModInitializer
 {
     //? if forge
     //@Mod.EventHandler
@@ -40,9 +40,9 @@ class HyChatter
     override
     fun
     //? if ornithe
-    //init(
+    init(
     //? else
-            onInitializeClient(
+            //onInitializeClient(
         //? if forge
         //event: FMLInitializationEvent
     ) {
@@ -100,7 +100,7 @@ class HyChatter
         SeasonalCollectedRemover.register()
         ServerConnectedMessage.register()
         //? if fabric
-        SkyblockWelcomeRemover.register()
+        //SkyblockWelcomeRemover.register()
         SoulWellAnnouncerRemover.register()
         StatsMessageRemover.register()
         TicketMachineRemover.register()

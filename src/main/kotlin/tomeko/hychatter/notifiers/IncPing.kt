@@ -1,13 +1,13 @@
 package tomeko.hychatter.notifiers
 
 //? if 1.8.9 {
-/*import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 import tomeko.hychatter.event.ClientReceiveMessageEvents
-*///?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.utils.HypixelPackets
@@ -24,17 +24,17 @@ object IncPing {
 
         val text =
         //? if 1.8.9 {
-                /*message.unformattedText*/
+                message.unformattedText
             //?} else {
-            message.string
-        //?}
+            /*message.string
+        *///?}
 
         if (!incPattern.containsMatchIn(text)) return
 
         //? if 1.8.9 {
-        /*Minecraft.getMinecraft().thePlayer?.playSound("random.orb", 1f, 1f)
-        *///?} else {
-        Minecraft.getInstance().player?.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1f, 1f)
-        //?}
+        Minecraft.getMinecraft().thePlayer?.playSound("random.orb", 1f, 1f)
+        //?} else {
+        /*Minecraft.getInstance().player?.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1f, 1f)
+        *///?}
     }
 }

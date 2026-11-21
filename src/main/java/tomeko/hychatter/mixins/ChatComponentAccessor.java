@@ -1,7 +1,7 @@
 package tomeko.hychatter.mixins;
 
 //? if 1.8.9 {
-/*import net.minecraft.client.gui.GuiNewChat;
+import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.client.gui.ChatLine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -21,10 +21,10 @@ public interface ChatComponentAccessor {
     @Accessor("scrollPos")
     void setChatScrollbarPos(int pos);
 }
-*///?} else {
-import net.minecraft.client.gui.components.ChatComponent;
+//?} else {
+/*import net.minecraft.client.gui.components.ChatComponent;
 //~ if <26.1 'multiplayer.chat.GuiMessage' -> 'GuiMessage'
-import net.minecraft.client.multiplayer.chat.GuiMessage;
+import net.minecraft.client.GuiMessage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -44,4 +44,4 @@ public interface ChatComponentAccessor {
     @Accessor
     void setChatScrollbarPos(int pos);
 }
-//?}
+*///?}

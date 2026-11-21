@@ -3,14 +3,14 @@ package tomeko.hychatter.automatic
 //? if forge
 //import cc.polyfrost.oneconfig.utils.Notifications
 //? if 1.8.9 {
-/*import net.minecraft.client.Minecraft
+import net.minecraft.client.Minecraft
 import net.minecraft.util.IChatComponent as Component
 import tomeko.hychatter.event.ClientReceiveMessageEvents
-*///?} else {
-import net.minecraft.network.chat.Component
+//?} else {
+/*import net.minecraft.network.chat.Component
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.client.Minecraft
-//?}
+*///?}
 //? if !forge
 import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 import tomeko.hychatter.config.HyChatterConfig
@@ -29,10 +29,10 @@ object AutoFriend {
 
         val text =
             //? if 1.8.9 {
-            //message.unformattedText
+            message.unformattedText
             //?} else {
-            message.string
-            //?}
+            /*message.string
+            *///?}
         if (text.contains(": ")) return
 
         val match = LanguageData.FRIEND_REQUEST.find(text) ?: return
@@ -40,9 +40,9 @@ object AutoFriend {
         if (player.startsWith("[")) player = player.substringAfter("] ")
 
         //? if 1.8.9
-        //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/friend $player") ?: return
+        Minecraft.getMinecraft().thePlayer?.sendChatMessage("/friend $player") ?: return
         //? else
-        Minecraft.getInstance().player?.connection?.sendCommand("friend $player") ?: return
+        //Minecraft.getInstance().player?.connection?.sendCommand("friend $player") ?: return
         //? if forge
         //Notifications.INSTANCE.send(
         //? else

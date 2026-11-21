@@ -1,15 +1,15 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.minecraft.network.chat.Component
-//?}
+/*import net.minecraft.network.chat.Component
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
@@ -25,18 +25,18 @@ object BroadcastLevelUp {
         if (fromActionBar || !HyChatterConfig.broadcastLevelUp || !HypixelPackets.onHypixel) return
         val text =
             //? if 1.8.9 {
-            //message.unformattedText
+            message.unformattedText
             //?} else {
-            message.string
-            //?}
+            /*message.string
+            *///?}
         if (text.contains(": ")) return
 
         LanguageData.LEVEL_UP.find(text)?.let { match ->
             val level = match.groups["level"]?.value ?: return@let
             //? if 1.8.9
-            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/gc Level up! I am now Hypixel Level $level!")
+            Minecraft.getMinecraft().thePlayer?.sendChatMessage("/gc Level up! I am now Hypixel Level $level!")
             //? else
-            Minecraft.getInstance().player?.connection?.sendCommand("gc Level up! I am now Hypixel Level $level!")
+            //Minecraft.getInstance().player?.connection?.sendCommand("gc Level up! I am now Hypixel Level $level!")
         }
     }
 }

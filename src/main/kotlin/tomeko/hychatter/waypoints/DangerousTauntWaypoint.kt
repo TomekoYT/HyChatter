@@ -2,24 +2,24 @@ package tomeko.hychatter.waypoints
 
 import net.minecraft.client.Minecraft
 //? if 1.8.9 {
-/*import net.minecraft.client.multiplayer.WorldClient
+import net.minecraft.client.multiplayer.WorldClient
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import net.minecraft.util.IChatComponent as Component
-*///?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.world.level.block.Blocks
-//?}
+*///?}
 //? if forge
 //import cc.polyfrost.oneconfig.config.core.OneColor as PolyColor
 //? else
 import org.polyfrost.compose.render.PolyColor
 import tomeko.hychatter.config.HyChatterConfig
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.utils.HypixelPackets
 import tomeko.hychatter.utils.removeFormatting
@@ -36,10 +36,10 @@ object DangerousTauntWaypoint {
 
         val message =
             //? if 1.8.9 {
-            //component.unformattedText.removeFormatting()
+            component.unformattedText.removeFormatting()
         //?} else {
-        component.string.removeFormatting()
-        //?}
+        /*component.string.removeFormatting()
+        *///?}
 
         val words = message.split(" ")
         if (words.size != 12
@@ -100,29 +100,29 @@ object DangerousTauntWaypoint {
 
     private fun getPos(x: Int, z: Int): BlockPos {
         //? if 1.8.9 {
-        //val world: WorldClient = Minecraft.getMinecraft().theWorld
+        val world: WorldClient = Minecraft.getMinecraft().theWorld
         //?} else {
-        val world: ClientLevel = Minecraft.getInstance().level!!
-        //?}
+        /*val world: ClientLevel = Minecraft.getInstance().level!!
+        *///?}
 
         var pos = BlockPos(x, 0, z)
 
         while (world.getBlockState(pos).block ==
             //? if 1.8.9 {
-            //Blocks.air
+            Blocks.air
         //?} else {
-        Blocks.AIR
-        //?}
+        /*Blocks.AIR
+        *///?}
         ) {
             pos = oneHigher(pos)
         }
 
         while (world.getBlockState(pos).block !=
             //? if 1.8.9 {
-            //Blocks.air
+            Blocks.air
         //?} else {
-        Blocks.AIR
-        //?}
+        /*Blocks.AIR
+        *///?}
         ) {
             pos = oneHigher(pos)
         }
@@ -132,8 +132,8 @@ object DangerousTauntWaypoint {
 
     private fun oneHigher(pos: BlockPos): BlockPos =
         //? if 1.8.9 {
-        //pos.up()
+        pos.up()
     //?} else {
-    pos.above()
-    //?}
+    /*pos.above()
+    *///?}
 }

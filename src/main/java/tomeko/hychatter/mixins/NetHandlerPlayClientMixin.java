@@ -1,7 +1,7 @@
 package tomeko.hychatter.mixins;
 
 //? if 1.8.9 {
-/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
@@ -68,4 +68,4 @@ abstract class NetHandlerPlayClientMixin {
         ClientPlayConnectionEvents.DISCONNECT.invoker().onDisconnect((NetHandlerPlayClient) (Object) this, Minecraft.getMinecraft());
     }
 }
-*///?}
+//?}

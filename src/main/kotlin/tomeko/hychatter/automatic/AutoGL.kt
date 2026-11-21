@@ -1,15 +1,15 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.minecraft.network.chat.Component
-//?}
+/*import net.minecraft.network.chat.Component
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.utils.HypixelPackets
@@ -24,16 +24,16 @@ object AutoGL {
 
         val text =
             //? if 1.8.9 {
-            //message.unformattedText
+            message.unformattedText
             //?} else {
-            message.string
-            //?}
+            /*message.string
+            *///?}
         val trimmed = text.trim()
         if (!trimmed.contains(": ") && trimmed.endsWith("The game starts in 5 seconds!")) {
             //? if 1.8.9
-            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGLMessage}") ?: return
+            Minecraft.getMinecraft().thePlayer?.sendChatMessage("/ac ${HyChatterConfig.autoGLMessage}") ?: return
             //? else
-            Minecraft.getInstance().player?.connection?.sendCommand("ac ${HyChatterConfig.autoGLMessage}") ?: return
+            //Minecraft.getInstance().player?.connection?.sendCommand("ac ${HyChatterConfig.autoGLMessage}") ?: return
         }
     }
 }

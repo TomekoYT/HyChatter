@@ -1,18 +1,18 @@
 package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
-/*import net.minecraft.client.Minecraft
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ChatLine
 import net.minecraft.util.IChatComponent as Component
-*///?} else {
-import net.minecraft.client.Minecraft
-import net.minecraft.network.chat.Component
-//?}
-//? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.minecraft.client.Minecraft
+import net.minecraft.network.chat.Component
+*///?}
+//? if 1.8.9 {
+import tomeko.hychatter.event.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.mixins.ChatComponentAccessor
@@ -29,9 +29,9 @@ object GameStartCompactor {
         if (fromActionBar || !HyChatterConfig.compactGameStartAnnouncements || !HypixelPackets.onHypixel) return component
         val message =
             //? if 1.8.9
-            //component.unformattedText
+            component.unformattedText
             //? else
-            component.string
+            //component.string
 
         if (!message.matches(LanguageData.GAME_STARTING)) return component
 
@@ -42,7 +42,7 @@ object GameStartCompactor {
 
     private fun removePrevious(previous: Component) {
         //? if 1.8.9 {
-        /*val chat = Minecraft.getMinecraft().ingameGUI.chatGUI as ChatComponentAccessor
+        val chat = Minecraft.getMinecraft().ingameGUI.chatGUI as ChatComponentAccessor
         val removed = chat.getAllMessages().filter { it.chatComponent == previous }
         if (removed.isEmpty()) return
 
@@ -65,9 +65,9 @@ object GameStartCompactor {
         if (removedBelowScroll > 0) {
             chat.setChatScrollbarPos(scrollbarPos - removedBelowScroll)
         }
-        *///?} else {
-        //~ if <26.2 'gui.hud' -> 'gui'
-        val chat = Minecraft.getInstance().gui.hud.chat as ChatComponentAccessor
+        //?} else {
+        /*//~ if <26.2 'gui.hud' -> 'gui'
+        val chat = Minecraft.getInstance().gui.chat as ChatComponentAccessor
         val removed = chat.allMessages.filter { it.content == previous }
         if (removed.isEmpty()) return
 
@@ -91,6 +91,6 @@ object GameStartCompactor {
         if (removedBelowScroll > 0) {
             chat.chatScrollbarPos = scrollbarPos - removedBelowScroll
         }
-        //?}
+        *///?}
     }
 }

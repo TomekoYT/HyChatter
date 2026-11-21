@@ -1,16 +1,16 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-/*import net.minecraft.client.Minecraft
+import net.minecraft.client.Minecraft
 import net.minecraft.util.IChatComponent as Component
 import tomeko.hychatter.event.ClientReceiveMessageEvents
 import tomeko.hychatter.event.ClientTickEvents
-*///?} else {
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
@@ -34,10 +34,10 @@ object AutoGG {
     private fun onGameReceive(message: Component, fromActionBar: Boolean) {
         if (fromActionBar || !HyChatterConfig.autoGG || !HypixelPackets.onHypixel || !hasGameEnded(
                 //? if 1.8.9 {
-                //message.unformattedText
+                message.unformattedText
                 //?} else {
-                message.string
-                //?}
+                /*message.string
+                *///?}
             )
         ) return
 
@@ -65,9 +65,9 @@ object AutoGG {
             firstMessageTicks = -1
 
             //? if 1.8.9
-            //mc.thePlayer?.sendChatMessage("/ac ${randomCase(HyChatterConfig.autoGGMessage)}")
+            mc.thePlayer?.sendChatMessage("/ac ${randomCase(HyChatterConfig.autoGGMessage)}")
             //? else
-            mc.player?.connection?.sendCommand("ac ${randomCase(HyChatterConfig.autoGGMessage)}")
+            //mc.player?.connection?.sendCommand("ac ${randomCase(HyChatterConfig.autoGGMessage)}")
         }
 
         if (secondMessageTicks > 0) {
@@ -79,9 +79,9 @@ object AutoGG {
 
             if (shouldSend) {
                 //? if 1.8.9
-                //mc.thePlayer?.sendChatMessage("/ac ${randomCase(HyChatterConfig.autoGGSecondMessage)}")
+                mc.thePlayer?.sendChatMessage("/ac ${randomCase(HyChatterConfig.autoGGSecondMessage)}")
                 //? else
-                mc.player?.connection?.sendCommand("ac ${randomCase(HyChatterConfig.autoGGSecondMessage)}")
+                //mc.player?.connection?.sendCommand("ac ${randomCase(HyChatterConfig.autoGGSecondMessage)}")
             }
         }
 

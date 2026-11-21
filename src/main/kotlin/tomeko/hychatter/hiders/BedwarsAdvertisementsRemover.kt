@@ -1,13 +1,13 @@
 package tomeko.hychatter.hiders
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
@@ -17,10 +17,10 @@ import tomeko.hychatter.utils.HypixelPackets
 object BedwarsAdvertisementsRemover {
     fun register() {
         //? if 1.8.9 {
-        //ClientReceiveMessageEvents.ALLOW_CHAT.register(::onChatReceive)
+        ClientReceiveMessageEvents.ALLOW_CHAT.register(::onChatReceive)
         //?} else {
-        ClientReceiveMessageEvents.ALLOW_CHAT.register { component, _, _, _, _ -> onChatReceive(component) }
-        //?}
+        /*ClientReceiveMessageEvents.ALLOW_CHAT.register { component, _, _, _, _ -> onChatReceive(component) }
+        *///?}
     }
 
     private fun onChatReceive(component: Component): Boolean {
@@ -28,10 +28,10 @@ object BedwarsAdvertisementsRemover {
 
         val message =
         //? if 1.8.9 {
-        //component.unformattedText
+        component.unformattedText
             //?} else {
-            component.string
-        //?}
+            /*component.string
+        *///?}
 
         if ((message.startsWith("-") && message.endsWith("-"))
             || (message.startsWith("▬") && message.endsWith("▬"))
@@ -39,9 +39,9 @@ object BedwarsAdvertisementsRemover {
             || !message.contains(": ")
             || message.contains(
                 //? if 1.8.9
-                //Minecraft.getMinecraft().thePlayer.name,
+                Minecraft.getMinecraft().thePlayer.name,
                 //? else
-                Minecraft.getInstance().player?.name?.string ?: return true,
+                //Minecraft.getInstance().player?.name?.string ?: return true,
                 true
             )
             || message.startsWith("Party >")

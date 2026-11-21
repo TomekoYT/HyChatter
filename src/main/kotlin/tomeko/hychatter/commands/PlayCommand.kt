@@ -6,26 +6,26 @@ import net.minecraft.command.ICommandSender
 import net.minecraft.util.BlockPos
 import net.minecraftforge.client.ClientCommandHandler
 *///?} elif ornithe {
-/*import com.mojang.brigadier.arguments.StringArgumentType
+import com.mojang.brigadier.arguments.StringArgumentType
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager.argument
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager.literal
 import org.polyfrost.oneconfig.internal.legacy.command.ClientCommandRegistrationCallback
-*///?} else {
-import com.mojang.brigadier.arguments.StringArgumentType
+//?} else {
+/*import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.tree.LiteralCommandNode
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands.argument
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
-//?}
+*///?}
 //? if 1.8.9 {
-/*import net.minecraft.network.play.client.C01PacketChatMessage
+import net.minecraft.network.play.client.C01PacketChatMessage
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
-*///?} else {
-import net.minecraft.ChatFormatting
+//?} else {
+/*import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 import com.google.gson.JsonParser
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
@@ -47,9 +47,9 @@ object PlayCommand
             try {
                 val json =
                     //? if 1.8.9
-                    //JsonParser().parse(URI.create("https://data-v2.polyfrost.org/hytils/game_aliases.json").toURL().readText())
+                    JsonParser().parse(URI.create("https://data-v2.polyfrost.org/hytils/game_aliases.json").toURL().readText())
                     //? else
-                    JsonParser.parseString(URI.create("https://data-v2.polyfrost.org/hytils/game_aliases.json").toURL().readText())
+                    //JsonParser.parseString(URI.create("https://data-v2.polyfrost.org/hytils/game_aliases.json").toURL().readText())
                 games = json.asJsonObject.entrySet().associate { it.key to it.value.asString }
                 gameList = (games.keys + games.values).distinct()
             } catch (e: Exception) {
@@ -58,8 +58,8 @@ object PlayCommand
         }
 
         //? if forge {
-        //ClientCommandHandler.instance.registerCommand(this)
-        //?} else {
+        /*ClientCommandHandler.instance.registerCommand(this)
+        *///?} else {
         ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ -> dispatcher.register(command()) }
         //?}
     }
@@ -84,7 +84,7 @@ object PlayCommand
     //?}
 
     //? if fabric
-    @JvmStatic val commandNode: LiteralCommandNode<FabricClientCommandSource> by lazy { command().build() }
+    //@JvmStatic val commandNode: LiteralCommandNode<FabricClientCommandSource> by lazy { command().build() }
 
     //? if forge {
     /*override fun getCommandName(): String = "play"
@@ -133,16 +133,16 @@ object PlayCommand
 
     private fun send(command: String) {
         //? if 1.8.9
-        //Minecraft.getMinecraft().thePlayer?.sendQueue?.addToSendQueue(C01PacketChatMessage(command))
+        Minecraft.getMinecraft().thePlayer?.sendQueue?.addToSendQueue(C01PacketChatMessage(command))
         //? else
-        Minecraft.getInstance().player?.connection?.sendCommand(command.removePrefix("/"))
+        //Minecraft.getInstance().player?.connection?.sendCommand(command.removePrefix("/"))
     }
 
     private fun showError(message: String) {
         //? if 1.8.9
-        //Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText("${EnumChatFormatting.RED}$message"))
+        Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText("${EnumChatFormatting.RED}$message"))
         //? elif >= 26.2
-        Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal(message).withStyle(ChatFormatting.RED))
+        //Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal(message).withStyle(ChatFormatting.RED))
         //? else
         //Minecraft.getInstance().gui.chat.addClientSystemMessage(Component.literal(message).withStyle(ChatFormatting.RED))
     }

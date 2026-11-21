@@ -1,19 +1,19 @@
 package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
-/*import net.minecraft.util.ChatComponentText
+import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent as Component
-*///?} else {
-import net.minecraft.ChatFormatting
-import net.minecraft.network.chat.Component
-//?}
-//? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Component
+*///?}
+//? if 1.8.9 {
+import tomeko.hychatter.event.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
@@ -29,9 +29,9 @@ object ColoredPlayerConnectionStatus {
 
         val match = LanguageData.PLAYER_CONNECTION_STATUS.find(
             //? if 1.8.9
-            //component.unformattedText
+            component.unformattedText
             //? else
-            component.string
+            //component.string
         ) ?: return component
         val status = match.groups["status"]?.value ?: return component
         val isJoin = status == "joined"
@@ -41,7 +41,7 @@ object ColoredPlayerConnectionStatus {
 
     private fun restyle(component: Component, status: String, isJoin: Boolean): Component {
         //? if 1.8.9 {
-        /*val result = ChatComponentText("").setChatStyle(component.chatStyle.createShallowCopy())
+        val result = ChatComponentText("").setChatStyle(component.chatStyle.createShallowCopy())
         val text = component.unformattedTextForChat
         if (text.isNotEmpty()) {
             val index = text.lastIndexOf(status)
@@ -79,11 +79,11 @@ object ColoredPlayerConnectionStatus {
             result.appendSibling(restyle(sibling, status, isJoin))
         }
         return result
-        *///?} else {
-        return component.plainCopy().withStyle(component.style)
+        //?} else {
+        /*return component.plainCopy().withStyle(component.style)
         .append(component.siblings.first())
         .append(Component.literal(status).withStyle(if (isJoin) ChatFormatting.GREEN else ChatFormatting.RED))
         .append(Component.literal(".").withStyle(ChatFormatting.YELLOW))
-        //?}
+        *///?}
     }
 }

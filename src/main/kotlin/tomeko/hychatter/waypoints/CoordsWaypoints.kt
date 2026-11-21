@@ -1,16 +1,16 @@
 package tomeko.hychatter.waypoints
 
 //? if 1.8.9 {
-/*import net.minecraft.util.BlockPos
+import net.minecraft.util.BlockPos
 import net.minecraft.util.IChatComponent as Component
-*///?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 import tomeko.hychatter.config.HyChatterConfig
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?}
 import tomeko.hychatter.utils.removeFormatting
 import kotlin.text.get
@@ -25,10 +25,10 @@ object CoordsWaypoints {
 
         val message =
             //? if 1.8.9 {
-            //component.unformattedText.removeFormatting()
+            component.unformattedText.removeFormatting()
         //?} else {
-        component.string.removeFormatting()
-        //?}
+        /*component.string.removeFormatting()
+        *///?}
 
         val regex = Regex(
             "^(?:\\w+\\s*>\\s*)?" +

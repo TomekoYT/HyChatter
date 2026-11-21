@@ -1,7 +1,7 @@
 package tomeko.hychatter.mixins;
 
 //? if fabric {
-import com.mojang.brigadier.ParseResults;
+/*import com.mojang.brigadier.ParseResults;
 import com.mojang.brigadier.context.StringRange;
 import com.mojang.brigadier.suggestion.Suggestion;
 import com.mojang.brigadier.suggestion.Suggestions;
@@ -57,4 +57,4 @@ abstract class CommandSuggestionsMixin {
         ci.cancel();
     }
 }
-//?}
+*///?}

@@ -1,15 +1,15 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.minecraft.network.chat.Component
-//?}
+/*import net.minecraft.network.chat.Component
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
@@ -27,17 +27,17 @@ object BroadcastAchievement {
         if (fromActionBar || !HyChatterConfig.broadcastAchievements || !HypixelPackets.onHypixel) return
         val text =
             //? if 1.8.9 {
-            //message.unformattedText
+            message.unformattedText
             //?} else {
-            message.string
-            //?}
+            /*message.string
+            *///?}
         LanguageData.ACHIEVEMENT_UNLOCKED.find(text)?.let { match ->
             val achievement = match.groups["achievement"]?.value ?: return@let
             achievements.add(achievement)
             //? if 1.8.9
-            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/gc Achievement unlocked! I unlocked the $achievement achievement!")
+            Minecraft.getMinecraft().thePlayer?.sendChatMessage("/gc Achievement unlocked! I unlocked the $achievement achievement!")
             //? else
-            Minecraft.getInstance().player?.connection?.sendCommand("gc Achievement unlocked! I unlocked the $achievement achievement!")
+            //Minecraft.getInstance().player?.connection?.sendCommand("gc Achievement unlocked! I unlocked the $achievement achievement!")
         }
     }
 }

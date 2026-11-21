@@ -3,15 +3,15 @@ package tomeko.hychatter.hiders
 //? if forge
 //import cc.polyfrost.oneconfig.utils.Notifications
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.minecraft.network.chat.Component
-//?}
+/*import net.minecraft.network.chat.Component
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 //? if !forge
 import org.polyfrost.oneconfig.api.notifications.v1.Notifications
 import net.minecraft.client.Minecraft
@@ -31,10 +31,10 @@ object SilentRemoval {
         if (fromActionBar || !HypixelPackets.onHypixel) return
         val text =
             //? if 1.8.9 {
-            //message.unformattedText
+            message.unformattedText
             //?} else {
-            message.string
-            //?}
+            /*message.string
+            *///?}
         val match = LanguageData.PLAYER_CONNECTION_STATUS.find(text) ?: return
         val status = match.groups["status"]?.value ?: return
         if (status != "left") return
@@ -42,9 +42,9 @@ object SilentRemoval {
         val player = match.groups["player"]?.value ?: return
         if (removalQueue.contains(player.lowercase(Locale.ROOT))) {
             //? if 1.8.9
-            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/f remove $player") ?: return
+            Minecraft.getMinecraft().thePlayer?.sendChatMessage("/f remove $player") ?: return
             //? else
-            Minecraft.getInstance().player?.connection?.sendCommand("f remove $player") ?: return
+            //Minecraft.getInstance().player?.connection?.sendCommand("f remove $player") ?: return
 
             //? if forge
             //Notifications.INSTANCE.send(

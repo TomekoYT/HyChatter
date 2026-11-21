@@ -1,28 +1,28 @@
 package tomeko.hychatter.cooldown
 
 //? if 1.8.9 {
-/*import net.hypixel.data.type.GameType
+import net.hypixel.data.type.GameType
 import net.minecraft.client.Minecraft
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.IChatComponent as Component
-*///?} else {
-import net.hypixel.data.type.GameType
+//?} else {
+/*import net.hypixel.data.type.GameType
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.Style
-//?}
+*///?}
 //? if 1.8.9 {
-/*import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 import tomeko.hychatter.event.ClientSendMessageEvents
-*///?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
-//?}
+*///?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.Constants
@@ -48,9 +48,9 @@ object ShoutBlocker {
             val secondsLeft = (shoutCooldown - now) / 1000L
 
             //? if 1.8.9
-            //Minecraft.getMinecraft().thePlayer.addChatMessage(createCooldownMessage(secondsLeft))
+            Minecraft.getMinecraft().thePlayer.addChatMessage(createCooldownMessage(secondsLeft))
             //? elif >= 26.2
-            Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
+            //Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
             //? else
             //Minecraft.getInstance().gui.chat.addClientSystemMessage(createCooldownMessage(secondsLeft))
             return false
@@ -65,9 +65,9 @@ object ShoutBlocker {
 
         val message =
         //? if 1.8.9
-        //component.unformattedText
+        component.unformattedText
             //? else
-            component.string
+            //component.string
 
         if (
             (HypixelPackets.inSkywars && message == LanguageData.CANNOT_SHOUT_BEFORE_SKYWARS) ||
@@ -100,7 +100,7 @@ object ShoutBlocker {
 
     private fun createCooldownMessage(secondsLeft: Long): Component =
     //? if 1.8.9 {
-            /*ChatComponentText("Shout command is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before shouting another message.").setChatStyle(
+            ChatComponentText("Shout command is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before shouting another message.").setChatStyle(
                 ChatStyle()
                 .setColor(EnumChatFormatting.RED)
                 .setChatHoverEvent(
@@ -123,8 +123,8 @@ object ShoutBlocker {
                     )
                 )
             )
-        *///?} else {
-        Component.literal("Shout command is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before shouting another message.")
+        //?} else {
+        /*Component.literal("Shout command is on cooldown. Please wait ${decimalFormat.format(secondsLeft)} more second${if (secondsLeft == 1L) "" else "s"} before shouting another message.")
             .setStyle(
                 Style.EMPTY
                     .withColor(ChatFormatting.RED)
@@ -142,5 +142,5 @@ object ShoutBlocker {
                         )
                     )
             )
-    //?}
+    *///?}
 }

@@ -1,19 +1,19 @@
 package tomeko.hychatter.restylers
 
 //? if 1.8.9 {
-/*import net.minecraft.util.EnumChatFormatting
+import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent
-*///?} else {
-import net.minecraft.locale.Language
+//?} else {
+/*import net.minecraft.locale.Language
 import net.minecraft.network.chat.Component
 import net.minecraft.util.FormattedCharSequence
-//?}
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 
 object LineSeparators {
     //? if 1.8.9 {
-    /*@JvmStatic
+    @JvmStatic
     fun process(lines: List<IChatComponent>): List<IChatComponent> {
         if (!HyChatterConfig.lineBreakerTrim) return lines
         return trim(lines) { EnumChatFormatting.getTextWithoutFormattingCodes(it.unformattedText) }
@@ -42,8 +42,8 @@ object LineSeparators {
         cache[formattedText] = processed
         return processed
     }
-    *///?} else {
-    @JvmStatic
+    //?} else {
+    /*@JvmStatic
     fun process(lines: List<FormattedCharSequence>, maxWidth: Int): List<FormattedCharSequence> {
         val trimmed = if (HyChatterConfig.lineBreakerTrim) trim(lines, ::plain) else lines
         if (!HyChatterConfig.cleanLineSeparator) return trimmed
@@ -71,7 +71,7 @@ object LineSeparators {
         }
         return builder.toString()
     }
-    //?}
+    *///?}
 
     private fun <T> trim(lines: List<T>, text: (T) -> String): List<T> {
         val result = lines.toMutableList()

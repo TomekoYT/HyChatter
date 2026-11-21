@@ -10,7 +10,7 @@ import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 import net.minecraftforge.client.ClientCommandHandler
 *///?} elif ornithe {
-/*import com.mojang.brigadier.arguments.StringArgumentType
+import com.mojang.brigadier.arguments.StringArgumentType
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
@@ -18,15 +18,15 @@ import net.minecraft.util.EnumChatFormatting
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager.argument
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager.literal
 import org.polyfrost.oneconfig.internal.legacy.command.ClientCommandRegistrationCallback
-*///?} else {
-import com.mojang.brigadier.arguments.StringArgumentType
+//?} else {
+/*import com.mojang.brigadier.arguments.StringArgumentType
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands.argument
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal
-//?}
+*///?}
 import tomeko.hychatter.automatic.NameHistory
 
 object DelNameCommand
@@ -37,8 +37,8 @@ object DelNameCommand
 
     fun register() {
         //? if forge {
-        //ClientCommandHandler.instance.registerCommand(this)
-        //?} else {
+        /*ClientCommandHandler.instance.registerCommand(this)
+        *///?} else {
         ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ -> dispatcher.register(command()) }
         //?}
     }
@@ -47,9 +47,9 @@ object DelNameCommand
     private fun command() = literal("delname")
         .executes {
             //? if 1.8.9
-            //Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText(USAGE).setChatStyle(ChatStyle().setColor(EnumChatFormatting.RED)))
+            Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText(USAGE).setChatStyle(ChatStyle().setColor(EnumChatFormatting.RED)))
             //? elif >= 26.2
-            Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal(USAGE).withStyle(ChatFormatting.RED))
+            //Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal(USAGE).withStyle(ChatFormatting.RED))
             //? else
             //Minecraft.getInstance().gui.chat.addClientSystemMessage(Component.literal(USAGE).withStyle(ChatFormatting.RED))
             1
@@ -101,30 +101,30 @@ object DelNameCommand
         when {
             removed > 0 && notFound == 0 ->
                 //? if 1.8.9
-                //Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText("Removed $removed username${if (removed == 1) "" else "s"} from suggestion history").setChatStyle(ChatStyle().setColor(EnumChatFormatting.GREEN)))
+                Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText("Removed $removed username${if (removed == 1) "" else "s"} from suggestion history").setChatStyle(ChatStyle().setColor(EnumChatFormatting.GREEN)))
                 //? elif >= 26.2
-                Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal("Removed $removed username${if (removed == 1) "" else "s"} from suggestion history").withStyle(ChatFormatting.GREEN))
+                //Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal("Removed $removed username${if (removed == 1) "" else "s"} from suggestion history").withStyle(ChatFormatting.GREEN))
                 //? else
                 //Minecraft.getInstance().gui.chat.addClientSystemMessage(Component.literal("Removed $removed username${if (removed == 1) "" else "s"} from suggestion history").withStyle(ChatFormatting.GREEN))
             removed == 0 && notFound > 0 ->
                 //? if 1.8.9
-                //Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText("No usernames found in suggestion history").setChatStyle(ChatStyle().setColor(EnumChatFormatting.RED)))
+                Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText("No usernames found in suggestion history").setChatStyle(ChatStyle().setColor(EnumChatFormatting.RED)))
                 //? elif >= 26.2
-                Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal("No usernames found in suggestion history").withStyle(ChatFormatting.RED))
+                //Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal("No usernames found in suggestion history").withStyle(ChatFormatting.RED))
                 //? else
                 //Minecraft.getInstance().gui.chat.addClientSystemMessage(Component.literal("No usernames found in suggestion history").withStyle(ChatFormatting.RED))
             removed > 0 ->
                 //? if 1.8.9
-                //Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText("Removed $removed username${if (removed == 1) "" else "s"}, $notFound not found").setChatStyle(ChatStyle().setColor(EnumChatFormatting.GREEN)))
+                Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText("Removed $removed username${if (removed == 1) "" else "s"}, $notFound not found").setChatStyle(ChatStyle().setColor(EnumChatFormatting.GREEN)))
                 //? elif >= 26.2
-                Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal("Removed $removed username${if (removed == 1) "" else "s"}, $notFound not found").withStyle(ChatFormatting.GREEN))
+                //Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal("Removed $removed username${if (removed == 1) "" else "s"}, $notFound not found").withStyle(ChatFormatting.GREEN))
                 //? else
                 //Minecraft.getInstance().gui.chat.addClientSystemMessage(Component.literal("Removed $removed username${if (removed == 1) "" else "s"}, $notFound not found").withStyle(ChatFormatting.GREEN))
             else ->
                 //? if 1.8.9
-                //Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText(USAGE).setChatStyle(ChatStyle().setColor(EnumChatFormatting.RED)))
+                Minecraft.getMinecraft().thePlayer?.addChatMessage(ChatComponentText(USAGE).setChatStyle(ChatStyle().setColor(EnumChatFormatting.RED)))
                 //? elif >= 26.2
-                Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal(USAGE).withStyle(ChatFormatting.RED))
+                //Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(Component.literal(USAGE).withStyle(ChatFormatting.RED))
                 //? else
                 //Minecraft.getInstance().gui.chat.addClientSystemMessage(Component.literal(USAGE).withStyle(ChatFormatting.RED))
         }

@@ -1,12 +1,12 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-/*import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 import tomeko.hychatter.event.ClientReceiveMessageEvents
-*///?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 //? if forge {
 /*import cc.polyfrost.oneconfig.utils.Notifications
 *///?} else {
@@ -31,9 +31,9 @@ object AutoChatSwapper {
 
         val text =
             //? if 1.8.9
-            //message.unformattedText
+            message.unformattedText
             //? else
-            message.string
+            //message.string
 
         if (System.currentTimeMillis() < preventChannelMessageUntil && (text == LanguageData.ALREADY_IN_CHANNEL
                     || (HyChatterConfig.hideAllChatMessage && text.matches(LanguageData.AUTO_CHAT_SWAPPER_CHANNEL_SWAP)))
@@ -61,9 +61,9 @@ object AutoChatSwapper {
 
     private fun swap(channel: String, isTab: (String) -> Boolean) {
         //? if 1.8.9
-        //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/chat $channel")
+        Minecraft.getMinecraft().thePlayer?.sendChatMessage("/chat $channel")
         //? else
-        Minecraft.getInstance().player?.connection?.sendCommand("chat $channel")
+        //Minecraft.getInstance().player?.connection?.sendCommand("chat $channel")
 
         if (HyChatterConfig.chattingIntegration) switchChattingTab(isTab)
     }

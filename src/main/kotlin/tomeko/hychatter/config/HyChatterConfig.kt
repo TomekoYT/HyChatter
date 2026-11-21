@@ -1286,13 +1286,13 @@ object HyChatterConfig : Config(
     var removeDuelsBlockTrailDisabled = false
 
     //? if fabric {
-    @Switch(
+    /*@Switch(
         title = "Remove SkyBlock Welcome Messages",
         description = "Removes \"Welcome to Hypixel SkyBlock!\" messages from chat.",
         category = CATEGORY_HIDERS
     )
     var removeSkyblockWelcome = false
-    //?}
+    *///?}
 
     @Switch(
         //? if forge

@@ -1,14 +1,14 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-/*import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 import tomeko.hychatter.event.ClientReceiveMessageEvents
 import tomeko.hychatter.event.ClientTickEvents
-*///?} else {
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
+//?} else {
+/*import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.network.chat.Component
-//?}
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
@@ -28,10 +28,10 @@ object AutoWB {
 
         val text =
         //? if 1.8.9 {
-        //message.unformattedText
+        message.unformattedText
             //?} else {
-            message.string
-        //?}
+            /*message.string
+        *///?}
 
         val match = LanguageData.PLAYER_CONNECTION_STATUS.find(text) ?: return
         val status = match.groups["status"]?.value ?: return
@@ -73,10 +73,10 @@ object AutoWB {
             pendingCommand = null
 
             //? if 1.8.9 {
-            //mc.thePlayer?.sendChatMessage(command)
+            mc.thePlayer?.sendChatMessage(command)
             //?} else {
-            mc.player?.connection?.sendCommand(command.removePrefix("/"))
-            //?}
+            /*mc.player?.connection?.sendCommand(command.removePrefix("/"))
+            *///?}
         }
     }
 

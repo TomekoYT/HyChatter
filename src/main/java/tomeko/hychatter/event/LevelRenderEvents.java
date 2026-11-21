@@ -1,7 +1,7 @@
 package tomeko.hychatter.event;
 
 //? if 1.8.9 {
-/*public final class LevelRenderEvents {
+public final class LevelRenderEvents {
     private LevelRenderEvents() {}
 
     public static final Event<Start> START = Event.create(Start.class, listeners -> ctx -> {
@@ -46,4 +46,4 @@ package tomeko.hychatter.event;
     @FunctionalInterface
     public interface End { void onEnd(RenderWorldLastEvent context); }
 }
-*///?}
+//?}

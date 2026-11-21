@@ -1,15 +1,15 @@
 package tomeko.hychatter.hiders
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.minecraft.network.chat.Component
-//?}
+/*import net.minecraft.network.chat.Component
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
@@ -24,27 +24,27 @@ object DiscordSafetyWarningRemover {
 
         val message =
             //? if 1.8.9
-            //component.unformattedText
+            component.unformattedText
             //? else
-            component.string
+            //component.string
         if (!message.contains(LanguageData.DISCORD_SAFETY_WARNING)) return component
 
         val copy =
             //? if 1.8.9
-            //component.createCopy()
+            component.createCopy()
             //? else
-            component.copy()
+            //component.copy()
         copy.siblings.removeIf {
             //? if 1.8.9
-            //it.unformattedText == LanguageData.DISCORD_SAFETY_WARNING
+            it.unformattedText == LanguageData.DISCORD_SAFETY_WARNING
             //? else
-            it.string == LanguageData.DISCORD_SAFETY_WARNING
+            //it.string == LanguageData.DISCORD_SAFETY_WARNING
         }
         while (copy.siblings.isNotEmpty() &&
             //? if 1.8.9
-            //copy.siblings.last().unformattedText.isBlank()
+            copy.siblings.last().unformattedText.isBlank()
             //? else
-            copy.siblings.last().string.isBlank()
+            //copy.siblings.last().string.isBlank()
         ) {
             copy.siblings.removeLast()
         }

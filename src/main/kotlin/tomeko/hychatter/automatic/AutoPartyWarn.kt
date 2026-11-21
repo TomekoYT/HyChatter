@@ -1,15 +1,15 @@
 package tomeko.hychatter.automatic
 
 //? if 1.8.9 {
-//import net.minecraft.util.IChatComponent as Component
+import net.minecraft.util.IChatComponent as Component
 //?} else {
-import net.minecraft.network.chat.Component
-//?}
+/*import net.minecraft.network.chat.Component
+*///?}
 //? if 1.8.9 {
-//import tomeko.hychatter.event.ClientReceiveMessageEvents
+import tomeko.hychatter.event.ClientReceiveMessageEvents
 //?} else {
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
-//?}
+/*import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
+*///?}
 import net.minecraft.client.Minecraft
 import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.utils.HypixelPackets
@@ -24,10 +24,10 @@ object AutoPartyWarn {
 
         val text =
             //? if 1.8.9 {
-            //message.unformattedText
+            message.unformattedText
             //?} else {
-            message.string
-            //?}
+            /*message.string
+            *///?}
         if (text.startsWith("A kick")) {
             val warning = if (HyChatterConfig.notifyWhenKickInCaps) {
                 "REQUEUE, I'VE BEEN KICKED!"
@@ -36,9 +36,9 @@ object AutoPartyWarn {
             }
             val separator = "-".repeat(9)
             //? if 1.8.9
-            //Minecraft.getMinecraft().thePlayer?.sendChatMessage("/pc $separator$warning$separator") ?: return
+            Minecraft.getMinecraft().thePlayer?.sendChatMessage("/pc $separator$warning$separator") ?: return
             //? else
-            Minecraft.getInstance().player?.connection?.sendCommand("pc $separator$warning$separator") ?: return
+            //Minecraft.getInstance().player?.connection?.sendCommand("pc $separator$warning$separator") ?: return
         }
     }
 }

@@ -7,15 +7,15 @@ import java.net.URI
 *///?} else
 import org.polyfrost.oneconfig.utils.v1.JsonUtils
 //? if 1.8.9 {
-/*import net.minecraft.util.ChatComponentText
+import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent as Component
-*///?} else {
-import com.mojang.serialization.JsonOps
+//?} else {
+/*import com.mojang.serialization.JsonOps
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.ComponentSerialization
-//?}
+*///?}
 import org.intellij.lang.annotations.Language
 import tomeko.hychatter.utils.Constants
 import tomeko.hychatter.utils.Debug
@@ -65,13 +65,13 @@ object LanguageData {
 
             val components = mutableMapOf<String, Component>()
             //? if 1.8.9 {
-            /*response.asJsonObject.getAsJsonObject("components")?.entrySet()?.forEach { entry ->
+            response.asJsonObject.getAsJsonObject("components")?.entrySet()?.forEach { entry ->
                 runCatching { Component.Serializer.jsonToComponent(entry.value.toString()) }
                     .onSuccess { component -> components[entry.key] = component }
                     .onFailure { error -> Debug.log("Failed to parse component for ${entry.key}: $error") }
             }
-            *///?} else {
-            response.asJsonObject.getAsJsonObject("components")?.entrySet()?.forEach {
+            //?} else {
+            /*response.asJsonObject.getAsJsonObject("components")?.entrySet()?.forEach {
                 val result = ComponentSerialization.CODEC.decode(JsonOps.INSTANCE, it.value)
                 result.ifSuccess { pair ->
                     components[it.key] = pair.first
@@ -79,7 +79,7 @@ object LanguageData {
                     Debug.log("Failed to parse component for ${it.key}: $error")
                 }
             }
-            //?}
+            *///?}
 
             val strings = mutableMapOf<String, String>()
             response.asJsonObject.getAsJsonObject("strings")?.entrySet()?.forEach {

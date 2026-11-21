@@ -39,9 +39,9 @@ object GuildMembers {
         return try {
             val uuid =
                 //? if 1.8.9
-                //Minecraft.getMinecraft().session.profile.id
+                Minecraft.getMinecraft().session.profile.id
                 //? else
-                Minecraft.getInstance().gameProfile.id()
+                //Minecraft.getInstance().gameProfile.id()
             connection = URL("https://api.sk1er.club/autocomplete/$uuid").openConnection() as HttpURLConnection
             connection.connectTimeout = 10000
             connection.readTimeout = 10000

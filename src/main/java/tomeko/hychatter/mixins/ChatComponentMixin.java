@@ -9,7 +9,7 @@ import tomeko.hychatter.restylers.LineSeparators;
 import java.util.List;
 
 //? if 1.8.9 {
-/*import net.minecraft.client.gui.GuiNewChat;
+import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.util.IChatComponent;
 
 @Mixin(GuiNewChat.class)
@@ -24,8 +24,8 @@ abstract class ChatComponentMixin {
         return LineSeparators.clean(text);
     }
 }
-*///?} else {
-import com.llamalad7.mixinextras.sugar.Local;
+//?} else {
+/*import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.util.FormattedCharSequence;
 
@@ -36,4 +36,4 @@ abstract class ChatComponentMixin {
         return LineSeparators.process(lines, maxWidth);
     }
 }
-//?}
+*///?}

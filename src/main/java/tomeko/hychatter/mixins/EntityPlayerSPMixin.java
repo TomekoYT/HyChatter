@@ -1,7 +1,7 @@
 package tomeko.hychatter.mixins;
 
 //? if 1.8.9 {
-/*import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.entity.EntityPlayerSP;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,4 +44,4 @@ abstract class EntityPlayerSPMixin {
         }
     }
 }
-*///?}
+//?}

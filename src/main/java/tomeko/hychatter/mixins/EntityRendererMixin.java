@@ -1,7 +1,7 @@
 package tomeko.hychatter.mixins;
 
 //? if 1.8.9 {
-/*import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.EntityRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -38,4 +38,4 @@ abstract class EntityRendererMixin {
         LevelRenderEvents.END.invoker().onEnd(ctx);
     }
 }
-*///?}
+//?}
