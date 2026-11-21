@@ -87,6 +87,12 @@ object LineSeparators {
         return result
     }
 
-    private fun isSeparator(s: String): Boolean =
-        (s.startsWith("-") && s.endsWith("-")) || (s.startsWith("▬") && s.endsWith("▬")) || (s.startsWith("≡") && s.endsWith("≡"))
+    private fun isSeparator(s: String): Boolean {
+        val t = s.trim()
+        return t.isNotEmpty() && (
+                (t.startsWith("-") && t.endsWith("-")) ||
+                        (t.startsWith("▬") && t.endsWith("▬")) ||
+                        (t.startsWith("≡") && t.endsWith("≡"))
+                )
+    }
 }
