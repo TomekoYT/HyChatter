@@ -1,4 +1,4 @@
-package tomeko.hychatter.automatic
+package tomeko.hychatter.notifiers
 
 //? if 1.8.9 {
 /*import net.minecraft.util.IChatComponent as Component

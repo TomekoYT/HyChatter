@@ -14,6 +14,7 @@ import tomeko.hychatter.hiders.*
 import tomeko.hychatter.commands.*
 import tomeko.hychatter.config.*
 import tomeko.hychatter.cooldown.*
+import tomeko.hychatter.notifiers.*
 import tomeko.hychatter.restylers.*
 import tomeko.hychatter.utils.*
 import tomeko.hychatter.waypoints.*
@@ -55,11 +56,9 @@ class HyChatter
         AutoGL.register()
         AutoAfkReply.register()
         AutoChatSwapper.register()
-        LimboPmDing.register()
         AutoPartyWarn.register()
         AutoPartyWarpConfirm.register()
         AutoWB.register()
-        RequestPopups.register()
         BroadcastAchievement.register()
         BroadcastLevelUp.register()
         GuildWelcomer.register()
@@ -106,6 +105,10 @@ class HyChatter
         StatsMessageRemover.register()
         TicketMachineRemover.register()
         TipMessageRemover.register()
+
+        IncPing.register()
+        LimboPmDing.register()
+        RequestPopups.register()
 
         ColoredPlayerConnectionStatus.register()
         GameStartCompactor.register()

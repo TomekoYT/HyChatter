@@ -1,4 +1,4 @@
-package tomeko.hychatter.automatic
+package tomeko.hychatter.notifiers
 
 //? if forge {
 /*import cc.polyfrost.oneconfig.utils.Notifications
@@ -25,6 +25,7 @@ import tomeko.hychatter.config.HyChatterConfig
 import tomeko.hychatter.config.LanguageData
 import tomeko.hychatter.utils.HypixelPackets
 import tomeko.hychatter.utils.removeFormatting
+import kotlin.text.get
 
 // Ported from Sk1er's PopupEvents
 object RequestPopups {

@@ -58,7 +58,6 @@ Minecraft mod for Hypixel adding chat related features like autogg, chat coordin
 * Auto Friend
 * Auto Party Warp Confirm
 * Auto Reply When AFK
-* Limbo PM Ding
 * Party Chat Swapper
 * Chat Swapper Channel
 * Swap Chatting Tab With Chat Swapper
@@ -72,19 +71,6 @@ Minecraft mod for Hypixel adding chat related features like autogg, chat coordin
 * Auto-Complete Play Commands
 * Auto-Complete Player Names
 * /delname Command
-
-### Request Popups
-
-* Accept Request Keybind
-* Deny Request Keybind
-* Ping On Request
-* Popup Duration
-* Friend Requests
-* Party Invites
-* Guild Invites
-* Guild Party Invites
-* Duel Requests
-* SkyBlock Trade Requests
 
 ### Waypoints
 
@@ -161,7 +147,28 @@ Minecraft mod for Hypixel adding chat related features like autogg, chat coordin
 * Remove Hot Potato Messages
 * Remove Discord Safety Warning Messages
 
+### Notifiers
+
+#### Request Popups
+
+* Accept Request Keybind
+* Deny Request Keybind
+* Ping On Request
+* Popup Duration
+* Friend Requests
+* Party Invites
+* Guild Invites
+* Guild Party Invites
+* Duel Requests
+* SkyBlock Trade Requests
+
+#### Social Pings
+
+* INC Ping
+* Limbo PM Ding
+
 ## Special Thanks
 
 - [Wyvest](https://github.com/Wyvest) - Auto AFK Reply, Auto Chat Swapper, Limbo PM Ding, `/play` command, Line Separators, Popup Events
 - [kimoVoid](https://github.com/kimoVoid) - AutoGG improvements
+- [Saad Nadeem](https://github.com/saadndm) - Startup optimizations, Name History, Chat Separator Trimmer and `/play` command improvements

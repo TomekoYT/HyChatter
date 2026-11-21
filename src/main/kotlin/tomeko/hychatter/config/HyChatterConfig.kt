@@ -15,7 +15,7 @@ import org.polyfrost.oneconfig.api.config.v1.Config
 import org.polyfrost.oneconfig.api.config.v1.annotations.*
 import org.polyfrost.oneconfig.api.ui.v1.keybind.KeybindHelper
 //?}
-import tomeko.hychatter.automatic.RequestPopups
+import tomeko.hychatter.notifiers.RequestPopups
 import tomeko.hychatter.utils.Constants
 
 object HyChatterConfig : Config(
@@ -440,17 +440,6 @@ object HyChatterConfig : Config(
         category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
     )
     var autoReplyAfk = false
-
-    @Switch(
-        //? if forge
-        //name =
-        //? else
-        title =
-            "Limbo PM Ding",
-        description = "While in Limbo, play the ding sound if you get a PM. Currently, Hypixel's option does not work in Limbo.",
-        category = CATEGORY_AUTOMATIC, subcategory = SUBCATEGORY_SOCIAL
-    )
-    var limboDing = true
 
     @Switch(
         //? if forge
@@ -1407,15 +1396,15 @@ object HyChatterConfig : Config(
 
     //? if forge
     //@Exclude
-    private const val CATEGORY_POPUPS = "Request Popups"
+    private const val CATEGORY_NOTIFIERS = "Notifiers"
 
     //? if forge
     //@Exclude
-    private const val SUBCATEGORY_POPUP_KEYBINDS = "Keybinds"
+    private const val SUBCATEGORY_POPUP_KEYBINDS = "Popup Keybinds"
 
     //? if forge
     //@Exclude
-    private const val SUBCATEGORY_POPUP_TYPES = "Request Types"
+    private const val SUBCATEGORY_POPUP_TYPES = "Popup Request Types"
 
     //? if forge {
     /*@KeyBind(name = "Accept Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
@@ -1424,10 +1413,10 @@ object HyChatterConfig : Config(
     @KeyBind(name = "Deny Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
     var popupDenyKey = OneKeyBind(Keyboard.KEY_NONE)
     *///?} else {
-    @Keybind(title = "Accept Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
+    @Keybind(title = "Accept Request", category = CATEGORY_NOTIFIERS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
     var popupAcceptKey = KeybindHelper.builder().key(0).action(Runnable { RequestPopups.answer(true) }).register()
 
-    @Keybind(title = "Deny Request", category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
+    @Keybind(title = "Deny Request", category = CATEGORY_NOTIFIERS, subcategory = SUBCATEGORY_POPUP_KEYBINDS)
     var popupDenyKey = KeybindHelper.builder().key(0).action(Runnable { RequestPopups.answer(false) }).register()
     //?}
 
@@ -1438,7 +1427,7 @@ object HyChatterConfig : Config(
         title =
             "Ping On Request",
         description = "Play a ding when someone sends you a request.",
-        category = CATEGORY_POPUPS
+        category = CATEGORY_NOTIFIERS
     )
     var popupPing = true
 
@@ -1454,7 +1443,7 @@ object HyChatterConfig : Config(
         //step = 1,
         //? else
         step = 1f,
-        category = CATEGORY_POPUPS
+        category = CATEGORY_NOTIFIERS
     )
     var popupDuration = 10
 
@@ -1464,7 +1453,7 @@ object HyChatterConfig : Config(
         //? else
         title =
             "Friend Requests",
-        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+        category = CATEGORY_NOTIFIERS, subcategory = SUBCATEGORY_POPUP_TYPES
     )
     var popupFriendRequests = true
 
@@ -1474,7 +1463,7 @@ object HyChatterConfig : Config(
         //? else
         title =
             "Party Invites",
-        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+        category = CATEGORY_NOTIFIERS, subcategory = SUBCATEGORY_POPUP_TYPES
     )
     var popupPartyInvites = true
 
@@ -1484,7 +1473,7 @@ object HyChatterConfig : Config(
         //? else
         title =
             "Guild Invites",
-        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+        category = CATEGORY_NOTIFIERS, subcategory = SUBCATEGORY_POPUP_TYPES
     )
     var popupGuildInvites = true
 
@@ -1494,7 +1483,7 @@ object HyChatterConfig : Config(
         //? else
         title =
             "Guild Party Invites",
-        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+        category = CATEGORY_NOTIFIERS, subcategory = SUBCATEGORY_POPUP_TYPES
     )
     var popupGuildPartyInvites = true
 
@@ -1504,7 +1493,7 @@ object HyChatterConfig : Config(
         //? else
         title =
             "Duel Requests",
-        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+        category = CATEGORY_NOTIFIERS, subcategory = SUBCATEGORY_POPUP_TYPES
     )
     var popupDuelRequests = true
 
@@ -1514,9 +1503,35 @@ object HyChatterConfig : Config(
         //? else
         title =
             "SkyBlock Trade Requests",
-        category = CATEGORY_POPUPS, subcategory = SUBCATEGORY_POPUP_TYPES
+        category = CATEGORY_NOTIFIERS, subcategory = SUBCATEGORY_POPUP_TYPES
     )
     var popupSkyblockTrades = true
+
+    //? if forge
+    //@Exclude
+    private const val SUBCATEGORY_SOCIAL_PINGS = "Social Pings"
+
+    @Switch(
+        //? if forge
+        //name =
+        //? else
+        title = "INC Ping",
+        description = "Play a sound when someone types 'inc' in chat.",
+        category = CATEGORY_NOTIFIERS,
+        subcategory = SUBCATEGORY_SOCIAL_PINGS
+    )
+    var incDing = false
+
+    @Switch(
+        //? if forge
+        //name =
+        //? else
+        title =
+            "Limbo PM Ding",
+        description = "While in Limbo, play the ding sound if you get a PM. Currently, Hypixel's option does not work in Limbo.",
+        category = CATEGORY_NOTIFIERS, subcategory = SUBCATEGORY_SOCIAL_PINGS
+    )
+    var limboDing = true
 
 
     //? if forge
