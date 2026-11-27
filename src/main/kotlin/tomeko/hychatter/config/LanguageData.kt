@@ -236,7 +236,7 @@ object LanguageData {
         " +Alpha Infected: \\w+ \\(\\d+ infections?\\)",
         " +Murderer: \\w+ \\(\\d+ Kills?\\)",
         " +You survived \\d+ rounds!",
-        " +(?:UHC|SkyWars|Bridge|Sumo|Classic|OP|MegaWalls|Bow|NoDebuff|Blitz|Combo|Bow Spleef|Boxing|Hypixel) (?:Duel|Doubles|Teams|Deathmatch|2v2v2v2|3v3v3v3|Parkour)? ?- \\d+:\\d+",
+        " {4,}\\S.* (?:Duels?|Doubles|Teams|3v3) - \\d+:\\d+(?: \\(Rematch \\d+\\))?",
         " +They captured all wools!",
         " +Game over!",
         " +[\\d.]+k?/[\\d.]+k? \\w+",
@@ -250,7 +250,7 @@ object LanguageData {
         " +\\w+ won the game!",
         " +GAME OVER!",
         " +Player of the match: \\w+ \\(\\d+ Goals\\)",
-        "\\s*?.+ WINNER! {2}.+",
+        "\\s*?.+ WINNER!(?: {2}.+)?",
         "\\s*?.+ Bridge [a-zA-Z0-9]* - .+",
         " {6}#1 (?:\\[.+] )?.{1,16} \\(\\d+:\\d+:\\d+\\)",
         " +(?:Survivors \\(\\d+\\):|Nobody survived!|Survivor:)"
